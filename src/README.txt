@@ -13,5 +13,6 @@ B - Build (blocks)
 D - Dig / Destroy (blocks)
 C - Cast
 R - Ready Weapons
+M - Map
 
 	

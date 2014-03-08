@@ -6,7 +6,7 @@ from world import World
 from gui import Gameview
 from player import Player
 
-seed = 55
+seed = 22
 
 pygame.init()
 screenSize = (1024, 600)
