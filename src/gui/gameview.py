@@ -12,9 +12,6 @@ class Gameview(object):
 		self.world = world
 		self.player = player
 		self.surface = surface
-		self.framerate = 2
-		self.frameInterval = 1.0/self.framerate
-		self.lastFrame = time.time()
 		
 		self.background = pygame.image.load(textureDir + "interface.png").convert_alpha()
 		
@@ -33,9 +30,6 @@ class Gameview(object):
 		self.viewport.update()
 
 	def draw(self):
-
-		if time.time() - self.lastFrame < self.frameInterval:
-			return
 
 		self.update()		
 		self.surface.blit(self.background, (0,0))

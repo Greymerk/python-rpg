@@ -22,8 +22,7 @@ class World:
 		self.friendly = []
 		self.spawn = self.getSpawnLocation()
 		self.log = None
-		self.updateInterval = 1/30.0
-		self.lastUpdate = time.time()
+
 		
 
 
@@ -31,11 +30,6 @@ class World:
 		return self.seed
 
 	def update(self):
-	
-		if time.time() - self.lastUpdate < self.updateInterval:
-			return False
-
-		self.lastUpdate = time.time()
 			
 		done = True
 		for e in list(set(self.friendly) | set(self.mobManager.mobs)):
