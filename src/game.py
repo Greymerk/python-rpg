@@ -19,15 +19,11 @@ world = World(seed)
 user = Player(world)
 view = Gameview(world, user, surface)
 
-tickLength = 1/30.0
-lastUpdate = time.time()
+clock = pygame.time.Clock()
 
 while(True):
 	
-	if time.time() - lastUpdate < tickLength:
-		continue
-	
-	lastUpdate = time.time()
+	clock.tick(20)
 	
 	view.draw()
 
