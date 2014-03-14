@@ -32,7 +32,8 @@ class MobManager(object):
 		self.mobSpawner.spawn()
 		
 		for mob in self.mobs:
-			mob.turn()
+			if self.isPlayerInRange(mob):
+				mob.turn()
 			
 		for mob in self.mobs:
 			if mob.deathTimer <= 0:
@@ -47,6 +48,14 @@ class MobManager(object):
 		
 		return mobData
 	
+	def isPlayerInRange(self, entity):
+	
+		for e in self.world.friendly:
+			if e.distance(entity.position) < 40:
+				return True
+
+		return False
+
 	def unload(self, chunkPos):
 
 		toRemove = []
