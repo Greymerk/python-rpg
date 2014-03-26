@@ -41,6 +41,8 @@ class Player:
 			avatar.name = "Bob"
 			avatar.inventory.bar[0] = self.world.itemList['MagicBow']()
 			avatar.inventory.bar[1] = self.world.itemList['LongSword']()
+			avatar.inventory.bar[2] = self.world.itemList['HealStaff']()
+			avatar.inventory.bar[3] = self.world.itemList['ResurrectionStaff']()
 			self.party.add(avatar)
 			
 			self.party.setLeader(0)

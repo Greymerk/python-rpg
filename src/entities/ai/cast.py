@@ -9,18 +9,18 @@ class Cast(object):
     def __init__(self, actor):
         
         self.actor = actor
-        self.spell = None
+        self.action = None
         
     def condition(self):
 
         result = self.actor.inventory.getAction()
         if not result is None:
-            self.spell = result 
+            self.action = result 
             return True
                 
         return False
     
     def do(self):
         
-        self.actor.spell = self.spell
+        self.actor.action = self.action
         

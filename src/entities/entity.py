@@ -25,7 +25,7 @@ class Entity:
 		self.hostile = False
 		self.lastAttacker = None
 		self.name = None
-		self.spell = None
+		self.action = None
 
 	def move(self, direction):
 
@@ -46,10 +46,10 @@ class Entity:
 		
 		done = True
 		
-		if self.spell is not None:
-			done = self.spell.update()
+		if self.action is not None:
+			done = self.action.update()
 			if done:
-				self.spell = None
+				self.action = None
 				
 		return done
 			
@@ -66,8 +66,8 @@ class Entity:
 			screen.blit(self.gore, position)
 			return
 		screen.blit(self.image, position)
-		if self.spell is not None:
-			self.spell.draw(screen, position)
+		if self.action is not None:
+			self.action.draw(screen, position)
 		
 
 	def save(self):

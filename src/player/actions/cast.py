@@ -39,7 +39,7 @@ class Cast(object):
 			return True
 		
 		if self.casting:
-			if self.player.party.getLeader().spell is None:
+			if self.player.party.getLeader().action is None:
 				entity = self.player.world.getEntityFromLocation(self.targetLocation)
 				if entity is None:
 					self.player.log.append('Nothing hit!')
@@ -76,7 +76,7 @@ class Cast(object):
 			pos = self.player.party.getLeader().position
 			target = (pos[0] + self.location[0], pos[1] + self.location[1])
 			actor = self.player.party.getLeader()
-			actor.spell = self.spell.ability(actor, target, self.spell)
+			actor.action = self.spell.ability(actor, target, self.spell)
 			self.targetLocation = target
 			entity = self.player.world.getEntityFromLocation(target)
 			if entity is not None:
