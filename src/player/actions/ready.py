@@ -6,34 +6,14 @@ Created on 2013-06-04
 
 import pygame
 from pygame.locals import *
-from entities.items import *
+
 
 class Ready(object):
     
     def __init__(self, player):
         self.player = player
         self.player.log.append('Ready a new weapon')
-        self.choices = {}
-        self.choices[K_s] = ShortSword
-        self.choices[K_n] = LongSword
-        self.choices[K_g] = MagicSword
-        self.choices[K_b] = ShortBow
-        self.choices[K_l] = LongBow
-        self.choices[K_m] = MagicBow
-        self.choices[K_t] = Staff
-        self.choice = None
-        
-        self.options = []
-        self.options.append('Available Weapons:')
-        self.options.append('S: ShortSword')
-        self.options.append('N: LongSword')
-        self.options.append('G: MagicSword')
-        self.options.append('B: ShortBow')
-        self.options.append('L: LongBow')
-        self.options.append('M: MagicBow')
-        self.options.append('T: Staff')
-            
-        
+              
                 
     def nextStep(self):
 

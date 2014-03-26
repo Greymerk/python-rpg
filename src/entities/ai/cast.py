@@ -9,29 +9,18 @@ class Cast(object):
     def __init__(self, actor):
         
         self.actor = actor
-        self.target = None
-        self.selectedSpell = None
+        self.spell = None
         
     def condition(self):
-        
-        spellList = self.actor.getSpellList()
-        
-        for spell in spellList:
-        
-            self.target = None
 
-            for e in self.actor.world.getAllEntities():
-                if spell.validTarget(self.actor, e):
-                    self.selectedSpell = spell
-                    self.target = e
-                    return True
+        result = self.actor.inventory.getAction()
+        if not result is None:
+            self.spell = result 
+            return True
                 
         return False
     
     def do(self):
         
-        if self.target is None:
-            return
-        
-        self.actor.cast(self.selectedSpell, self.target.position)
+        self.actor.spell = self.spell
         

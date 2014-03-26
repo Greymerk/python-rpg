@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import time
-
 import pygame
 
 from world import World

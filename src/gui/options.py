@@ -30,8 +30,8 @@ class Options(object):
         options = self.player.action.options
           
         count = 0
-        for line in options[-self.getMaxLines():]:
-            self.surface.blit(self.fontobject.render('>> ' + line, 1, (255,255,255)), (0, 16*count))
+        for line in options:
+            self.surface.blit(self.fontobject.render('>> ' + str(line) + ' - ' + str(options[line]), 1, (255,255,255)), (0, 16*count))
             count += 1
 
     def drawParty(self):

@@ -24,7 +24,7 @@ class Fighter(Entity):
 		self.inventory.weapon = choice([ShortSword(), LongSword(), MagicSword()])
 		
 		self.ai.addAI(Flee(self))
-		self.ai.addAI(Attack(self))
+		self.ai.addAI(Cast(self))
 		self.ai.addAI(Pursue(self))
 		self.ai.addAI(Follow(self))
 		self.ai.addAI(Wander(self))

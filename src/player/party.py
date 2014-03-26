@@ -23,10 +23,11 @@ class Party(object):
         data = {}
         
         members = []
+        
         for e in self.members:
             members.append(e.save())
+            
         data['members'] = members
-        
         data['leader'] = self.leader
         
         return data

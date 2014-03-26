@@ -6,14 +6,18 @@ from random import randint
 import math
 import time
 import os
+import items
 
 class World:
+
+	
 
 	def __init__(self, seed):
 	
 		if not os.path.isdir('save'):
 			os.mkdir('save')
 	
+		self.itemList = items.itemList
 		self.combat = 0
 		self.seed = seed
 		self.chunkManager = ChunkManager(self)
@@ -23,7 +27,6 @@ class World:
 		self.spawn = self.getSpawnLocation()
 		self.log = None
 
-		
 
 
 	def getSeed(self):

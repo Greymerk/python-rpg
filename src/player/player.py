@@ -6,7 +6,7 @@ import os
 from pickle import Pickler
 from pickle import Unpickler
 
-from entities import Avatar
+
 from actions import cardinals
 from actions import lookup
 
@@ -14,14 +14,12 @@ import pygame
 from pygame.locals import *
 from pygame.color import THECOLORS
 
+from entities import Avatar
 from entities import Fighter
 from entities import Mage
 from entities import Bard
+
 from party import Party
-
-from entities.abilities import *
-
-from entities.items import *
 
 class Player:
 
@@ -41,48 +39,46 @@ class Player:
 			
 			avatar = Avatar(world)
 			avatar.name = "Bob"
-			avatar.inventory.weapon = MagicBow()
-			avatar.inventory.offhand = Spellbook()
-			avatar.inventory.offhand.spellList.append(HealBolt)
-			avatar.inventory.offhand.spellList.append(MagicMissile)
-			avatar.inventory.offhand.spellList.append(Resurrection)
+			avatar.inventory.bar[0] = self.world.itemList['MagicBow']()
+			avatar.inventory.bar[1] = self.world.itemList['LongSword']()
 			self.party.add(avatar)
 			
 			self.party.setLeader(0)
 			
-			eniko = Bard(world)
-			eniko.name = "Alice"
-			eniko.hostile = True
-			self.party.add(eniko)
-			eniko.inventory.weapon = MagicBow()
-			eniko.teleportToLeader()
+			alice = Bard(world)
+			alice.name = "Alice"
+			alice.hostile = True
+			self.party.add(alice)
+			alice.inventory.bar[0] = self.world.itemList['LongBow']()
+			alice.inventory.bar[1] = self.world.itemList['ShortSword']()
+			alice.teleportToLeader()
 			
 			ted = Mage(world)
 			ted.name = "Ted"			
-			ted.inventory.offhand.spellList.append(HealBolt)
-			ted.inventory.offhand.spellList.append(Resurrection)
+			ted.inventory.bar[0] = self.world.itemList['FireStaff']()
+			ted.inventory.bar[1] = self.world.itemList['HealStaff']()
 			ted.hostile = True
 			self.party.add(ted)
 			ted.teleportToLeader()
 			
 			nystal = Mage(world)
 			nystal.name = "Guido"
-			nystal.inventory.offhand.spellList.append(HealBolt)
-			nystal.inventory.offhand.spellList.append(Resurrection)
+			nystal.inventory.bar[0] = self.world.itemList['ResurrectionStaff']()
+			nystal.inventory.bar[1] = self.world.itemList['HealStaff']()
 			nystal.hostile = True
 			self.party.add(nystal)
 			nystal.teleportToLeader()
 			
 			steve = Fighter(world)
 			steve.name = "Steve"
-			steve.inventory.weapon = MagicSword()
+			steve.inventory.bar[0] = self.world.itemList['LongSword']()
 			steve.hostile = True
 			self.party.add(steve)
 			steve.teleportToLeader()
 
 			greg = Fighter(world)
 			greg.name = "Greg"
-			greg.inventory.weapon = MagicSword()
+			greg.inventory.bar[0] = self.world.itemList['LongSword']()
 			greg.hostile = True
 			self.party.add(greg)
 			greg.teleportToLeader()

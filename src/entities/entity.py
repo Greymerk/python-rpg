@@ -2,8 +2,8 @@ import pygame
 from ai import AIController
 from math import sqrt
 from random import randint
-from items.inventory import Inventory
-from items import Spellbook
+
+from inventory import Inventory
 
 class Entity:
 
@@ -20,7 +20,7 @@ class Entity:
 		self.singular = 'unknown'
 		self.sight = 5
 		self.health = self.maxHealth = 30
-		self.inventory = Inventory()
+		self.inventory = Inventory(self, world.itemList)
 		self.deathTimer = 50
 		self.hostile = False
 		self.lastAttacker = None
@@ -171,9 +171,6 @@ class Entity:
 		spell = weapon.getAbility()
 		self.cast(spell, location)
 		
-	def cast(self, spell, location):
-		self.spell = spell(self, location)	
-
 	def inflict(self, attacker, damage):
 		
 		startHealth = self.health
@@ -248,13 +245,7 @@ class Entity:
 		else:
 			return self.world.mobManager.mobs
 		
-	def canHit(self, location, attackRange = None):
-		
-		weapon = self.inventory.getWeapon()
-		
-		if attackRange is None:
-			
-			attackRange = weapon.range
+	def canHit(self, location, attackRange):
 		
 		distance = sqrt(float(((location[0] - self.position[0])**2 + (location[1] - self.position[1])**2)))
 		return distance <= sqrt(2*((attackRange)**2)) 

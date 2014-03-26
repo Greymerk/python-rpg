@@ -17,9 +17,10 @@ class Headless(Entity):
 
 	def __init__(self, world):
 		Entity.__init__(self, world)
+		self.inventory.bar[0] = self.world.itemList['BareHands']()
 		
 		self.ai.addAI(Flee(self))
-		self.ai.addAI(Attack(self))
+		self.ai.addAI(Cast(self))
 		self.ai.addAI(Pursue(self))
 		self.ai.addAI(Follow(self))
 		self.ai.addAI(Wander(self))

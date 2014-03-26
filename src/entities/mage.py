@@ -8,9 +8,7 @@ from entity import Entity
 import pygame
 from random import randint
 from ai import *
-from avatar import Avatar
-from items import Staff
-from items import Spellbook
+
 
 class Mage(Entity):
 
@@ -20,12 +18,10 @@ class Mage(Entity):
 	def __init__(self, world):
 		Entity.__init__(self, world)
 		self.singular = 'a mage'
-		self.inventory.weapon = Staff()
-		self.inventory.offhand = Spellbook()
+		self.inventory.bar[0] = self.world.itemList['MageStaff']()
 		
 		self.ai.addAI(Fallback(self))
 		self.ai.addAI(Cast(self))
-		self.ai.addAI(Attack(self))
 		self.ai.addAI(Follow(self))
 		self.ai.addAI(Wander(self))
 		
