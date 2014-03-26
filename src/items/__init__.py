@@ -3,7 +3,7 @@ from barehands import BareHands
 from bow import *
 import staff
 from sword import *
-from spellbook import Spellbook
+
 
 itemList = {}
 itemList['BareHands'] = BareHands
@@ -17,5 +17,4 @@ itemList['ResurrectionStaff'] = staff.ResurrectionStaff
 itemList['ShortSword'] = ShortSword
 itemList['LongSword'] = LongSword
 itemList['MagicSword'] = MagicSword
-itemList['Spellbook'] = Spellbook
 
