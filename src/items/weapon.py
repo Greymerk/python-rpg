@@ -16,13 +16,4 @@ class Weapon(Item):
         
     def getAbility(self):
         return self.ability
-    
-    def save(self):
-        data = {}
-        data['type'] = self.__class__.__name__
-        return data
-    
-    def load(self, data):
-        pass
-        
-    
+

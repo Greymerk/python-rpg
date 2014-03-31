@@ -14,5 +14,6 @@ class Item(object):
     
     def save(self):
         data = {}
+        data['type'] = self.__class__.__name__
                 
         return data
