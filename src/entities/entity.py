@@ -297,3 +297,6 @@ class Entity:
 		    return []
 		
 		return self.inventory.offhand.spellList
+	
+	def equip(self):
+		pass

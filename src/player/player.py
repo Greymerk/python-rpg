@@ -19,6 +19,12 @@ from entities import Fighter
 from entities import Mage
 from entities import Bard
 
+from items.abilities import MagicMissile
+from items.abilities import Fireball
+from items.abilities import HealBolt
+from items.abilities import Resurrection
+
+
 from party import Party
 
 class Player:
@@ -41,8 +47,10 @@ class Player:
 			avatar.name = "Bob"
 			avatar.inventory.bar[0] = self.world.itemList['MagicBow']()
 			avatar.inventory.bar[1] = self.world.itemList['LongSword']()
-			avatar.inventory.bar[2] = self.world.itemList['HealStaff']()
-			avatar.inventory.bar[3] = self.world.itemList['ResurrectionStaff']()
+			avatar.inventory.bar[2] = self.world.itemList['Staff']()
+			avatar.inventory.bar[2].ability = HealBolt
+			avatar.inventory.bar[3] = self.world.itemList['Staff']()
+			avatar.inventory.bar[3].ability = Resurrection
 			self.party.add(avatar)
 			
 			self.party.setLeader(0)
@@ -57,16 +65,20 @@ class Player:
 			
 			ted = Mage(world)
 			ted.name = "Ted"			
-			ted.inventory.bar[0] = self.world.itemList['FireStaff']()
-			ted.inventory.bar[1] = self.world.itemList['HealStaff']()
+			ted.inventory.bar[0] = self.world.itemList['Staff']()
+			ted.inventory.bar[0].ability = Fireball
+			ted.inventory.bar[1] = self.world.itemList['Staff']()
+			ted.inventory.bar[1].ability = HealBolt
 			ted.hostile = True
 			self.party.add(ted)
 			ted.teleportToLeader()
 			
 			nystal = Mage(world)
 			nystal.name = "Guido"
-			nystal.inventory.bar[0] = self.world.itemList['ResurrectionStaff']()
-			nystal.inventory.bar[1] = self.world.itemList['HealStaff']()
+			nystal.inventory.bar[0] = self.world.itemList['Staff']()
+			nystal.inventory.bar[0].ability = Resurrection
+			nystal.inventory.bar[1] = self.world.itemList['Staff']()
+			nystal.inventory.bar[1].ability = HealBolt
 			nystal.hostile = True
 			self.party.add(nystal)
 			nystal.teleportToLeader()

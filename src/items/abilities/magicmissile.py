@@ -12,13 +12,16 @@ from random import randint
 class MagicMissile(object):
 	
 	color = THECOLORS['cyan']
-	damage = 1, 5
+	range = 5
+	damage = 2, 5
 	heal = False
 	
 	def __init__(self, caster, location, item):
 		self.range = item.range
 		self.caster = caster
 		self.target = location
+		self.range = self.__class__.range
+		self.damage = self.__class__.damage
 		casterName = self.caster.getName()
 		self.entityHit = self.caster.world.getEntityFromLocation(self.target)
 		if not self.entityHit is None:
@@ -59,6 +62,7 @@ class MagicMissile(object):
 		return True
 
 class Fireball(MagicMissile):
-    
-    color = THECOLORS['orangered']
-    damage = 3, 7
+	
+	color = THECOLORS['orangered']
+	range = 7
+	damage = 3, 7

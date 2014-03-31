@@ -37,6 +37,7 @@ class MobSpawner(object):
 		
 		randomMobClass = choice(entities.mobs.values())
 		mob = randomMobClass(self.world)
+		mob.equip()
 		return mob
 		
 	def getSpawnLocation(self, mob):

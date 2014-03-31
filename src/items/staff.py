@@ -13,30 +13,7 @@ from items.abilities import Resurrection
 class Staff(Weapon):
 
 	def __init__(self):
-		self.ability = Fireball
-		self.range = 6
-		self.damage = 2, 5
-
-class MageStaff(Staff):
-	
-	def __init__(self):
-		Staff.__init__(self)
 		self.ability = MagicMissile
-		
-class FireStaff(Staff):
-	
-	def __init__(self):
-		Staff.__init__(self)
-		self.ability = Fireball
-		
-class HealStaff(Staff):
-	
-	def __init__(self):
-		Staff.__init__(self)
-		self.ability = HealBolt
-		
-class ResurrectionStaff(Staff):
-	
-	def __init__(self):
-		Staff.__init__(self)
-		self.ability = Resurrection
+		self.range = 7
+		self.damage = 2, 6
+

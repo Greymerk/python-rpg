@@ -17,11 +17,13 @@ class Bard(Entity):
 	def __init__(self, world):
 		Entity.__init__(self, world)
 		self.singular = 'a bard'
-		self.inventory.weapon = LongBow()
-		
+
 		self.ai.addAI(Flee(self))
 		self.ai.addAI(Cast(self))
 		self.ai.addAI(Pursue(self))
 		self.ai.addAI(Follow(self))
 		self.ai.addAI(Wander(self))
 		self.sight = 7
+
+	def equip(self):
+		self.inventory.weapon = LongBow()

@@ -9,7 +9,7 @@ from entities import ai
 import pygame
 from entity import Entity
 from random import choice
-
+from items.abilities import MagicMissile
 
 class Ettin(Entity):
 
@@ -20,7 +20,6 @@ class Ettin(Entity):
 		Entity.__init__(self, world)
 		self.world = world
 		self.hostile = True
-		self.inventory.bar[0] = self.world.itemList['MageStaff']()
 		
 		self.ai.addAI(ai.Flee(self))
 		self.ai.addAI(ai.Fallback(self))
@@ -29,3 +28,7 @@ class Ettin(Entity):
 		self.ai.addAI(ai.Wander(self))
 		
 		self.singular = 'an ettin'
+
+	def equip(self):
+		self.inventory.bar[0] = self.world.itemList['Staff']()
+		self.inventory.bar[0].ability = MagicMissile

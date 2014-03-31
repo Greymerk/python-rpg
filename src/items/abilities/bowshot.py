@@ -17,6 +17,8 @@ class BowShot(object):
         self.caster = caster
         self.target = location
         self.item = item
+        self.range = item.range
+        self.damage = item.damage
         
         casterName = self.caster.getName()
         
@@ -58,5 +60,7 @@ class BowShot(object):
 class MagicBowShot(BowShot):
     
     color = THECOLORS['magenta']
+    range = 7
+    damage = 3, 7
 
     

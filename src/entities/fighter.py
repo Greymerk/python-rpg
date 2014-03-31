@@ -29,8 +29,6 @@ class Fighter(Entity):
 		self.ai.addAI(Follow(self))
 		self.ai.addAI(Wander(self))
 
-		
-		
-   
-		
-		
+	def equip(self):
+		self.inventory.weapon = choice([ShortSword(), LongSword(), MagicSword()])
+

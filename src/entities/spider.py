@@ -18,7 +18,6 @@ class Spider(Entity):
 
 	def __init__(self, world):
 		Entity.__init__(self, world)
-		self.inventory.bar[0] = self.world.itemList['BareHands']()
 		
 		self.world = world
 		self.hostile = True
@@ -28,3 +27,6 @@ class Spider(Entity):
 		self.ai.addAI(ai.Pursue(self))
 		self.ai.addAI(ai.Wander(self))
 		self.singular = 'a spider'
+		
+	def equip(self):
+		self.inventory.bar[0] = self.world.itemList['BareHands']()

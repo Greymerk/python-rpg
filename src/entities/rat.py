@@ -17,7 +17,7 @@ class Rat(Entity):
 	def __init__(self, world):
 		Entity.__init__(self, world)
 		self.world = world
-		self.inventory.bar[0] = self.world.itemList['BareHands']()
+
 		
 		self.ai.addAI(ai.Flee(self))
 		self.ai.addAI(ai.Cast(self))
@@ -26,3 +26,6 @@ class Rat(Entity):
 		self.hostile = True
 
 		self.singular = 'a rat'
+
+	def equip(self):
+		self.inventory.bar[0] = self.world.itemList['BareHands']()

@@ -17,7 +17,7 @@ class Headless(Entity):
 
 	def __init__(self, world):
 		Entity.__init__(self, world)
-		self.inventory.bar[0] = self.world.itemList['BareHands']()
+		
 		
 		self.ai.addAI(Flee(self))
 		self.ai.addAI(Cast(self))
@@ -27,3 +27,6 @@ class Headless(Entity):
 		self.hostile = True
 		
 		self.singular = 'a headless'		
+
+	def equip(self):
+		self.inventory.bar[0] = self.world.itemList['BareHands']()

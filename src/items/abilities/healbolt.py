@@ -14,7 +14,7 @@ class HealBolt(object):
 	heal = True
 	
 	def __init__(self, caster, location, item):
-		self.range = item.range
+		self.range = 6
 		self.damage = 2, 6
 		self.caster = caster
 		self.target = location

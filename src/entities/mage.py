@@ -8,7 +8,7 @@ from entity import Entity
 import pygame
 from random import randint
 from ai import *
-
+from items.abilities import MagicMissile
 
 class Mage(Entity):
 
@@ -18,14 +18,14 @@ class Mage(Entity):
 	def __init__(self, world):
 		Entity.__init__(self, world)
 		self.singular = 'a mage'
-		self.inventory.bar[0] = self.world.itemList['MageStaff']()
-		
+
 		self.ai.addAI(Fallback(self))
 		self.ai.addAI(Cast(self))
 		self.ai.addAI(Follow(self))
 		self.ai.addAI(Wander(self))
 		
 		
-   
-		
+	def equip(self):
+		self.inventory.bar[0] = self.world.itemList['Staff']()
+		self.inventory.bar[0].ability = MagicMissile 
 		

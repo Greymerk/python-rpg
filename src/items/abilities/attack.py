@@ -15,6 +15,8 @@ class Attack(object):
 		self.caster = caster
 		self.target = location
 		self.item = item
+		self.range = item.range
+		self.damage = item.damage
 		
 		casterName = self.caster.getName()
 		self.entityHit = self.caster.world.getEntityFromLocation(self.target)
