@@ -9,7 +9,6 @@ class Cast(object):
 	def __init__(self, actor):
 		
 		self.actor = actor
-		self.action = None
 		
 	def condition(self):
 
@@ -17,12 +16,9 @@ class Cast(object):
 		if result is None:
 			return False
 			
-		self.action = result 
+		self.actor.action = result
 		return True
-				
 
-	
 	def do(self):
-		
-		self.actor.action = self.action
-		
+		pass
+
