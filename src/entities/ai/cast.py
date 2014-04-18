@@ -6,21 +6,23 @@ Created on 2013-05-27
 
 class Cast(object):
 
-    def __init__(self, actor):
-        
-        self.actor = actor
-        self.action = None
-        
-    def condition(self):
+	def __init__(self, actor):
+		
+		self.actor = actor
+		self.action = None
+		
+	def condition(self):
 
-        result = self.actor.inventory.getAction()
-        if not result is None:
-            self.action = result 
-            return True
-                
-        return False
-    
-    def do(self):
-        
-        self.actor.action = self.action
-        
+		result = self.actor.inventory.getAction()
+		if result is None:
+			return False
+			
+		self.action = result 
+		return True
+				
+
+	
+	def do(self):
+		
+		self.actor.action = self.action
+		
