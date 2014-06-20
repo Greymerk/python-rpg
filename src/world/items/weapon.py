@@ -11,12 +11,12 @@ from abilities import *
 
 class Weapon(Item):
 
-	def __init__(self, name="None", damage=(1, 2), range=1, ability=Attack, colour=(255,255,255)):
+	def __init__(self, name="None", damage=(1, 2), range=1, ability=Attack, color=(255,255,255)):
 		self.name = name
 		self.damage = damage
 		self.range = range
 		self.ability = ability
-		self.colour = colour
+		self.color = color
 
 	def save(self):
 		data = {}
@@ -24,7 +24,7 @@ class Weapon(Item):
 		data["name"] = self.name
 		data["damage"] = self.damage
 		data["range"] = self.range
-		data["colour"] = self.colour
+		data["color"] = self.color
 		data["ability"] = self.ability.__name__
 		return data
 		
@@ -32,7 +32,7 @@ class Weapon(Item):
 		self.name = data["name"]
 		self.damage = data["damage"]
 		self.range = data["range"]
-		self.colour = data["colour"]
+		self.color = data["color"]
 		self.ability = lookup[data["ability"]]
 		
 	def getAbility(self):
@@ -47,5 +47,13 @@ class Weapon(Item):
 		return Weapon("Sword", (2, 5), 1, Attack)
 	
 	@staticmethod
-	def getStaff():
+	def getDamageStaff():
 		return Weapon("Staff of Fireball", (2, 5), 6, MagicMissile, THECOLORS['orange'])
+		
+	@staticmethod
+	def getHealStaff():
+		return Weapon("Staff of Fireball", (2, 5), 6, HealBolt, THECOLORS['gold'])
+		
+	@staticmethod
+	def getResStaff():
+		return Weapon("Staff of Fireball", (2, 5), 6, Resurrection, THECOLORS['gold'])

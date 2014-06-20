@@ -12,8 +12,6 @@ class Resurrection(object):
 	
 	color = THECOLORS['palegoldenrod']
 	heal = True
-	range = 6
-	damage = 1, 2
 	
 	def __init__(self, caster, location, item):
 		self.range = item.range

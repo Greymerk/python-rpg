@@ -61,4 +61,4 @@ class SkeletalMage(Skeleton):
 		self.ai.addAI(Wander(self))
 		
 	def equip(self):
-		self.inventory.bar[0] = self.world.items.weapons.getStaff()
+		self.inventory.bar[0] = self.world.items.weapons.getDamageStaff()

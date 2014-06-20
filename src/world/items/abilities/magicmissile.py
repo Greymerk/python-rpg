@@ -5,6 +5,7 @@ Created on 2013-06-04
 '''
 
 from random import randint
+from projectiles import Star
 
 class MagicMissile(object):
 	
@@ -13,6 +14,7 @@ class MagicMissile(object):
 	heal = False
 	
 	def __init__(self, caster, location, item):
+		self.item = item
 		self.range = item.range
 		self.caster = caster
 		self.target = location
@@ -26,14 +28,14 @@ class MagicMissile(object):
 		else:
 			self.caster.world.log.append(casterName + ' cast ' + self.__class__.__name__ + ' at nothing!')
 		
-		self.projectile = self.__class__.proj(caster.position, location, item.color, self.entityHit)
+		self.projectile = Star(caster.position, location, item.color, self.entityHit)
 		self.done = False
 	 
 	def update(self):
 		self.projectile.update()
 		if self.projectile.done:
 			if not self.entityHit is None:
-				self.entityHit.inflict(self.caster, randint(item.damage[0], item.damage[1]))
+				self.entityHit.inflict(self.caster, randint(self.item.damage[0], self.item.damage[1]))
 			self.done = True
 			return True
 		

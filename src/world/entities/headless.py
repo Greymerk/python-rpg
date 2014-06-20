@@ -29,4 +29,4 @@ class Headless(Entity):
 		self.singular = 'a headless'		
 
 	def equip(self):
-		self.inventory.bar[0] = self.world.items.weapons.getBow()
+		self.inventory.bar[0] = self.world.items.weapons.getSword()

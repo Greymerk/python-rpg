@@ -29,4 +29,4 @@ class Ettin(Entity):
 		self.singular = 'an ettin'
 
 	def equip(self):
-		self.inventory.bar[0] = self.world.items.weapons.getStaff()
+		self.inventory.bar[0] = self.world.items.weapons.getDamageStaff()

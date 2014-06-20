@@ -5,6 +5,8 @@ Created on 2013-05-26
 '''
 
 from bard import Bard
+from mage import Mage
+from fighter import Fighter
 
 class Party(object):
 	
@@ -49,6 +51,31 @@ class Party(object):
 			member.name = "Jade"
 			self.members.append(member)
 			member.setGroup(self)
+			
+			member = Mage(self.world)
+			member.equip()
+			member.name = "Ice"
+			self.members.append(member)
+			member.setGroup(self)
+			
+			member = Mage(self.world)
+			member.equip()
+			member.name = "Fire"
+			self.members.append(member)
+			member.setGroup(self)
+			
+			member = Fighter(self.world)
+			member.equip()
+			member.name = "Gregg"
+			self.members.append(member)
+			member.setGroup(self)
+			
+			member = Fighter(self.world)
+			member.equip()
+			member.name = "Steve"
+			self.members.append(member)
+			member.setGroup(self)
+			
 			self.setLeader(0)
 			return
 		

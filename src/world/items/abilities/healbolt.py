@@ -10,12 +10,10 @@ from projectiles import Star
 
 class HealBolt(object):
 	
-	color = THECOLORS['gold']
 	heal = True
 	
 	def __init__(self, caster, location, item):
-		self.range = 6
-		self.damage = 2, 6
+		self.item = item
 		self.caster = caster
 		self.target = location
 		self.done = False
@@ -32,7 +30,7 @@ class HealBolt(object):
 		self.projectile.update()
 		if self.projectile.done:
 			if not self.entityHit is None:
-				self.entityHit.heal(self.caster, randint(self.damage[0], self.damage[1]))
+				self.entityHit.heal(self.caster, randint(self.item.damage[0], self.item.damage[1]))
 			self.done = True
 			return True
 		return False
