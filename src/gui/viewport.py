@@ -6,21 +6,18 @@ Created on 2013-05-23
 
 import pygame
 from pygame.color import THECOLORS
-from terrain import lookup
-from terrain.tile import Tile
 
 class Viewport(object):
 
-	def __init__(self, surface, world, player, textureDir):
-		self.textureDir = textureDir
+	def __init__(self, surface, world, player, images):
+		self.images = images
 		self.surface = surface
 		self.world = world
 		self.player = player
 		self.previousPosition = None
-		self.mapOverlay = pygame.image.load(textureDir + "map-overlay.png").convert_alpha()
-		self.reticule = pygame.transform.scale2x(pygame.image.load(textureDir + "reticule.png").convert_alpha())
+		self.mapOverlay = images.get("map-overlay.png")
+		self.reticule = pygame.transform.scale2x(images.get("reticule.png"))
 		self.grid = [None]*289
-		self.imageCache = {}
 		self.mapCache = {}
 		self.currentTurn = None
 		self.cameraPosition = None
@@ -64,7 +61,7 @@ class Viewport(object):
 		if (not self.world.chunkManager.isLoaded(x, y)) and (x, y) in self.mapCache.keys():
 			return None
 				
-		# get list of tile IDs		
+		# get list of tile IDs
 		mapData = self.world.chunkManager.getMap(x, y)
 		
 		if mapData is None:
@@ -77,7 +74,7 @@ class Viewport(object):
 		for row in range(16):
 			for col in range(16):
 				cell = mapData[row * 16 + col]
-				color = lookup[cell].color()
+				color = cell.color()
 				pixelMap[col * 2	, row * 2] = color
 				pixelMap[col * 2	, row * 2 + 1] = color
 				pixelMap[col * 2 + 1, row * 2] = color
@@ -107,16 +104,10 @@ class Viewport(object):
 					continue
 
 				ground = cell.getGround()
-
-				image = self.textureDir + ground.image
-		
-				if not (self.imageCache.has_key(image)):
-					self.imageCache[image] = pygame.image.load(image).convert()
-
-				source = self.imageCache[image]
+				image = self.images.get(ground.image)
 				dest = (col * 32), (row * 32)
 
-				self.surface.blit(source, dest)			
+				self.surface.blit(image, dest)
 
 		entitiesOnScreen = []
 
@@ -137,7 +128,7 @@ class Viewport(object):
 		for e in entitiesOnScreen:
 			relx = e.position[0] - camPos[0]  
 			rely = e.position[1] - camPos[1] 
-			e.draw(self.surface, relx, rely, self.textureDir)
+			e.draw(self.surface, relx, rely, self.images)
 			
 		if self.player.action is not None:
 			if hasattr(self.player.action, 'location'):

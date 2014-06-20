@@ -2,21 +2,22 @@ import pygame
 from pygame.color import THECOLORS
 import time
 
-from gui.options import Options
-from gui.output import Output
-from gui.viewport import Viewport
+from options import Options
+from output import Output
+from viewport import Viewport
 
 class Gameview(object):
 
-	def __init__(self, world, player, surface, textureDir="images/u5/"):
+	def __init__(self, world, player, surface, images):
 		self.world = world
 		self.player = player
 		self.surface = surface
+		self.images = images
 		
-		self.background = pygame.image.load(textureDir + "interface.png").convert_alpha()
+		self.background = images.get("interface.png")
 		
 		viewportRect = pygame.Rect((28, 28), (17*32, 17*32))
-		self.viewport = Viewport(self.surface.subsurface(viewportRect), world, player, textureDir)
+		self.viewport = Viewport(self.surface.subsurface(viewportRect), world, player, images)
 		
 		logRect = pygame.Rect((600,316),(396,16*16))
 		self.logWindow = Output(self.surface.subsurface(logRect), self.player.log)

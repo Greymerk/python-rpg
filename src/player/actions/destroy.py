@@ -5,7 +5,6 @@ Created on 2013-05-02
 '''
 
 import pygame
-from terrain import terrain
 from pygame.locals import *
 from cardinals import cardinals
 

@@ -1,5 +1,5 @@
 
 
-from gui.gameview import Gameview
+from gameview import Gameview
 
 

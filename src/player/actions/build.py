@@ -4,8 +4,9 @@ Created on 2013-05-02
 @author: brian
 '''
 
+
 import pygame
-from terrain import terrain
+#from terrain import terrain
 from pygame.locals import *
 from cardinals import cardinals
 
@@ -17,8 +18,8 @@ class Build:
         self.finished = False
         self.player.log.append('Build... (Choose a direction)')
         self.choices = {}
-        self.choices[K_c] = terrain.WallStone.id
-        self.choices[K_f] = terrain.FloorBrick.id
+        #self.choices[K_c] = terrain.WallStone.id
+        #self.choices[K_f] = terrain.FloorBrick.id
         self.choice = None
                 
     def nextStep(self):
@@ -29,7 +30,7 @@ class Build:
             tile = self.player.world.getTile((x, y))
             if(tile.isPassable()):
                 self.player.world.build((x, y), self.choices[self.choice])
-                self.player.log.append('Successfully placed ' + terrain.lookup[self.choices[self.choice]].singular)
+                #self.player.log.append('Successfully placed ' + terrain.lookup[self.choices[self.choice]].singular)
             else:
                 self.player.log.append('Cannot build on ' + tile.getName())
                     

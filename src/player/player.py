@@ -14,19 +14,6 @@ import pygame
 from pygame.locals import *
 from pygame.color import THECOLORS
 
-from entities import Avatar
-from entities import Fighter
-from entities import Mage
-from entities import Bard
-
-from items.abilities import MagicMissile
-from items.abilities import Fireball
-from items.abilities import HealBolt
-from items.abilities import Resurrection
-
-
-from party import Party
-
 class Player:
 
 	def __init__(self, world):
@@ -36,66 +23,9 @@ class Player:
 		self.world.log = self.log
 		
 		self.lastAction = 0
-		self.party = Party(self)
-		self.world.friendly = self.party.members
 		self.load()
+		self.world.friendly = self.party.members
 		self.lastTarget = None
-		
-		if len(self.party.members) == 0:
-			
-			avatar = Avatar(world)
-			avatar.name = "Bob"
-			avatar.inventory.bar[0] = self.world.itemList['MagicBow']()
-			avatar.inventory.bar[1] = self.world.itemList['LongSword']()
-			avatar.inventory.bar[2] = self.world.itemList['Staff']()
-			avatar.inventory.bar[2].ability = HealBolt
-			avatar.inventory.bar[3] = self.world.itemList['Staff']()
-			avatar.inventory.bar[3].ability = Resurrection
-			self.party.add(avatar)
-			
-			self.party.setLeader(0)
-			
-			alice = Bard(world)
-			alice.name = "Alice"
-			alice.hostile = True
-			self.party.add(alice)
-			alice.inventory.bar[0] = self.world.itemList['LongBow']()
-			alice.inventory.bar[1] = self.world.itemList['ShortSword']()
-			alice.teleportToLeader()
-			
-			ted = Mage(world)
-			ted.name = "Ted"			
-			ted.inventory.bar[0] = self.world.itemList['Staff']()
-			ted.inventory.bar[0].ability = Fireball
-			ted.inventory.bar[1] = self.world.itemList['Staff']()
-			ted.inventory.bar[1].ability = HealBolt
-			ted.hostile = True
-			self.party.add(ted)
-			ted.teleportToLeader()
-			
-			nystal = Mage(world)
-			nystal.name = "Guido"
-			nystal.inventory.bar[0] = self.world.itemList['Staff']()
-			nystal.inventory.bar[0].ability = Resurrection
-			nystal.inventory.bar[1] = self.world.itemList['Staff']()
-			nystal.inventory.bar[1].ability = HealBolt
-			nystal.hostile = True
-			self.party.add(nystal)
-			nystal.teleportToLeader()
-			
-			steve = Fighter(world)
-			steve.name = "Steve"
-			steve.inventory.bar[0] = self.world.itemList['LongSword']()
-			steve.hostile = True
-			self.party.add(steve)
-			steve.teleportToLeader()
-
-			greg = Fighter(world)
-			greg.name = "Greg"
-			greg.inventory.bar[0] = self.world.itemList['LongSword']()
-			greg.hostile = True
-			self.party.add(greg)
-			greg.teleportToLeader()
 
 		self.avatar = self.party.getLeader()
 		self.viewingMap = False
@@ -192,6 +122,7 @@ class Player:
 	def load(self):
 
 		if not os.path.isfile('save/player'):
+			self.party = self.world.loadParty(None)
 			return
 
 		f = open('save/player', 'r')
@@ -200,5 +131,8 @@ class Player:
 		f.close()	
 
 		if 'members' in data.keys():
-			self.party.load(data['members'])
+			self.party = self.world.loadParty(data['members'])
+		else:
+			self.party = self.world.loadParty(None)
+			
 
