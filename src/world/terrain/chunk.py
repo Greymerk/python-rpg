@@ -31,7 +31,7 @@ class Chunk:
 
 	def save(self):
 
-		#self.saveMap()
+		self.saveMap()
 
 		chunkData = {}
 		tileList = []
@@ -49,8 +49,8 @@ class Chunk:
 		
 		
 	def saveMap(self):
-		map = self.getMap()
-		jsonMap = json.dumps(intMap)
+		map = self.getIntMap()
+		jsonMap = json.dumps(map)
 		x, y = self.pos
 		fileName = self.mapDir + str(x) + '_' + str(y)
 		f = open(fileName, 'w')
@@ -96,6 +96,14 @@ class Chunk:
 		
 		for i in range(256):
 			map[i] = self.tiles[i].getGround()
+	
+		return map
+		
+	def getIntMap(self):
+		map = [0]*256
+		
+		for i in range(256):
+			map[i] = self.tiles[i].getGround().id
 	
 		return map
 	

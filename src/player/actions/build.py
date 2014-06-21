@@ -28,7 +28,7 @@ class Build:
 		
 		self.options = {}
 		for i in self.choices.iterkeys():
-			self.options[i - K_0] = str(i - K_0) + " : " + self.player.world.materials[self.choices[i].id].__name__
+			self.options[i - K_0] = str(self.choices[i].size) + " : " + self.player.world.materials[self.choices[i].id].__name__
 				
 	def nextStep(self):
 
