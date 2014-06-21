@@ -15,7 +15,7 @@ class Build:
 		self.player = player
 		self.direction = None
 		self.finished = False
-		self.player.log.append('Build... (Choose a direction)')
+		self.player.log.append('Build... (Choose a block)')
 		self.choices = {}
 		bag = player.avatar.inventory.bag
 		for i in range(len(bag)):
@@ -25,6 +25,10 @@ class Build:
 			self.choices[K_0 + i + 1] = bag[i]
 
 		self.choice = None
+		
+		self.options = {}
+		for i in self.choices.iterkeys():
+			self.options[i - K_0] = str(i - K_0) + " : " + self.player.world.materials[self.choices[i].id].__name__
 				
 	def nextStep(self):
 
@@ -32,7 +36,7 @@ class Build:
 			self.player.log.append('Nothing to build with.')
 			return True
 	
-		if(self.choice is not None):
+		if(self.direction is not None and self.choice is not None):
 			x = self.player.party.getLeader().position[0] + self.direction[0]
 			y = self.player.party.getLeader().position[1] + self.direction[1]
 			self.player.world.build((x, y), self.choices[self.choice].id)
@@ -50,27 +54,17 @@ class Build:
 		if e.type != KEYDOWN:
 			return False
 
-		if(self.direction is not None):
+		if(self.choice is None):
 			if(e.key in self.choices):
 				self.choice = e.key
+				self.player.log.append('Build... (Choose a direction)')
 			elif(e.key == K_ESCAPE):
 				self.player.log.append('Cancelled')
 				return True
 			
 			return False
-	
-		if(e.key in cardinals.keys()):
-			self.direction = cardinals[e.key]
-			self.player.log.append('Build... (Choose a block)')
-			self.options = {}
-			for i in self.choices.iterkeys():
-				self.options[i - K_0] = str(i - K_0) + " : " + self.player.world.materials[self.choices[i].id].__name__
-			return False
-		elif(e.key == K_ESCAPE):
-			self.player.log.append('Cancelled')
-			return True
+			
 		if(self.direction is None):
-		
 			if(e.key in cardinals.keys()):
 				self.direction = cardinals[e.key]
 				return False

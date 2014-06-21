@@ -47,12 +47,6 @@ class Player:
 				return False
 			else:
 				return True
-		'''
-		if not self.party.getLeader().isAlive():
-			if(time.time() - self.lastAction > self.turnDelay):
-				self.lastAction = time.time()
-				return False
-		'''
 		
 		if not self.party.getLeader().isAlive():
 			leader = self.party.resetLeader()
