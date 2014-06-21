@@ -22,7 +22,7 @@ class Build:
 			if bag[i] is None:
 				continue
 				
-			self.choices[K_0 + i] = bag[i]
+			self.choices[K_0 + i + 1] = bag[i]
 
 		self.choice = None
 				
@@ -38,8 +38,8 @@ class Build:
 			self.player.world.build((x, y), self.choices[self.choice].id)
 			self.choices[self.choice].size -= 1
 			bag = self.player.avatar.inventory.bag
-			if bag[self.choice - K_0].size is 0:
-				bag[self.choice - K_0] = None
+			if bag[self.choice - K_0 - 1].size is 0:
+				bag[self.choice - K_0 - 1] = None
 			return True
 				
 		e = pygame.event.poll()
@@ -61,7 +61,7 @@ class Build:
 			self.player.log.append('Build... (Choose a block)')
 			self.options = {}
 			for i in self.choices.iterkeys():
-				self.options[i - 48] = str(i - 48) + " : " + self.player.world.materials[self.choices[i].id].__name__
+				self.options[i - K_0] = str(i - K_0) + " : " + self.player.world.materials[self.choices[i].id].__name__
 			return False
 		elif(e.key == K_ESCAPE):
 			self.player.log.append('Cancelled')
