@@ -12,7 +12,7 @@ class Material:
 	image = "tile.png"
 	rgb = (20, 20, 20)
 	jitter = 10
-	spawnable = True
+	spawnable = False
 	
 	@classmethod
 	def color(cls):
@@ -34,6 +34,7 @@ class Grass(Material):
 	symbol = '-'
 	image = "grass.png"
 	rgb = (0, 150, 0)
+	spawnable = True
 
 class Brush(Material):
 
@@ -42,6 +43,7 @@ class Brush(Material):
 	symbol = 's'
 	image = "brush.png"
 	rgb = (50, 100, 20)
+	spawnable = True
 
 class FloorBrick(Material):
 
@@ -50,7 +52,6 @@ class FloorBrick(Material):
 	symbol = 'x'
 	image = "floor-brick.png"
 	breakable = True
-	spawnable = False
 	rgb = (150, 50, 50)
 
 class Foothills(Material):
@@ -60,6 +61,7 @@ class Foothills(Material):
 	symbol = 'n'
 	image = "foothills.png"
 	rgb = (150, 125, 100)
+	spawnable = True
 
 
 class WallBrick(Material):
@@ -170,6 +172,7 @@ class Sand(Material):
 	passable = True
 	breakable = False
 	rgb = (200, 175, 50)
+	spawnable = True
 
 lookup = {}
 lookup[Void.id] = Void

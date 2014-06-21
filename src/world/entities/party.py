@@ -43,6 +43,8 @@ class Party(object):
 		self.leader = index
 		self.members[self.leader].ai.active = False
 		
+		return self.getLeader()
+		
 	def load(self, data):
 		
 		if data is None:
@@ -51,6 +53,8 @@ class Party(object):
 			member.name = "Jade"
 			self.members.append(member)
 			member.setGroup(self)
+			self.setLeader(0)
+			member.position = self.world.getSpawnLocation()
 			
 			member = Mage(self.world)
 			member.equip()
@@ -76,7 +80,9 @@ class Party(object):
 			self.members.append(member)
 			member.setGroup(self)
 			
-			self.setLeader(0)
+			for e in self.members:
+				e.teleportToLeader()
+			
 			return
 		
 		for e in data['members']:
@@ -97,3 +103,7 @@ class Party(object):
 
 		return False
 		
+	def resetLeader(self):
+		for i in range(len(self.members)):
+			if self.members[i].isAlive():
+				return self.setLeader(i)

@@ -32,7 +32,6 @@ class Player:
 		self.action = None
 		self.turnDelay = 0.2
 
-		
 		self.screenshot = None #initialized by the GameView class
 
 	# Called on every frame
@@ -48,12 +47,18 @@ class Player:
 				return False
 			else:
 				return True
-
+		'''
 		if not self.party.getLeader().isAlive():
 			if(time.time() - self.lastAction > self.turnDelay):
 				self.lastAction = time.time()
 				return False
-
+		'''
+		
+		if not self.party.getLeader().isAlive():
+			leader = self.party.resetLeader()
+			self.avatar = leader
+			self.log.append(leader.name + " is now the leader.")
+			
 		event = pygame.event.get()
 
 		for e in event:
@@ -69,14 +74,17 @@ class Player:
 
 				if(e.key == K_PRINT):
 					self.screenshot()
-										
+
 				if(e.key in lookup):
 					self.action = lookup[e.key](self)
 					return True
 				
 				# select unit to control (deliberately off by one)
 				if(e.key - 49 in range(9)):
-					self.party.setLeader(e.key - 49)
+					leader = self.party.setLeader(e.key - 49)
+					if leader is not None:
+						self.avatar = leader
+						self.log.append(leader.name + " is now the leader.")
 					
 			elif(e.type == KEYUP):
 				

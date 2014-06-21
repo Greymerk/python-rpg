@@ -8,6 +8,7 @@ import items
 from entities import MobManager
 from entities import Party
 from terrain import ChunkManager
+import terrain
 
 class World:
 
@@ -16,7 +17,7 @@ class World:
 		if not os.path.isdir('save'):
 			os.mkdir('save')
 	
-		self.items = items.ItemFactory()
+		self.items = items.ItemFactory(terrain)
 		self.combat = 0
 		self.seed = seed
 		self.chunkManager = ChunkManager(self)
@@ -25,6 +26,7 @@ class World:
 		self.friendly = []
 		self.spawn = self.getSpawnLocation()
 		self.log = None
+		self.materials = terrain.lookup
 
 
 
@@ -50,19 +52,14 @@ class World:
 
 	def isLocationPassable(self, location):
 
-		for e in list(set(self.mobManager.mobs) | set(self.friendly)):
-			if e.position == location:
-				
-				if e.health <= 0:
-					return True
-				
-				return 
-			
-		tile = self.chunkManager.getTile((location[0], location[1]))
-
-		if tile == None:
+		entity = self.getEntityFromLocation(location)
+		if entity is not None and entity.isAlive():
 			return False
-
+				
+		tile = self.chunkManager.getTile((location[0], location[1]))
+		if tile is None:
+			return False
+			
 		return tile.isPassable()
 		
 	def look(self, position):
@@ -89,11 +86,11 @@ class World:
 	
 	def build(self, location, tileId):
 		tile = self.getTile(location)
-		tile.build(tileId)
+		return tile.build(tileId)
 		
 	def destroy(self, location):
 		tile = self.getTile(location)
-		tile.destroy()
+		return tile.destroy()
 		
 	def quit(self):
 		self.chunkManager.saveChunks()
@@ -148,4 +145,5 @@ class World:
 		party = Party(self)
 		party.load(data)
 		return party
+
 

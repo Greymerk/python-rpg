@@ -264,7 +264,7 @@ class Entity:
 		self.group = group
 		
 		
-	def getLeader(self):				
+	def getLeader(self):
 		return self.group.getLeader() if self.group is not None else None
 		
 	def teleportToLeader(self):
@@ -295,6 +295,9 @@ class Entity:
 		    return []
 		
 		return self.inventory.offhand.spellList
+	
+	def pocket(self, item):
+		self.inventory.pocket(item)
 	
 	def equip(self):
 		pass

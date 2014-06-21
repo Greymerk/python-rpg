@@ -5,29 +5,9 @@ class Tile:
 	def __init__(self):
 		self.layers = []
 
-	def isPassable(self):
+	def getGround(self):
 		tileId = self.layers[-1:][0]
-		return terrain.lookup[tileId].passable
-
-	def isTransparent(self):
-		tileId = self.layers[-1:][0]
-		return terrain.lookup[tileId].transparent
-
-	def isBreakable(self):
-		tileId = self.layers[-1:][0]
-		return terrain.lookup[tileId].breakable
-
-	def build(self, id):
-		top = self.layers[-1:][0]
-		if(terrain.lookup[top].passable):
-			self.layers.append(id)
-					
-	def destroy(self):
-		top = self.layers[-1:][0]
-		if(terrain.lookup[top].breakable):
-			self.layers.pop()
-			if(len(self.layers) == 0):
-				self.layers.append(terrain.Grass.id)
+		return terrain.lookup[tileId]
 		
 	def setGround(self, id):
 		if(len(self.layers) > 0):
@@ -35,22 +15,36 @@ class Tile:
 		
 		self.layers.append(id)
 		
-	def getGround(self):
-		tileId = self.layers[-1:][0]
-		
-		return terrain.lookup[tileId]
-	
-	def getName(self):
-		tileId = self.layers[-1:][0]
-		
-		return terrain.lookup[tileId].singular
-	
+	def isPassable(self):
+		return self.getGround().passable
 
+	def isTransparent(self):
+		return self.getGround().transparent
+
+	def isBreakable(self):
+		return self.getGround().breakable
+
+	def getName(self):
+		return self.getGround().singular
+		
+	def build(self, id):
+		top = self.layers[-1:][0]
+		if(terrain.lookup[top].passable):
+			self.layers.append(id)
+			return True
+		return False
+					
+	def destroy(self):
+		if(self.isBreakable()):
+			id = self.layers.pop()
+			if(len(self.layers) == 0):
+				self.layers.append(terrain.Grass.id)
+			return id
+		
 	def save(self):
 		data = {}
 		data['layers'] = self.layers
 		return data
-
 
 	def load(self, data):
 		if 'layers' in data.keys():

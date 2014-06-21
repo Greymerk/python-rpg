@@ -8,7 +8,7 @@ from gui import Gameview
 from player import Player
 from images import ImageCache
 
-seed = 22
+seed = 26281376
 
 pygame.init()
 screenSize = (1024, 600)
