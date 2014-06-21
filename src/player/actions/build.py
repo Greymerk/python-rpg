@@ -53,6 +53,9 @@ class Build:
 		if(self.direction is not None):
 			if(e.key in self.choices):
 				self.choice = e.key
+			elif(e.key == K_ESCAPE):
+				self.player.log.append('Cancelled')
+				return True
 			
 			return False
 	
