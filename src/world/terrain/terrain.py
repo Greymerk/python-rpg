@@ -1,5 +1,6 @@
 
 from random import randint
+from random import Random
 
 # Base material class
 class Material:
@@ -17,6 +18,10 @@ class Material:
 	@classmethod
 	def color(cls):
 		return gritify(cls.rgb, cls.jitter)
+		
+	@classmethod
+	def getImage(cls, x=0, y=0):
+		return cls.image
 
 ### Terrain materials below ###
 
@@ -35,6 +40,14 @@ class Grass(Material):
 	image = "grass.png"
 	rgb = (0, 150, 0)
 	spawnable = True
+	
+	@classmethod
+	def getImage(cls, x=0, y=0):
+		rand = Random()
+		rand.seed(x | y)
+		if rand.randint(0, 3) == 0:
+			return "grass2.png"
+		return cls.image
 
 class Brush(Material):
 
@@ -44,6 +57,16 @@ class Brush(Material):
 	image = "brush.png"
 	rgb = (50, 100, 20)
 	spawnable = True
+	
+	@classmethod
+	def getImage(cls, x=0, y=0):
+		rand = Random()
+		rand.seed(x | y)
+		if rand.randint(0, 30) == 0:
+			return "jungle.png"
+		if rand.randint(0, 10) == 0:
+			return "forest.png"
+		return cls.image
 
 class FloorBrick(Material):
 

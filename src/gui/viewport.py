@@ -104,7 +104,7 @@ class Viewport(object):
 					continue
 
 				ground = cell.getGround()
-				image = self.images.get(ground.image)
+				image = self.images.get(ground.getImage(camPos[0] - 8 + col, camPos[1] - 8 + row))
 				dest = (col * 32), (row * 32)
 
 				self.surface.blit(image, dest)
