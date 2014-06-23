@@ -18,7 +18,7 @@ class HealBolt(object):
 		self.target = location
 		self.done = False
 		self.entityHit = self.caster.world.getEntityFromLocation(self.target)
-		self.projectile = Star(caster.position, location, item.color, self.entityHit)
+		self.projectile = Star(caster.position, location, item.color, self.entityHit, self.fire)
 		casterName = self.caster.getName()
 		if not self.entityHit is None:
 			targetName = self.entityHit.getName()
@@ -55,4 +55,9 @@ class HealBolt(object):
 			return False
 
 		return True
+		
+	
+	def fire(self):
+		self.caster.world.sounds.get("spell-healing.wav").play()
+
    

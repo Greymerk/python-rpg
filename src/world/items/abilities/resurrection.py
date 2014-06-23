@@ -19,7 +19,7 @@ class Resurrection(object):
 		self.target = location
 		self.done = False
 		self.entityHit = self.caster.world.getEntityFromLocation(self.target, False)
-		self.projectile = Star(caster.position, location, self.__class__.color, self.entityHit)
+		self.projectile = Star(caster.position, location, self.__class__.color, self.entityHit, self.fire)
 		casterName = self.caster.getName()
 		if not self.entityHit is None:
 			targetName = self.entityHit.getName()
@@ -53,3 +53,6 @@ class Resurrection(object):
 			return False
 
 		return True
+		
+	def fire(self):
+		self.caster.world.sounds.get("resurrection.wav").play()

@@ -97,8 +97,10 @@ class Player:
 					succeeded = e.move(cardinals.cardinals[direction])
 					if succeeded:
 						msg = cardinals.names[direction]
+						self.world.sounds.get(self.avatar.__class__.step).play()
 					else:
 						msg = "Blocked by " + self.world.look(newPos)
+						self.world.sounds.get("oomph.wav").play()
 					self.log.append(msg)
 					self.lastAction = time.time()
 					return False

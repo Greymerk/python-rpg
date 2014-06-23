@@ -28,7 +28,7 @@ class MagicMissile(object):
 		else:
 			self.caster.world.log.append(casterName + ' cast ' + self.__class__.__name__ + ' at nothing!')
 		
-		self.projectile = Star(caster.position, location, item.color, self.entityHit)
+		self.projectile = Star(caster.position, location, item.color, self.entityHit, self.fire, self.impact)
 		self.done = False
 	 
 	def update(self):
@@ -58,3 +58,10 @@ class MagicMissile(object):
 			return False
 
 		return True
+
+	def fire(self):
+		self.caster.world.sounds.get("fireball.wav").play()
+	
+	def impact(self):
+		self.caster.world.sounds.get("explosion.wav").play()
+		

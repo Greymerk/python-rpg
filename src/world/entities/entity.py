@@ -11,7 +11,9 @@ class Entity:
 
 	living = "player.png"
 	dead = "body.png"
-
+	step = "step.wav"
+	ouch = "ouch.wav"
+	
 	def __init__(self, world):
 		self.image = None
 		self.gore = None
@@ -301,3 +303,4 @@ class Entity:
 	
 	def equip(self):
 		pass
+

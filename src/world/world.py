@@ -12,11 +12,12 @@ import terrain
 
 class World:
 
-	def __init__(self, seed):
+	def __init__(self, seed, sounds):
 	
 		if not os.path.isdir('save'):
 			os.mkdir('save')
 	
+		self.sounds = sounds
 		self.items = items.ItemFactory(terrain)
 		self.combat = 0
 		self.seed = seed

@@ -5,6 +5,7 @@ from world import World
 from gui import Gameview
 from player import Player
 from images import ImageCache
+from sounds import SoundCache
 
 class Game(object):
 
@@ -17,7 +18,7 @@ class Game(object):
 		self.seed = 26281376
 		self.surface = pygame.display.set_mode(self.screenSize)
 
-		self.world = World(self.seed)
+		self.world = World(self.seed, SoundCache())
 		self.user = Player(self.world)
 		self.view = Gameview(self.world, self.user, self.surface, ImageCache())
 
@@ -27,6 +28,8 @@ class Game(object):
 
 		while(True):
 
+			self.clock.tick(30)
+		
 			self.view.draw()
 
 			if not self.world.update():
@@ -38,4 +41,4 @@ class Game(object):
 			self.world.turn()
 			self.user.save()
 			
-			self.clock.tick(30)
+
