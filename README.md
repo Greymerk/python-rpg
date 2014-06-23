@@ -9,11 +9,10 @@ CONTROLS
 
 Arrow Keys or WASD - move around
 
-Q - quit
-L - Look
-B - Build (tiles)
-G - Gather (tiles)
-C - Cast / Attack
-M - Map
+- Q : quit
+- L : Look
+- B : Build (tiles)
+- G : Gather (tiles)
+- C : Cast / Attack
+- M : Map
 
-	
