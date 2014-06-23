@@ -15,10 +15,13 @@ class Ettin(Entity):
 	living = "ettin.png"
 	dead = "gore.png"
 
+
 	def __init__(self, world):
 		Entity.__init__(self, world)
 		self.world = world
 		self.hostile = True
+		
+		self.health = self.maxHealth = 40
 		
 		self.ai.addAI(ai.Flee(self))
 		self.ai.addAI(ai.Fallback(self))

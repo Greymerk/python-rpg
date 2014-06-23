@@ -15,7 +15,7 @@ class Destroy:
 		self.world = player.world
 		self.direction = None
 		self.finished = False
-		self.player.log.append('Dig/Destroy... Pick a direction')
+		self.player.log.append('Gather... Pick a direction')
 
 	def nextStep(self):
 
@@ -28,9 +28,9 @@ class Destroy:
 			if(self.world.getTile((x, y)).isBreakable()):
 				material = self.world.destroy((x, y))
 				self.player.avatar.pocket(material)
-				self.player.log.append('Successfully broke ' + tile)
+				self.player.log.append('Successfully gethered ' + tile)
 			else:
-				self.player.log.append('Unable to break ' + tile)
+				self.player.log.append('Unable to gether ' + tile)
 					
 			return True
 

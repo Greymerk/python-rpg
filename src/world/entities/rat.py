@@ -14,9 +14,11 @@ class Rat(Entity):
 	living = "rat.png"
 	dead = "gore.png"
 
+
 	def __init__(self, world):
 		Entity.__init__(self, world)
 		self.world = world
+		self.health = self.maxHealth = 15
 
 		
 		self.ai.addAI(ai.Flee(self))

@@ -22,6 +22,10 @@ class Material:
 	@classmethod
 	def getImage(cls, x=0, y=0):
 		return cls.image
+		
+	@classmethod
+	def drop(cls):
+		return cls.id
 
 ### Terrain materials below ###
 
@@ -76,6 +80,7 @@ class FloorBrick(Material):
 	image = "floor-brick.png"
 	breakable = True
 	rgb = (150, 50, 50)
+	
 
 class Foothills(Material):
 
@@ -150,6 +155,10 @@ class Tree(Material):
 	transparent = False
 	rgb = (120, 75, 0)
 	
+	@classmethod
+	def drop(cls):
+		return Plank.id
+	
 
 class Well(Material):
 	id = 11
@@ -177,6 +186,10 @@ class Rock(Material):
 	transparent = False
 	rgb = (80, 80, 80)
 	
+	@classmethod
+	def drop(cls):
+		return WallStone.id
+	
 class DeadTree(Material):
 
 	id = 14
@@ -186,6 +199,10 @@ class DeadTree(Material):
 	passable = False
 	breakable = True
 	rgb = (120, 75, 0)
+	
+	@classmethod
+	def drop(cls):
+		return Plank.id
 	
 class Sand(Material):
 	id = 15
@@ -197,6 +214,15 @@ class Sand(Material):
 	rgb = (200, 175, 50)
 	spawnable = True
 
+class Plank(Material):
+
+	id = 16
+	singular = 'plank'
+	symbol = 'H'
+	image = "planks.png"
+	breakable = True
+	rgb = (120, 75, 0)
+	
 lookup = {}
 lookup[Void.id] = Void
 lookup[Grass.id] = Grass
@@ -214,6 +240,7 @@ lookup[Door.id] = Door
 lookup[Rock.id] = Rock
 lookup[DeadTree.id] = DeadTree
 lookup[Sand.id] = Sand
+lookup[Plank.id] = Plank
 
 def gritify(color, jitter):
 	

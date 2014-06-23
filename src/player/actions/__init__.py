@@ -13,7 +13,7 @@ lookup = {}
 lookup[K_b] = Build
 lookup[K_q] = Quit
 lookup[K_l] = Look
-lookup[K_d] = Destroy
+lookup[K_g] = Destroy
 lookup[K_c] = Cast
 lookup[K_r] = Ready
 

@@ -15,8 +15,10 @@ class Headless(Entity):
 	living = "headless.png"
 	dead = "gore.png"
 
+
 	def __init__(self, world):
 		Entity.__init__(self, world)
+		self.health = self.maxHealth = 20
 		
 		
 		self.ai.addAI(Flee(self))

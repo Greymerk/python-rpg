@@ -39,7 +39,7 @@ class Tile:
 			id = self.layers.pop()
 			if(len(self.layers) == 0):
 				self.layers.append(terrain.Grass.id)
-			return id
+			return terrain.lookup[id].drop()
 		
 	def save(self):
 		data = {}

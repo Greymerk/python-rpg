@@ -17,9 +17,11 @@ class Skeleton(Entity):
 	living = "skeleton.png"
 	dead = "gore.png"
 
+
 	def __init__(self, world):
 		Entity.__init__(self, world)
 		self.world = world
+		self.health = self.maxHealth = 20
 		self.hostile = True
 		self.singular = 'a skeleton'
 	

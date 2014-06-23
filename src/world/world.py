@@ -127,11 +127,12 @@ class World:
 
 	def obscured(self, start, end):
 
-		origin = (float(start[0]) - 0.5, float(start[1]) - 0.5)
-		length = math.hypot(float(end[0] - start[0]), float(end[1] - start[1]))
-		length += 0.1
+		origin = (float(start[0]) + 0.5, float(start[1]) + 0.5)
+		length = math.hypot(float(end[0] - start[0]), float(end[1] - start[1])) - 1
 		angle = math.atan2(float(end[1] - start[1]), float(end[0] - start[0]))
-		for i in xrange(int(length)):
+		i = 0
+		while i < length:
+			i += 0.2
 			x = origin[0] + (math.cos(angle) * i)
 			y = origin[1] + (math.sin(angle) * i)
 			pos = int(x), int(y)
