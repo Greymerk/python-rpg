@@ -4,13 +4,14 @@ from math import sqrt
 from random import randint
 
 from inventory import Inventory
-
+from time import time
 
 
 class Entity:
 
 	living = "player.png"
 	dead = "body.png"
+	damage = "damage.png"
 	step = "step.wav"
 	ouch = "ouch.wav"
 	
@@ -26,6 +27,7 @@ class Entity:
 		self.health = self.maxHealth = 30
 		self.inventory = Inventory(self, world.items)
 		self.deathTimer = 50
+		self.lastDamage = 0
 		self.hostile = False
 		self.lastAttacker = None
 		self.name = None
@@ -64,6 +66,9 @@ class Entity:
 		position = (((posx + 8)*tileSize), ((posy + 8) * tileSize))
 		if self.health == 0:
 			screen.blit(images.get(self.__class__.dead), position)
+			return
+		if time() - self.lastDamage < 0.2:
+			screen.blit(images.get(self.__class__.damage), position)
 			return
 		screen.blit(images.get(self.__class__.living), position)
 		if self.action is not None:
@@ -186,6 +191,9 @@ class Entity:
 		
 		damageDealt = startHealth - endHealth
 		self.world.log.append(attacker.getName() + " hit " + self.getName() + " for " + str(damage) + " damage!")
+		
+		self.lastDamage = time()
+		self.__class__.onDamage(self.world.sounds)
 		return damageDealt
 	
 	def heal(self, healer, amount):
@@ -303,4 +311,9 @@ class Entity:
 	
 	def equip(self):
 		pass
+		
+	@classmethod
+	def onDamage(cls, sounds):
+		pass
+		
 

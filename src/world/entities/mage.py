@@ -30,3 +30,6 @@ class Mage(Entity):
 		self.inventory.bar[1] = self.world.items.weapons.getHealStaff()
 		self.inventory.bar[2] = self.world.items.weapons.getResStaff()
 		
+	@classmethod
+	def onDamage(cls, sounds):
+		sounds.get("damage.wav").play()

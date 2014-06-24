@@ -28,4 +28,8 @@ class Fighter(Entity):
 
 	def equip(self):
 		self.inventory.bar[0] = self.world.items.weapons.getSword()
+		
+	@classmethod
+	def onDamage(cls, sounds):
+		sounds.get("damage.wav").play()
 

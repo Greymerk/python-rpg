@@ -3,10 +3,12 @@ Created on 2013-06-04
 
 @author: brian
 '''
+
+from random import randint
+
 from pygame.color import THECOLORS
 
 from item import Item
-
 from abilities import *
 
 class Weapon(Item):
@@ -48,7 +50,8 @@ class Weapon(Item):
 	
 	@staticmethod
 	def getDamageStaff():
-		return Weapon("Staff of Fireball", (2, 5), 6, MagicMissile, THECOLORS['orange'])
+		if randint(0, 3) == 0: return Weapon("Staff of Fireball", (3, 7), 6, FireBall, THECOLORS['orange'])
+		return Weapon("Staff of Magic Missile", (2, 5), 6, MagicMissile, THECOLORS['cyan'])
 		
 	@staticmethod
 	def getHealStaff():

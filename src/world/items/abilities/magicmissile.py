@@ -60,8 +60,15 @@ class MagicMissile(object):
 		return True
 
 	def fire(self):
+		self.caster.world.sounds.get("magic-missile.wav").play()
+	
+	def impact(self):
+		self.caster.world.sounds.get("fireball-impact.wav").play()
+	
+class FireBall(MagicMissile):
+	
+	def fire(self):
 		self.caster.world.sounds.get("fireball.wav").play()
 	
 	def impact(self):
-		self.caster.world.sounds.get("explosion.wav").play()
-		
+		self.caster.world.sounds.get("fireball-impact.wav").play()

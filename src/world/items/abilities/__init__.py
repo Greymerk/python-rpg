@@ -9,5 +9,6 @@ lookup = {}
 lookup["Attack"] = Attack
 lookup["BowShot"] = BowShot
 lookup["MagicMissile"] = MagicMissile
+lookup["FireBall"] = FireBall
 lookup["HealBolt"] = HealBolt
 lookup["Resurrection"] = Resurrection
