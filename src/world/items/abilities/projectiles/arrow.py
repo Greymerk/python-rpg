@@ -56,7 +56,6 @@ class Arrow:
 		x = int(16 + (centerPos[0] + offsetX))
 		y = int(16 + (centerPos[1] + offsetY))
 		
-		print self.pos
 		pos = (int(self.pos[0]), int(self.pos[1]))
 		
 		if not visible(pos):
