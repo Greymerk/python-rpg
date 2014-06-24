@@ -109,27 +109,14 @@ class Viewport(object):
 
 				self.surface.blit(image, dest)
 
-		entitiesOnScreen = []
+		entities = list(set(self.world.mobManager.mobs) | set(self.world.friendly))
+		entities.sort(lambda a, b: cmp(a.isAlive(), b.isAlive()))
 
-		for e in list(set(self.world.mobManager.mobs) | set(self.world.friendly)):
+		for e in entities:
 			relx = e.position[0] - camPos[0]  
 			rely = e.position[1] - camPos[1] 
-			
-			if abs(relx) > 8 or abs(rely) > 8:
-				continue
-
-			if not self.player.party.canSee(e.position):
-				continue
-			
-			entitiesOnScreen.append(e)
-			
-		entitiesOnScreen.sort(lambda a, b: cmp(a.isAlive(), b.isAlive()))
+			e.draw(self.surface, (relx, rely), self.images, self.visible)
 		
-		for e in entitiesOnScreen:
-			relx = e.position[0] - camPos[0]  
-			rely = e.position[1] - camPos[1] 
-			e.draw(self.surface, relx, rely, self.images)
-			
 		if self.player.action is not None:
 			if hasattr(self.player.action, 'location'):
 				if self.player.action.location is not None:
@@ -192,4 +179,16 @@ class Viewport(object):
 		
 		self.surface.blit(self.mapOverlay, (0,0))
 		
+	def visible(self, pos):
+			
+			camPos = self.player.party.getLeader().position
+			
+			relx = pos[0] - camPos[0]  
+			rely = pos[1] - camPos[1] 
+			
+			if abs(relx) > 8 or abs(rely) > 8:
+				return False
+				
+			return self.player.party.canSee(pos)
+
 

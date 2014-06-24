@@ -30,7 +30,7 @@ class Attack(object):
 	def update(self):
 		return True
 		
-	def draw(self, surface, position):
+	def draw(self, surface, position, visible):
 		pass
 	
 	@classmethod

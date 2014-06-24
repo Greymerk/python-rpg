@@ -61,7 +61,7 @@ class Star:
 			newPartical = (x + float(random.randint(-s,s))/32, y + float(random.randint(-s,s))/32)
 			self.particals.append(newPartical)
 
-	def draw(self, surface, centerPos):
+	def draw(self, surface, centerPos, visible):
 
 		if self.done:
 			return
@@ -70,6 +70,10 @@ class Star:
 		offsetY = (self.pos[1] - self.origin[1]) * Star.tileSize
 		x = int(16 + (centerPos[0] + offsetX))
 		y = int(16 + (centerPos[1] + offsetY))
+		
+		if not visible(self.pos):
+			return
+		
 		pygame.draw.circle(surface, self.color, (x, y), Star.ballSize)
 		
 		for partical in self.particals:

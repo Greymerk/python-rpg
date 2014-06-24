@@ -49,16 +49,19 @@ class Arrow:
 
 		self.pos = self.pos[0] + self.vx, self.pos[1] + self.vy
 	
-	def draw(self, surface, centerPos):
-
-		if self.done:
-			return
+	def draw(self, surface, centerPos, visible):
 
 		offsetX = (self.pos[0] - self.origin[0]) * 32
 		offsetY = (self.pos[1] - self.origin[1]) * 32
 		x = int(16 + (centerPos[0] + offsetX))
 		y = int(16 + (centerPos[1] + offsetY))
 		
+		print self.pos
+		pos = (int(self.pos[0]), int(self.pos[1]))
+		
+		if not visible(pos):
+			return
+
 		for partical in self.particals:
 			px = int(x + partical[0])
 			py = int(y + partical[1])

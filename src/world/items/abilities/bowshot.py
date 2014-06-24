@@ -41,9 +41,9 @@ class BowShot(object):
 		
 		return False
 		
-	def draw(self, surface, position):
+	def draw(self, surface, position, visible):
 		if not self.done:
-			self.projectile.draw(surface, position)
+			self.projectile.draw(surface, position, visible)
 			
 	@classmethod
 	def validTarget(cls, actor, target):

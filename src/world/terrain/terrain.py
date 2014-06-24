@@ -14,6 +14,7 @@ class Material:
 	rgb = (20, 20, 20)
 	jitter = 10
 	spawnable = False
+	step = "step.wav"
 	
 	@classmethod
 	def color(cls):
@@ -26,6 +27,10 @@ class Material:
 	@classmethod
 	def drop(cls):
 		return cls.id
+		
+	@classmethod
+	def stepSound(cls, sounds):
+		sounds.get(cls.step).play()
 
 ### Terrain materials below ###
 
@@ -42,6 +47,7 @@ class Grass(Material):
 	singular = 'grass'
 	symbol = '-'
 	image = "grass.png"
+	step = "step-grass.wav"
 	rgb = (0, 150, 0)
 	spawnable = True
 	
@@ -61,6 +67,7 @@ class Brush(Material):
 	image = "brush.png"
 	rgb = (50, 100, 20)
 	spawnable = True
+	step = "step-brush.wav"
 	
 	@classmethod
 	def getImage(cls, x=0, y=0):
@@ -209,6 +216,7 @@ class Sand(Material):
 	singular = 'sand'
 	symbol = 'R'
 	image = "sand.png"
+	step = "step-sand.wav"
 	passable = True
 	breakable = False
 	rgb = (200, 175, 50)
@@ -220,6 +228,7 @@ class Plank(Material):
 	singular = 'plank'
 	symbol = 'H'
 	image = "planks.png"
+	step = "step-wood.wav"
 	breakable = True
 	rgb = (120, 75, 0)
 	

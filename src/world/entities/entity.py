@@ -61,18 +61,22 @@ class Entity:
 			
 
 			
-	def draw(self, screen, posx, posy, images):
+	def draw(self, screen, pos, images, visible):
+
 		tileSize = 32
-		position = (((posx + 8)*tileSize), ((posy + 8) * tileSize))
-		if self.health == 0:
-			screen.blit(images.get(self.__class__.dead), position)
-			return
-		if time() - self.lastDamage < 0.2:
-			screen.blit(images.get(self.__class__.damage), position)
-			return
-		screen.blit(images.get(self.__class__.living), position)
+		position = (((pos[0] + 8)*tileSize), ((pos[1] + 8) * tileSize))
+
+		if visible(self.position):
+			if self.health == 0:
+				screen.blit(images.get(self.__class__.dead), position)
+				return
+			if time() - self.lastDamage < 0.2:
+				screen.blit(images.get(self.__class__.damage), position)
+				return
+			screen.blit(images.get(self.__class__.living), position)
+		
 		if self.action is not None:
-			self.action.draw(screen, position)
+			self.action.draw(screen, position, visible)
 		
 
 	def save(self):
