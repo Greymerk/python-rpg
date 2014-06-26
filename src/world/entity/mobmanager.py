@@ -78,3 +78,4 @@ class MobManager(object):
 		for data in mobData:
 			mob = self.loadEntity(data)
 			self.mobs.append(mob)
+			

@@ -2,8 +2,7 @@ import pygame, random
 from collections import deque
 
 class Star:
-	
-	tileSize = 32
+
 	ballSize = 3
 	scatter = 5
 	maxParticals = 10
@@ -61,15 +60,20 @@ class Star:
 			newPartical = (x + float(random.randint(-s,s))/32, y + float(random.randint(-s,s))/32)
 			self.particals.append(newPartical)
 
-	def draw(self, surface, centerPos, visible):
+	def draw(self, surface, camPos, visible):
 
 		if self.done:
 			return
 
-		offsetX = (self.pos[0] - self.origin[0]) * Star.tileSize
-		offsetY = (self.pos[1] - self.origin[1]) * Star.tileSize
-		x = int(16 + (centerPos[0] + offsetX))
-		y = int(16 + (centerPos[1] + offsetY))
+		tileSize = 32
+		relx = self.origin[0] - camPos[0]
+		rely = self.origin[1] - camPos[1]
+		center = (((relx + 8) * tileSize), ((rely + 8) * tileSize))
+			
+		offsetX = (self.pos[0] - self.origin[0]) * tileSize
+		offsetY = (self.pos[1] - self.origin[1]) * tileSize
+		x = int((center[0] + offsetX))
+		y = int((center[1] + offsetY))
 		
 		if not visible(self.pos):
 			return
@@ -77,10 +81,10 @@ class Star:
 		pygame.draw.circle(surface, self.color, (x, y), Star.ballSize)
 		
 		for partical in self.particals:
-			offsetX = (partical[0] - self.origin[0]) * Star.tileSize
-			offsetY = (partical[1] - self.origin[1]) * Star.tileSize
-			x = int(16 + (centerPos[0] + offsetX))
-			y = int(16 + (centerPos[1] + offsetY))
+			offsetX = (partical[0] - self.origin[0]) * tileSize
+			offsetY = (partical[1] - self.origin[1]) * tileSize
+			x = int((center[0] + offsetX))
+			y = int((center[1] + offsetY))
 			surface.set_at((x, y), self.color)
 			surface.set_at((x, y + 1), self.color)
 			surface.set_at((x + 1, y), self.color)

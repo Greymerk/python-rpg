@@ -49,12 +49,18 @@ class Arrow:
 
 		self.pos = self.pos[0] + self.vx, self.pos[1] + self.vy
 	
-	def draw(self, surface, centerPos, visible):
+	def draw(self, surface, camPos, visible):
 
-		offsetX = (self.pos[0] - self.origin[0]) * 32
-		offsetY = (self.pos[1] - self.origin[1]) * 32
-		x = int(16 + (centerPos[0] + offsetX))
-		y = int(16 + (centerPos[1] + offsetY))
+	
+		tileSize = 32
+		relx = self.origin[0] - camPos[0]
+		rely = self.origin[1] - camPos[1]
+		center = (((relx + 8) * tileSize), ((rely + 8) * tileSize))
+	
+		offsetX = (self.pos[0] - self.origin[0]) * tileSize
+		offsetY = (self.pos[1] - self.origin[1]) * tileSize
+		x = int((center[0] + offsetX))
+		y = int((center[1] + offsetY))
 		
 		pos = (int(self.pos[0]), int(self.pos[1]))
 		

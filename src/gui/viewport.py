@@ -113,9 +113,7 @@ class Viewport(object):
 		entities.sort(lambda a, b: cmp(a.isAlive(), b.isAlive()))
 
 		for e in entities:
-			relx = e.position[0] - camPos[0]  
-			rely = e.position[1] - camPos[1] 
-			e.draw(self.surface, (relx, rely), self.images, self.visible)
+			e.draw(self.surface, camPos, self.images, self.visible)
 		
 		if self.player.action is not None:
 			if hasattr(self.player.action, 'location'):

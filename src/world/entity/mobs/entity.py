@@ -62,10 +62,12 @@ class Entity:
 			
 
 			
-	def draw(self, screen, pos, images, visible):
+	def draw(self, screen, camPos, images, visible):
 
 		tileSize = 32
-		position = (((pos[0] + 8)*tileSize), ((pos[1] + 8) * tileSize))
+		relx = self.position[0] - camPos[0]  
+		rely = self.position[1] - camPos[1] 
+		position = (((relx + 8)*tileSize), ((rely + 8) * tileSize))
 
 		if visible(self.position):
 			if self.health == 0:
@@ -77,7 +79,7 @@ class Entity:
 			screen.blit(images.get(self.__class__.living), position)
 		
 		if self.action is not None:
-			self.action.draw(screen, position, visible)
+			self.action.draw(screen, camPos, visible)
 		
 
 	def save(self):
