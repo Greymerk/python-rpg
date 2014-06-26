@@ -46,11 +46,26 @@ class Arrow:
 		if self.targetEntity is not None:
 			self.target = float(self.targetEntity.position[0]) + 0.5, float(self.targetEntity.position[1]) + 0.5
 				
+		tx = abs(float(self.pos[0]) - float(self.target[0]))
+		ty = abs(float(self.pos[1]) - float(self.target[1]))
+		distTravel = int(hypot(tx, ty))
+		
+		dx = abs(float(self.origin[0]) - float(self.target[0]))
+		dy = abs(float(self.origin[1]) - float(self.target[1]))
+		distTotal = int(hypot(dx, dy))
+			
 		if (int(self.pos[0]), int(self.pos[1])) == (int(self.target[0]), int(self.target[1])):
 			self.done = True
 			if self.impact is not None:
 				self.impact()
 			return
+			
+		if (distTravel > distTotal):
+			self.done = True
+			if self.impact is not None:
+				self.impact()
+			return
+			
 
 		self.pos = self.pos[0] + self.vx, self.pos[1] + self.vy
 	
