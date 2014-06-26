@@ -30,7 +30,7 @@ class Cast(object):
 			if leader.inventory.bar[i] is None:
 				continue
 			
-			self.options[i + 1] = leader.inventory.bar[i].ability.__name__
+			self.options[i + 1] = leader.inventory.bar[i].name
 			self.spellList[i + 1] = leader.inventory.bar[i]
 		
 	def nextStep(self):

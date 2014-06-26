@@ -55,8 +55,8 @@ class Weapon(Item):
 		
 	@staticmethod
 	def getHealStaff():
-		return Weapon("Staff of Fireball", (2, 5), 6, HealBolt, THECOLORS['gold'])
+		return Weapon("Staff of Healing", (2, 5), 6, HealBolt, THECOLORS['gold'])
 		
 	@staticmethod
 	def getResStaff():
-		return Weapon("Staff of Fireball", (2, 5), 6, Resurrection, THECOLORS['gold'])
+		return Weapon("Staff of Resurrection", (2, 5), 6, Resurrection, THECOLORS['gold'])
