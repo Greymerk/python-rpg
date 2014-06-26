@@ -4,11 +4,7 @@ Created on 2013-05-12
 @author: brian
 '''
 
-import task
-
 class AIController(object):
-
-	tasks = task
 
 	def __init__(self):
 		self.aiList = []

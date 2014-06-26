@@ -6,6 +6,7 @@ Created on 2013-05-12
 
 import pygame
 from entity import Entity
+from ai import task
 
 class Orc(Entity):
 
@@ -18,10 +19,10 @@ class Orc(Entity):
 		self.world = world
 		self.health = self.maxHealth = 20
 
-		self.ai.addAI(self.ai.tasks.Flee(self))
-		self.ai.addAI(self.ai.tasks.Cast(self))
-		self.ai.addAI(self.ai.tasks.Pursue(self))
-		self.ai.addAI(self.ai.tasks.Wander(self))
+		self.ai.addAI(task.Flee(self))
+		self.ai.addAI(task.Cast(self))
+		self.ai.addAI(task.Pursue(self))
+		self.ai.addAI(task.Wander(self))
 		
 		self.singular = 'an orc'
 		

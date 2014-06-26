@@ -7,7 +7,7 @@ from random import choice
 import pygame
 
 from entity import Entity
-
+from ai import task
 
 class Ettin(Entity):
 
@@ -21,11 +21,11 @@ class Ettin(Entity):
 		
 		self.health = self.maxHealth = 40
 		
-		self.ai.addAI(self.ai.tasks.Flee(self))
-		self.ai.addAI(self.ai.tasks.Fallback(self))
-		self.ai.addAI(self.ai.tasks.Cast(self))
-		self.ai.addAI(self.ai.tasks.Pursue(self))
-		self.ai.addAI(self.ai.tasks.Wander(self))
+		self.ai.addAI(task.Flee(self))
+		self.ai.addAI(task.Fallback(self))
+		self.ai.addAI(task.Cast(self))
+		self.ai.addAI(task.Pursue(self))
+		self.ai.addAI(task.Wander(self))
 		
 		self.singular = 'an ettin'
 
