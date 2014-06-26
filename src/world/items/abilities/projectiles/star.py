@@ -1,4 +1,7 @@
-import pygame, random
+import pygame
+import random
+
+from math import hypot
 from collections import deque
 
 class Star:
@@ -19,8 +22,14 @@ class Star:
 		else:
 			self.target = float(targetLocation[0]) + 0.5, float(targetLocation[1]) + 0.5
 		
-		self.vx = (float(self.target[0]) - self.origin[0]) / Star.granularity
-		self.vy = (float(self.target[1]) - self.origin[1]) / Star.granularity
+		dx = abs(float(origin[0]) - targetLocation[0])
+		dy = abs(float(origin[1]) - targetLocation[1])
+		dist = int(hypot(dx, dy))
+		if dist is 0:
+			dist = 1
+		
+		self.vx = (float(self.target[0]) - self.origin[0]) / (2 * dist)
+		self.vy = (float(self.target[1]) - self.origin[1]) / (2 * dist)
 
 		if self.fire is not None:
 			self.fire()

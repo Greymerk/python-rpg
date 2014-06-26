@@ -4,6 +4,8 @@ Created on 2013-05-28
 @author: brian
 '''
 
+from math import hypot
+
 from pygame.draw import circle
 from collections import deque
 
@@ -14,7 +16,6 @@ class Arrow:
 		self.maxParticals = 10
 		self.targetEntity = targetEntity
 		self.pos = self.origin = float(origin[0]) + 0.5, float(origin[1]) + 0.5
-		self.granularity = 15
 		self.fire = fire
 		self.impact = impact
 		
@@ -23,9 +24,15 @@ class Arrow:
 		else:
 			self.target = float(targetLocation[0]) + 0.5, float(targetLocation[1]) + 0.5
 		
-		self.vx = (float(self.target[0]) - self.origin[0]) / self.granularity
-		self.vy = (float(self.target[1]) - self.origin[1]) / self.granularity
-
+		dx = abs(float(origin[0]) - targetLocation[0])
+		dy = abs(float(origin[1]) - targetLocation[1])
+		dist = int(hypot(dx, dy))
+		if dist is 0:
+			dist = 1
+		
+		self.vx = (float(self.target[0]) - self.origin[0]) / (2 * dist)
+		self.vy = (float(self.target[1]) - self.origin[1]) / (2 * dist)
+		
 		for i in xrange(10):
 			self.particals.append((self.vx * i * 2, self.vy * i * 2))
 
@@ -38,8 +45,6 @@ class Arrow:
 		
 		if self.targetEntity is not None:
 			self.target = float(self.targetEntity.position[0]) + 0.5, float(self.targetEntity.position[1]) + 0.5
-			self.vx = (float(self.target[0]) - self.origin[0]) / self.granularity
-			self.vy = (float(self.target[1]) - self.origin[1]) / self.granularity
 				
 		if (int(self.pos[0]), int(self.pos[1])) == (int(self.target[0]), int(self.target[1])):
 			self.done = True
