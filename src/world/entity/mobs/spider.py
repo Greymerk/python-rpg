@@ -4,10 +4,6 @@ Created on 2013-05-16
 @author: brian
 '''
 
-import ai
-from snake import Snake
-from rat import Rat
-
 import pygame
 from entity import Entity
 
@@ -24,10 +20,10 @@ class Spider(Entity):
 		self.hostile = True
 		self.health = self.maxHealth = 15
 		
-		self.ai.addAI(ai.Flee(self))
-		self.ai.addAI(ai.Cast(self))
-		self.ai.addAI(ai.Pursue(self))
-		self.ai.addAI(ai.Wander(self))
+		self.ai.addAI(self.ai.tasks.Flee(self))
+		self.ai.addAI(self.ai.tasks.Cast(self))
+		self.ai.addAI(self.ai.tasks.Pursue(self))
+		self.ai.addAI(self.ai.tasks.Wander(self))
 		self.singular = 'a spider'
 		
 	def equip(self):

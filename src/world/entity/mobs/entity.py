@@ -1,9 +1,10 @@
 import pygame
-from ai import AIController
 from math import sqrt
 from random import randint
 
+from ai import AIController
 from inventory import Inventory
+
 from time import time
 
 

@@ -4,8 +4,6 @@ Created on 2013-05-16
 @author: brian
 '''
 
-from ai import *
-
 import pygame
 from entity import Entity
 
@@ -21,11 +19,11 @@ class Headless(Entity):
 		self.health = self.maxHealth = 20
 		
 		
-		self.ai.addAI(Flee(self))
-		self.ai.addAI(Cast(self))
-		self.ai.addAI(Pursue(self))
-		self.ai.addAI(Follow(self))
-		self.ai.addAI(Wander(self))
+		self.ai.addAI(self.ai.tasks.Flee(self))
+		self.ai.addAI(self.ai.tasks.Cast(self))
+		self.ai.addAI(self.ai.tasks.Pursue(self))
+		self.ai.addAI(self.ai.tasks.Follow(self))
+		self.ai.addAI(self.ai.tasks.Wander(self))
 		self.hostile = True
 		
 		self.singular = 'a headless'		

@@ -8,9 +8,7 @@ import pygame
 from random import randint
 from random import choice
 
-
 from entity import Entity
-from ai import *
 
 class Skeleton(Entity):
 
@@ -33,9 +31,9 @@ class SkeletalWarrior(Skeleton):
 		
 
 		
-		self.ai.addAI(Cast(self))
-		self.ai.addAI(Pursue(self))
-		self.ai.addAI(Wander(self))
+		self.ai.addAI(self.ai.tasks.Cast(self))
+		self.ai.addAI(self.ai.tasks.Pursue(self))
+		self.ai.addAI(self.ai.tasks.Wander(self))
 	
 	def equip(self):
 		self.inventory.bar[0] = self.world.items.weapons.getSword()
@@ -44,10 +42,10 @@ class SkeletalArcher(Skeleton):
 	
 	def __init__(self, world):
 		Skeleton.__init__(self, world)
-		self.ai.addAI(Fallback(self))
-		self.ai.addAI(Cast(self))
-		self.ai.addAI(Pursue(self))
-		self.ai.addAI(Wander(self))
+		self.ai.addAI(self.ai.tasks.Fallback(self))
+		self.ai.addAI(self.ai.tasks.Cast(self))
+		self.ai.addAI(self.ai.tasks.Pursue(self))
+		self.ai.addAI(self.ai.tasks.Wander(self))
 		
 	def equip(self):
 		self.inventory.bar[0] = self.world.items.weapons.getBow()
@@ -57,10 +55,10 @@ class SkeletalMage(Skeleton):
 	
 	def __init__(self, world):
 		Skeleton.__init__(self, world)
-		self.ai.addAI(Fallback(self))
-		self.ai.addAI(Cast(self))
-		self.ai.addAI(Pursue(self))
-		self.ai.addAI(Wander(self))
+		self.ai.addAI(self.ai.tasks.Fallback(self))
+		self.ai.addAI(self.ai.tasks.Cast(self))
+		self.ai.addAI(self.ai.tasks.Pursue(self))
+		self.ai.addAI(self.ai.tasks.Wander(self))
 		
 	def equip(self):
 		self.inventory.bar[0] = self.world.items.weapons.getDamageStaff()

@@ -5,8 +5,8 @@ import time
 import os
 import items
 
-from entities import MobManager
-from entities import Party
+from entity import MobManager
+from entity import Party
 from terrain import ChunkManager
 import terrain
 

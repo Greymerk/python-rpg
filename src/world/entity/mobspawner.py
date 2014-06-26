@@ -6,15 +6,15 @@ Created on 2013-05-16
 
 from random import choice
 from random import randint
+from mobs import hostiles
 
 class MobSpawner(object):
 
 	maxMobs = 40
 	spawnFrequency = 10
 
-	def __init__(self, world, mobs):
+	def __init__(self, world):
 		self.world = world
-		self.mobs = mobs
 
 	def spawn(self):
 		
@@ -35,8 +35,8 @@ class MobSpawner(object):
 		
 	def getRandomMob(self):
 		
-		randomMobClass = choice(self.mobs.values())
-		mob = randomMobClass(self.world)
+		mobtype = choice(hostiles)
+		mob = mobtype(self.world)
 		mob.equip()
 		return mob
 		

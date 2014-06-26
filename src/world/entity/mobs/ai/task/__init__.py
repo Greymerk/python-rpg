@@ -1,6 +1,3 @@
-
-from aicontroller import AIController
-
 from wander import Wander
 from follow import Follow
 from flee import Flee

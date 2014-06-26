@@ -7,8 +7,6 @@ Created on 2013-05-27
 from entity import Entity
 import pygame
 from random import randint
-from ai import *
-
 
 class Mage(Entity):
 
@@ -19,10 +17,10 @@ class Mage(Entity):
 		Entity.__init__(self, world)
 		self.singular = 'a mage'
 
-		self.ai.addAI(Fallback(self))
-		self.ai.addAI(Cast(self))
-		self.ai.addAI(Follow(self))
-		self.ai.addAI(Wander(self))
+		self.ai.addAI(self.ai.tasks.Fallback(self))
+		self.ai.addAI(self.ai.tasks.Cast(self))
+		self.ai.addAI(self.ai.tasks.Follow(self))
+		self.ai.addAI(self.ai.tasks.Wander(self))
 		
 		
 	def equip(self):

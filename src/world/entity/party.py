@@ -4,9 +4,10 @@ Created on 2013-05-26
 @author: brian
 '''
 
-from bard import Bard
-from mage import Mage
-from fighter import Fighter
+from mobs import Bard
+from mobs import Fighter
+from mobs import Mage
+
 
 class Party(object):
 	

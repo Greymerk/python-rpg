@@ -7,7 +7,6 @@ from entity import Entity
 import pygame
 from random import randint
 from random import choice
-from ai import *
 
 
 class Fighter(Entity):
@@ -20,11 +19,11 @@ class Fighter(Entity):
 		self.singular = 'a fighter'
 
 		
-		self.ai.addAI(Flee(self))
-		self.ai.addAI(Cast(self))
-		self.ai.addAI(Pursue(self))
-		self.ai.addAI(Follow(self))
-		self.ai.addAI(Wander(self))
+		self.ai.addAI(self.ai.tasks.Flee(self))
+		self.ai.addAI(self.ai.tasks.Cast(self))
+		self.ai.addAI(self.ai.tasks.Pursue(self))
+		self.ai.addAI(self.ai.tasks.Follow(self))
+		self.ai.addAI(self.ai.tasks.Wander(self))
 
 	def equip(self):
 		self.inventory.bar[0] = self.world.items.weapons.getSword()
