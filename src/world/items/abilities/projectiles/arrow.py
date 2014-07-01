@@ -29,8 +29,8 @@ class Arrow:
 		if dist is 0:
 			dist = 1
 		
-		self.vx = (float(self.end[0]) - self.start[0]) / (2 * dist)
-		self.vy = (float(self.end[1]) - self.start[1]) / (2 * dist)
+		self.vx = (float(self.end[0]) - self.start[0]) / (3 * dist)
+		self.vy = (float(self.end[1]) - self.start[1]) / (3 * dist)
 		
 		self.trail = deque()
 		

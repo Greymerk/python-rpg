@@ -19,9 +19,9 @@ class Viewport(object):
 		self.reticule = pygame.transform.scale2x(images.get("reticule.png"))
 		self.grid = [None]*289
 		self.mapCache = {}
+		self.viewCache = None
 		self.currentTurn = None
 		self.cameraPosition = None
-
 			
 	def update(self):	  
 		
@@ -31,6 +31,7 @@ class Viewport(object):
 			return
 
 		self.currentTurn = self.world.time
+		self.viewCache = None
 		self.cameraPosition = leader.position
 
 		if leader is not None:
@@ -96,18 +97,24 @@ class Viewport(object):
 	def drawGame(self):
 
 		camPos = self.player.party.getLeader().position
+		
+		if self.viewCache is None:
+		
+			self.viewCache = self.surface.copy()
+			
+			for row in range(17):
+				for col in range(17):
+					cell = self.grid[row * 17 + col]
+					if cell is None:
+						continue
 
-		for row in range(17):
-			for col in range(17):
-				cell = self.grid[row * 17 + col]
-				if cell is None:
-					continue
+					ground = cell.getGround()
+					image = self.images.get(ground.getImage(camPos[0] - 8 + col, camPos[1] - 8 + row))
+					dest = (col * 32), (row * 32)
 
-				ground = cell.getGround()
-				image = self.images.get(ground.getImage(camPos[0] - 8 + col, camPos[1] - 8 + row))
-				dest = (col * 32), (row * 32)
-
-				self.surface.blit(image, dest)
+					self.viewCache.blit(image, dest)
+		
+		self.surface.blit(self.viewCache, (0,0))
 
 		entities = list(set(self.world.mobManager.mobs) | set(self.world.friendly))
 		entities.sort(lambda a, b: cmp(a.isAlive(), b.isAlive()))
