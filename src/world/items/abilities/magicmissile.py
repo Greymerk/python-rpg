@@ -28,7 +28,7 @@ class MagicMissile(object):
 		else:
 			self.caster.world.log.append(casterName + ' cast ' + self.__class__.__name__ + ' at nothing!')
 		
-		self.projectile = Star(caster.position, location, item.color, self.entityHit, self.fire, self.impact)
+		self.projectile = Star(caster.position, location, item.color, self.fire, self.impact)
 		self.done = False
 	 
 	def update(self):

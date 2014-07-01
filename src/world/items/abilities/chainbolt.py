@@ -23,7 +23,7 @@ class ChainBolt(object):
 		else:
 			self.caster.world.log.append(casterName + ' cast ' + self.__class__.__name__ + ' at nothing!')
 		
-		self.projectile = Star(caster.position, location, self.item.color, self.entityHit, self.fire, self.impact)
+		self.projectile = Star(caster.position, location, self.item.color, self.fire, self.impact)
 		self.done = False
 	 
 	def update(self):
@@ -41,7 +41,7 @@ class ChainBolt(object):
 				if nextTarget is None:
 					self.done = True
 					return True
-				self.projectile = Star(self.entityHit.position, nextTarget.position, self.item.color, nextTarget, self.fire, self.impact)
+				self.projectile = Star(self.entityHit.position, nextTarget.position, self.item.color, self.fire, self.impact)
 				self.entityHit = nextTarget
 		return False
 		

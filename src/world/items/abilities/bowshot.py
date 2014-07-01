@@ -28,7 +28,7 @@ class BowShot(object):
 		else:
 			self.caster.world.log.append(casterName + ' shot nothing!')
 
-		self.projectile = Arrow(caster.position, location, item.color, self.entityHit, self.fire, self.impact)
+		self.projectile = Arrow(caster.position, location, item.color, self.fire, self.impact)
 		self.done = False
 		
 	def update(self):

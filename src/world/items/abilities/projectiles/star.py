@@ -11,16 +11,12 @@ class Star:
 	maxParticals = 10
 	granularity = 15
 	
-	def __init__(self, origin, targetLocation, color, targetEntity = None, fire=None, impact=None):
+	def __init__(self, origin, targetLocation, color, fire=None, impact=None):
 		self.particals = deque()
-		self.targetEntity = targetEntity
 		self.pos = self.origin = float(origin[0]) + 0.5, float(origin[1]) + 0.5
 		self.fire = fire
 		self.impact = impact
-		if targetEntity is not None:
-			self.target = float(targetEntity.position[0]) + 0.5, float(targetEntity.position[1]) + 0.5
-		else:
-			self.target = float(targetLocation[0]) + 0.5, float(targetLocation[1]) + 0.5
+		self.target = float(targetLocation[0]) + 0.5, float(targetLocation[1]) + 0.5
 		
 		dx = abs(float(origin[0]) - targetLocation[0])
 		dy = abs(float(origin[1]) - targetLocation[1])
@@ -38,27 +34,14 @@ class Star:
 
 	def update(self):
 		
-		if self.targetEntity is not None:
-			self.target = float(self.targetEntity.position[0]) + 0.5, float(self.targetEntity.position[1]) + 0.5
-			self.vx = (float(self.target[0]) - self.origin[0]) / Star.granularity
-			self.vy = (float(self.target[1]) - self.origin[1]) / Star.granularity
-				
 		if (int(self.pos[0]), int(self.pos[1])) == (int(self.target[0]), int(self.target[1])):
 			self.done = True
 			if self.impact is not None:
 				self.impact()
 			return
 
-		self.updateStar()
-		self.updateParticles()
-		
-	
-	def updateStar(self):
-
 		self.pos = self.pos[0] + self.vx, self.pos[1] + self.vy
-	
-	def updateParticles(self):
-
+		
 		x, y = self.pos
 		
 		while len(self.particals) > Star.maxParticals:
