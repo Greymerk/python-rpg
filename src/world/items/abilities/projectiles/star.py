@@ -7,11 +7,13 @@ from collections import deque
 class Star:
 
 	ballSize = 3
-	scatter = 5
-	maxParticals = 10
+	scatter = 8
+	maxParticals = 20
 	granularity = 15
 	
 	def __init__(self, origin, targetLocation, color, fire=None, impact=None):
+		self.start = origin
+		self.end = targetLocation
 		self.particals = deque()
 		self.pos = self.origin = float(origin[0]) + 0.5, float(origin[1]) + 0.5
 		self.fire = fire
@@ -24,8 +26,8 @@ class Star:
 		if dist is 0:
 			dist = 1
 		
-		self.vx = (float(self.target[0]) - self.origin[0]) / (2 * dist)
-		self.vy = (float(self.target[1]) - self.origin[1]) / (2 * dist)
+		self.vx = (float(self.target[0]) - self.origin[0]) / (3 * dist)
+		self.vy = (float(self.target[1]) - self.origin[1]) / (3 * dist)
 
 		if self.fire is not None:
 			self.fire()
