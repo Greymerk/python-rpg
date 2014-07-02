@@ -26,8 +26,8 @@ class Mage(Entity):
 		
 	def equip(self):
 		self.inventory.bar[0] = self.world.items.weapons.getDamageStaff()
-		self.inventory.bar[1] = self.world.items.weapons.getHealStaff()
-		self.inventory.bar[2] = self.world.items.weapons.getResStaff()
+		self.inventory.bar[2] = self.world.items.weapons.getHealStaff()
+		self.inventory.bar[3] = self.world.items.weapons.getResStaff()
 		
 	@classmethod
 	def onDamage(cls, sounds):

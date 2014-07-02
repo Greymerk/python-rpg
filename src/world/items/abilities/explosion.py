@@ -4,7 +4,8 @@ from math import sqrt
 
 class Explosion(object):
 	
-	range = 5
+	range = 6
+	radius = 4
 	damage = 2, 5
 	heal = False
 	
@@ -34,7 +35,7 @@ class Explosion(object):
 			
 			if self.projectile.done:
 				#explosion start
-				targets = self.getNearbyTiles(self.target, 4)
+				targets = Explosion.getNearbyTiles(self.target, Explosion.radius)
 				if not targets:
 					self.done = True
 					return True
@@ -71,18 +72,20 @@ class Explosion(object):
 				for star in self.explosion:
 					star.draw(surface, position, visible)
 		
-	def getNearbyTiles(self, pos, r):
+	@staticmethod
+	def getNearbyTiles(pos, r):
 		targets = []
 		xP = pos[0] - (r - 1)
 		yP = pos[1] - (r - 1)
 		for x in xrange(r * 2 - 1):
 			for y in xrange(r * 2 - 1):
 				toHit = (xP + x, yP + y)
-				if self.canHit(pos, toHit, r):
+				if Explosion.canHit(pos, toHit, r):
 					targets.append(toHit)
 		return targets
 	
-	def canHit(self, origin, position, r):
+	@staticmethod
+	def canHit(origin, position, r):
 		
 		relx = abs(float(origin[0]) - float(position[0]))
 		rely = abs(float(origin[1]) - float(position[1]))
@@ -99,17 +102,29 @@ class Explosion(object):
 
 		if not target in actor.getEnemies():
 			return False
-
+	
 		if not target.isAlive():
 			return False
-
-		if not actor.canSee(target.position):
+	
+		if not actor.partyCanSee(target.position):
 			return False
-
+	
+		nearbyTiles = cls.getNearbyTiles(target.position, Explosion.radius)
+		for pos in nearbyTiles:
+			e = actor.world.getEntityFromLocation(pos)
+			if e is None:
+				continue
+			if not target.isAlive():
+				continue
+			if e is actor:
+				return False
+			if e in actor.getFriends():
+				return False
+	
 		return True
 
 	def fire(self):
-		self.caster.world.sounds.get("magic-missile.wav").play()
+		self.caster.world.sounds.get("fireball.wav").play()
 	
 	def impact(self):
 		self.caster.world.sounds.get("explosion.wav").play()

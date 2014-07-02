@@ -58,7 +58,7 @@ class ChainBolt(object):
 		if not target.isAlive():
 			return False
 
-		if not actor.canSee(target.position):
+		if not actor.partyCanSee(target.position):
 			return False
 
 		return True

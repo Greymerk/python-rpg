@@ -5,6 +5,7 @@ Created on 2013-06-04
 '''
 
 from random import randint
+from random import choice
 
 from pygame.color import THECOLORS
 
@@ -50,10 +51,12 @@ class Weapon(Item):
 	
 	@staticmethod
 	def getDamageStaff():
-		return Weapon("Staff of Explosion", (2, 5), 6, Explosion, THECOLORS['orange'])
-		if randint(0, 3) == 0: return Weapon("Staff of Fireball", (3, 7), 6, FireBall, THECOLORS['orange'])
-		if randint(0, 2) == 0: return Weapon("Staff of Chain Bolt", (1, 4), 6, ChainBolt, THECOLORS['lightcyan'])
-		return Weapon("Staff of Magic Missile", (2, 5), 6, MagicMissile, THECOLORS['cyan'])
+		weapons = []
+		weapons.append(lambda : Weapon("Staff of Fireball", (3, 7), 6, FireBall, THECOLORS['orange']))
+		weapons.append(lambda : Weapon("Staff of Explosion", (2, 5), 6, Explosion, THECOLORS['orange']))
+		weapons.append(lambda : Weapon("Staff of Chain Bolt", (1, 4), 6, ChainBolt, THECOLORS['lightcyan']))
+		weapons.append(lambda : Weapon("Staff of Magic Missile", (2, 5), 6, MagicMissile, THECOLORS['cyan']))
+		return choice(weapons)()
 		
 	@staticmethod
 	def getHealStaff():

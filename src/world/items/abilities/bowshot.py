@@ -54,7 +54,8 @@ class BowShot(object):
 		if target in actor.getFriends():
 			return False
 		
-		return True
+		return actor.partyCanSee(target.position)
+		
 	
 	def fire(self):
 		self.caster.world.sounds.get("pew.wav").play()

@@ -131,7 +131,7 @@ class Viewport(object):
 	
 	def drawMap(self):
 		
-		self.surface.fill(THECOLORS["navajowhite"])
+		self.surface.fill(THECOLORS["papayawhip"])
 		
 		x, y = self.player.party.getLeader().position
 		x, y = (x >> 4) - 8, (y >> 4) - 8

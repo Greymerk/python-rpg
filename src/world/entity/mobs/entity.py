@@ -162,6 +162,12 @@ class Entity:
 		
 		return True
 	
+	def partyCanSee(self, position):
+		if self.group is None:
+			return self.canSee(position)
+			
+		return self.group.canSee(position)
+	
 	def canSee(self, position):
 		
 		relx = abs(self.position[0] - position[0])

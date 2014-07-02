@@ -51,7 +51,7 @@ class HealBolt(object):
 		if target.health / target.maxHealth > 0.8:
 			return False
 
-		if not actor.canSee(target.position):
+		if not actor.partyCanSee(target.position):
 			return False
 
 		return True

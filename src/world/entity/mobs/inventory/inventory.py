@@ -25,12 +25,12 @@ class Inventory(object):
 			
 			for e in self.owner.world.getAllEntities():
 				
+				if not self.owner.canHit(e.position, item.range):
+					continue
+				
 				if not item.ability.validTarget(self.owner, e):
 					continue
 				
-				if not self.owner.canHit(e.position, item.range):
-					continue
-
 				return item.ability(self.owner, e.position, item) #ability instance
 	
 	def load(self, data):
