@@ -61,27 +61,9 @@ class Viewport(object):
 		
 		if (not self.world.chunkManager.isLoaded(x, y)) and (x, y) in self.mapCache.keys():
 			return None
-				
-		# get list of tile IDs
-		mapData = self.world.chunkManager.getMap(x, y)
 		
-		if mapData is None:
-			return None
-		
-		# create surface
-		imageMap = pygame.Surface((32, 32))
-		pixelMap = pygame.PixelArray(imageMap)
-				
-		for row in range(16):
-			for col in range(16):
-				cell = mapData[row * 16 + col]
-				color = cell.color()
-				pixelMap[col * 2	, row * 2] = color
-				pixelMap[col * 2	, row * 2 + 1] = color
-				pixelMap[col * 2 + 1, row * 2] = color
-				pixelMap[col * 2 + 1, row * 2 + 1] = color
-				
-		return pixelMap.surface
+		return self.world.chunkManager.getMap(x, y)
+
 				   
 		
 		
@@ -138,11 +120,14 @@ class Viewport(object):
 			  
 		for row in range(17):
 			for col in range(17):
-				if (x + col, y + row) in self.mapCache.keys():
-					dest = (col * 32), (row * 32)
-					self.surface.blit(self.mapCache[(x + col, y + row)], dest)
+				img = self.world.chunkManager.getMap(x + col, y + row)
+				if img is None:
+					continue
+				
+				dest = (col * 32), (row * 32)
+				self.surface.blit(img, dest)
 			  
-		x, y = self.player.party.getLeader().position	  
+		x, y = self.player.party.getLeader().position  
 		leftChunk, topChunk = (x >> 4) - 8, (y >> 4) - 8
 					
 		for mob in self.world.mobManager.mobs:

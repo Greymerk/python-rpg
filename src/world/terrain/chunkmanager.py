@@ -1,5 +1,6 @@
 from collections import deque
 from random import choice
+from mapcache import MapCache
 
 from chunk import Chunk
 
@@ -8,6 +9,7 @@ class ChunkManager:
 	def __init__(self, world):
 		self.world = world
 		self.chunkCache = deque()
+		self.mapCache = MapCache(self, self.world.seed)
 		self.maxCacheSize = 64
 		self.chunkSize = 16
 
@@ -20,7 +22,7 @@ class ChunkManager:
 			if c.getPos() == (chunkX, chunkY):
 				return c
 
-		toLoad = Chunk((chunkX, chunkY), self.world.getSeed(), self.world.mobManager)
+		toLoad = Chunk((chunkX, chunkY), self.world.getSeed(), self.world.mobManager, self.mapCache)
 		self.chunkCache.append(toLoad)
 		
 		if len(self.chunkCache) > self.maxCacheSize:
@@ -30,15 +32,7 @@ class ChunkManager:
 		return toLoad
 	
 	def getMap(self, x, y):
-				
-		for c in self.chunkCache:
-			if c.getPos() == (x, y):
-				return c.getMap()
-		
-		map = Chunk.loadMap(x, y)
-
-		return map
-	
+		return self.mapCache.get(x, y)
 	
 	def getTile(self, (x, y)):
 		c = self.getChunk(x, y)
@@ -54,9 +48,8 @@ class ChunkManager:
 	
 	def setTile(self, (x, y), id):
 		c = self.getChunk(x, y)
-		tile = c.getTile(x % self.chunkSize, y % self.chunkSize)
-		tile.setGround(id)
-		c.save()
+		c.setTile((x, y), id)
+
 	
 	def saveChunks(self):
 		for c in self.chunkCache:

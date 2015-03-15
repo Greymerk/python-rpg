@@ -8,7 +8,7 @@ import terrain
 
 class Chunk:
 	
-	def __init__(self, pos, seed, mobManager):
+	def __init__(self, pos, seed, mobManager, mapCache):
 		self.seed = seed
 		self.pos = pos
 		self.mobs = mobManager
@@ -18,20 +18,17 @@ class Chunk:
 		self.saveDir = 'save/world/'
 		if not os.path.isdir(self.saveDir):
 			os.mkdir(self.saveDir)
-			
-		self.mapDir = 'save/map/'
-		if not os.path.isdir(self.mapDir):
-			os.mkdir(self.mapDir)
-
+		
 		self.load()
-
+		self.mapCache = mapCache
+		self.mapCache.genMap(self)
+		
+		
 	def getPos(self):
 		return self.pos
 
 
 	def save(self):
-
-		self.saveMap()
 
 		chunkData = {}
 		tileList = []
@@ -46,19 +43,10 @@ class Chunk:
 		p = pickle.Pickler(f)
 		p.dump(chunkData)
 		f.close()
-		
-		
-	def saveMap(self):
-		map = self.getIntMap()
-		jsonMap = json.dumps(map)
-		x, y = self.pos
-		fileName = self.mapDir + str(x) + '_' + str(y)
-		f = open(fileName, 'w')
-		f.write(jsonMap)
-		f.close()
-		
+
 	def unload(self):
 		self.save()
+		self.mapCache.genMap(self)
 		self.mobs.unload(self.pos)
 			
 
@@ -83,47 +71,15 @@ class Chunk:
 			
 		self.mobs.load(chunkData['mobs'])
 
-
 	def generate(self):
 		self.tiles = chunkgen.ChunkGen(self.seed, self.pos).generate()
-
 		
 	def getTile(self, x, y):
 		return self.tiles[y * self.chunkSize + x]
-	
-	def getMap(self):
-		map = [0]*256
 		
-		for i in range(256):
-			map[i] = self.tiles[i].getGround()
-	
-		return map
-		
-	def getIntMap(self):
-		map = [0]*256
-		
-		for i in range(256):
-			map[i] = self.tiles[i].getGround().id
-	
-		return map
-	
-	@classmethod
-	def loadMap(cls, x, y):
-				
-		fileName = 'save/map/' + str(x) + '_' + str(y)
-		
-		if not os.path.exists(fileName):
-			return
-		
-		f = open(fileName, 'r')
-		jsonMap = f.read()
-		f.close()
-		
-		intMap = json.loads(jsonMap)
-		map = [0]*256
-		
-		for i in range(256):
-			map[i] = terrain.lookup[intMap[i]]
-			
-		return map
+	def setTile(self, (x, y), id):
+		tile = self.tiles[y * self.chunkSize + x]
+		tile.setGround(id)
+		self.mapCache.genMap(self)
+		c.save()
 

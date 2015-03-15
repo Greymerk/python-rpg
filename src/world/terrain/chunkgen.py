@@ -110,4 +110,3 @@ class ChunkGen:
 					newChunk[i].build(terrain.Rock.id)
 
 		return newChunk
-

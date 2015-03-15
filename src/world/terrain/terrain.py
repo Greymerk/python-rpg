@@ -48,7 +48,7 @@ class Grass(Material):
 	symbol = '-'
 	image = "grass.png"
 	step = "step-grass.wav"
-	rgb = (0, 150, 0)
+	rgb = (0, 200, 0)
 	spawnable = True
 	
 	@classmethod
@@ -65,7 +65,7 @@ class Brush(Material):
 	singular = 'brush'
 	symbol = 's'
 	image = "brush.png"
-	rgb = (50, 100, 20)
+	rgb = (90, 150, 50)
 	spawnable = True
 	step = "step-brush.wav"
 	
@@ -95,7 +95,7 @@ class Foothills(Material):
 	singular = 'foothills'
 	symbol = 'n'
 	image = "foothills.png"
-	rgb = (150, 125, 100)
+	rgb = (200, 150, 140)
 	spawnable = True
 
 
@@ -116,7 +116,7 @@ class Mountain(Material):
 	image = "mountain.png"
 	passable = False
 	transparent = False
-	rgb = (200, 200, 200)
+	rgb = (230, 230, 230)
 	r = 50
 
 class Peak(Material):
