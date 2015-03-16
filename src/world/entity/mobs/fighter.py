@@ -11,8 +11,8 @@ from ai import task
 
 class Fighter(Entity):
 
-	living = "fighter.png"
-	dead = "body.png"
+	living = "fighter"
+	dead = "body"
 
 	def __init__(self, world):
 		Entity.__init__(self, world)

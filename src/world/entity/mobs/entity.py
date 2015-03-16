@@ -10,9 +10,9 @@ from time import time
 
 class Entity:
 
-	living = "player.png"
-	dead = "body.png"
-	damage = "damage.png"
+	living = "player"
+	dead = "body"
+	damage = "damage"
 	step = "step.wav"
 	ouch = "ouch.wav"
 	
@@ -76,7 +76,7 @@ class Entity:
 			if time() - self.lastDamage < 0.2:
 				screen.blit(images.get(self.__class__.damage), position)
 				return
-			screen.blit(images.get(self.__class__.living), position)
+			screen.blit(images.get(self.__class__.living, camPos), position)
 		
 		if self.action is not None:
 			self.action.draw(screen, camPos, visible)

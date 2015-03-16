@@ -10,8 +10,8 @@ from ai import task
 
 class Orc(Entity):
 
-	living = "orc.png"
-	dead = "gore.png"
+	living = "orc"
+	dead = "gore"
 
 
 	def __init__(self, world):

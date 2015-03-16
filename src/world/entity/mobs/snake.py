@@ -11,8 +11,8 @@ from ai import task
 
 class Snake(Entity):
 
-	living = "snake.png"
-	dead = "gore.png"
+	living = "snake"
+	dead = "gore"
 
 
 	def __init__(self, world):

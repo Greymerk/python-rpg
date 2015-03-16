@@ -9,8 +9,8 @@ from ai import task
 
 class Bard(Entity):
 
-	living = "bard.png"
-	dead = "body.png"
+	living = "bard"
+	dead = "body"
 
 	def __init__(self, world):
 		Entity.__init__(self, world)

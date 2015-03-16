@@ -10,8 +10,8 @@ from ai import task
 
 class Headless(Entity):
 
-	living = "headless.png"
-	dead = "gore.png"
+	living = "headless"
+	dead = "gore"
 
 
 	def __init__(self, world):

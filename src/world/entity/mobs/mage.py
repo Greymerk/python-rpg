@@ -11,8 +11,8 @@ from ai import task
 
 class Mage(Entity):
 
-	living = "mage.png"
-	dead = "body.png"
+	living = "mage"
+	dead = "body"
 
 	def __init__(self, world):
 		Entity.__init__(self, world)

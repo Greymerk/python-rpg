@@ -10,8 +10,8 @@ from ai import task
 
 class Rat(Entity):
 
-	living = "rat.png"
-	dead = "gore.png"
+	living = "rat"
+	dead = "gore"
 
 
 	def __init__(self, world):

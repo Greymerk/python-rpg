@@ -15,8 +15,8 @@ class Viewport(object):
 		self.world = world
 		self.player = player
 		self.previousPosition = None
-		self.mapOverlay = images.get("map-overlay.png")
-		self.reticule = pygame.transform.scale2x(images.get("reticule.png"))
+		self.mapOverlay = images.get("map-overlay")
+		self.reticule = pygame.transform.scale2x(images.get("reticule"))
 		self.grid = [None]*289
 		self.mapCache = {}
 		self.viewCache = None
@@ -72,8 +72,9 @@ class Viewport(object):
 		self.surface.fill((0,0,0))
 		if(self.player.viewingMap):
 			self.drawMap()
-		else:
-			self.drawGame()
+			return
+			
+		self.drawGame()
 
 	
 	def drawGame(self):
@@ -91,7 +92,9 @@ class Viewport(object):
 						continue
 
 					ground = cell.getGround()
-					image = self.images.get(ground.getImage(camPos[0] - 8 + col, camPos[1] - 8 + row))
+					relPos = camPos[0] - 8 + col, camPos[1] - 8 + row
+					imgName = ground.getImage(relPos)
+					image = self.images.get(imgName, relPos)
 					dest = (col * 32), (row * 32)
 
 					self.viewCache.blit(image, dest)

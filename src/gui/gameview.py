@@ -14,7 +14,7 @@ class Gameview(object):
 		self.surface = surface
 		self.images = images
 		
-		self.background = images.get("interface.png")
+		self.background = images.get("interface")
 		
 		viewportRect = pygame.Rect((28, 28), (17*32, 17*32))
 		self.viewport = Viewport(self.surface.subsurface(viewportRect), world, player, images)

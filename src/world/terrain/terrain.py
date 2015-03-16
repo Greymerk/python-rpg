@@ -10,7 +10,7 @@ class Material:
 	passable = True
 	transparent = True
 	breakable = False
-	image = "tile.png"
+	image = "tile"
 	rgb = (20, 20, 20)
 	jitter = 10
 	spawnable = False
@@ -39,52 +39,34 @@ class Void(Material):
 	singular = 'the void'
 	symbol = '#'	
 	passable = False
-	image = "tile.png"
+	image = "tile"
 
 class Grass(Material):
 
 	id = 1
 	singular = 'grass'
 	symbol = '-'
-	image = "grass.png"
+	image = "grass"
 	step = "step-grass.wav"
 	rgb = (0, 200, 0)
 	spawnable = True
-	
-	@classmethod
-	def getImage(cls, x=0, y=0):
-		rand = Random()
-		rand.seed(x | y)
-		if rand.randint(0, 3) == 0:
-			return "grass2.png"
-		return cls.image
 
 class Brush(Material):
 
 	id = 2
 	singular = 'brush'
 	symbol = 's'
-	image = "brush.png"
+	image = "brush"
 	rgb = (90, 150, 50)
 	spawnable = True
 	step = "step-brush.wav"
-	
-	@classmethod
-	def getImage(cls, x=0, y=0):
-		rand = Random()
-		rand.seed(x | y)
-		if rand.randint(0, 30) == 0:
-			return "jungle.png"
-		if rand.randint(0, 10) == 0:
-			return "forest.png"
-		return cls.image
 
 class FloorBrick(Material):
 
 	id = 3
 	singular = 'floor'
 	symbol = 'x'
-	image = "floor-brick.png"
+	image = "floor-brick"
 	breakable = True
 	rgb = (150, 50, 50)
 	
@@ -94,7 +76,7 @@ class Foothills(Material):
 	id = 4
 	singular = 'foothills'
 	symbol = 'n'
-	image = "foothills.png"
+	image = "foothills"
 	rgb = (200, 150, 140)
 	spawnable = True
 
@@ -104,7 +86,7 @@ class WallBrick(Material):
 	id = 5
 	singular = 'stone brick'
 	symbol = 'H'
-	image = "wall-brick.png"
+	image = "wall-brick"
 	passable = False
 	transparent = False
 
@@ -113,7 +95,7 @@ class Mountain(Material):
 	id = 6
 	singular = 'a mountain'
 	symbol = '^'
-	image = "mountain.png"
+	image = "mountain"
 	passable = False
 	transparent = False
 	rgb = (230, 230, 230)
@@ -124,7 +106,7 @@ class Peak(Material):
 	id = 7
 	singular = 'a high peak'
 	symbol = 'A'
-	image = "peaks.png"
+	image = "peaks"
 	passable = False
 	transparent = False
 	rgb = (255, 255, 255)
@@ -135,7 +117,7 @@ class Water(Material):
 	id = 8
 	singular = 'still water'
 	symbol = '~'
-	image = "water.png"
+	image = "water"
 	passable = False
 	rgb = (50, 50, 120)
 	#rgb = (255, 0, 0)
@@ -145,7 +127,7 @@ class WallStone(Material):
 	id = 9
 	singular = 'cobblestone'
 	symbol = '&'	
-	image = "wall-stone.png"
+	image = "wall-stone"
 	passable = False
 	breakable = True
 	transparent = False
@@ -156,7 +138,7 @@ class Tree(Material):
 	id = 10
 	singular = 'a tree'
 	symbol = '@'
-	image = "tree.png"
+	image = "tree"
 	passable = False
 	breakable = True
 	transparent = False
@@ -171,14 +153,14 @@ class Well(Material):
 	id = 11
 	singular = 'a well'
 	symbol = 'T'
-	image = "well.png"
+	image = "well"
 	passable = False
 
 class Door(Material):
 	id = 12
 	singular = 'a door'	
 	symbol = 'O'
-	image = "door.png"
+	image = "door"
 	passable = False
 	breakable = True
 	transparent = False
@@ -187,7 +169,7 @@ class Rock(Material):
 	id = 13
 	singular = 'a pile of rocks'
 	symbol = 'R'
-	image = "rocks.png"
+	image = "rocks"
 	passable = False
 	breakable = True
 	transparent = False
@@ -202,7 +184,7 @@ class DeadTree(Material):
 	id = 14
 	singular = 'a dead tree'
 	symbol = '@'
-	image = "tree-dead.png"
+	image = "tree-dead"
 	passable = False
 	breakable = True
 	rgb = (120, 75, 0)
@@ -215,7 +197,7 @@ class Sand(Material):
 	id = 15
 	singular = 'sand'
 	symbol = 'R'
-	image = "sand.png"
+	image = "sand"
 	step = "step-sand.wav"
 	passable = True
 	breakable = False
@@ -227,7 +209,7 @@ class Plank(Material):
 	id = 16
 	singular = 'plank'
 	symbol = 'H'
-	image = "planks.png"
+	image = "planks"
 	step = "step-wood.wav"
 	breakable = True
 	rgb = (120, 75, 0)

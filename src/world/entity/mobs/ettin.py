@@ -11,8 +11,8 @@ from ai import task
 
 class Ettin(Entity):
 
-	living = "ettin.png"
-	dead = "gore.png"
+	living = "ettin"
+	dead = "gore"
 
 	def __init__(self, world):
 		Entity.__init__(self, world)

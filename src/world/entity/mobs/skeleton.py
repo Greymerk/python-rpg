@@ -13,8 +13,8 @@ from ai import task
 
 class Skeleton(Entity):
 
-	living = "skeleton.png"
-	dead = "gore.png"
+	living = "skeleton"
+	dead = "gore"
 
 
 	def __init__(self, world):
