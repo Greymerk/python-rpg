@@ -77,7 +77,7 @@ class Foothills(Material):
 	singular = 'foothills'
 	symbol = 'n'
 	image = "foothills"
-	rgb = (200, 150, 140)
+	rgb = (180, 160, 140)
 	spawnable = True
 
 
@@ -119,8 +119,7 @@ class Water(Material):
 	symbol = '~'
 	image = "water"
 	passable = False
-	rgb = (50, 50, 120)
-	#rgb = (255, 0, 0)
+	rgb = (100, 100, 255)
 	r = 60
 
 class WallStone(Material):
@@ -201,7 +200,7 @@ class Sand(Material):
 	step = "step-sand.wav"
 	passable = True
 	breakable = False
-	rgb = (200, 175, 50)
+	rgb = (255, 210, 120)
 	spawnable = True
 
 class Plank(Material):
