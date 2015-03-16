@@ -87,7 +87,10 @@ class World:
 	
 	def build(self, location, tileId):
 		tile = self.getTile(location)
-		return tile.build(tileId)
+		if not tile.canBuild():
+			return False
+		self.chunkManager.setTile(location, tileId)
+		return True
 		
 	def destroy(self, location):
 		tile = self.getTile(location)

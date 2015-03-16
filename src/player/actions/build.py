@@ -39,7 +39,10 @@ class Build:
 		if(self.direction is not None and self.choice is not None):
 			x = self.player.party.getLeader().position[0] + self.direction[0]
 			y = self.player.party.getLeader().position[1] + self.direction[1]
-			self.player.world.build((x, y), self.choices[self.choice].id)
+			world = self.player.world
+			if not world.build((x, y), self.choices[self.choice].id):
+				self.player.log.append('Cannot build there')
+				return True
 			self.choices[self.choice].size -= 1
 			bag = self.player.avatar.inventory.bag
 			if bag[self.choice - K_0 - 1].size is 0:

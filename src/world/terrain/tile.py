@@ -27,13 +27,13 @@ class Tile:
 	def getName(self):
 		return self.getGround().singular
 		
-	def build(self, id):
+	def canBuild(self):
 		top = self.layers[-1:][0]
-		if(terrain.lookup[top].passable):
-			self.layers.append(id)
-			return True
-		return False
-					
+		return terrain.lookup[top].passable
+	
+	def build(self, id):
+		self.layers.append(id)
+	
 	def destroy(self):
 		if(self.isBreakable()):
 			id = self.layers.pop()

@@ -68,7 +68,7 @@ class MapCache(object):
 		c2 = self.noise.octave_noise_2d(octaves, persistence, scale, x - 2, y - 2)
 		c1 = (c1 - c2)
 		c1 *= 1.2
-		#print c1
+		
 		if c1 > 1:
 			c1 = 1
 		if c1 < 0:
@@ -78,12 +78,8 @@ class MapCache(object):
 		
 	def blend(self, percent, map):
 		
-		#print percent
-		#print map
 		r = int(map[0] * percent)
 		g = int(map[1] * percent)
 		b = int(map[2] * percent)
-		#print r, g, b
-		
-		#r = g = b = int(percent * 255)
+
 		return r, g, b
