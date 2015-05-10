@@ -64,7 +64,7 @@ class MapCache(object):
 		persistence = 0.75
 		scale = 0.004
 		c1 = self.noise.octave_noise_2d(octaves, persistence, scale, x, y)
-		if c1 < 0:
+		if c1 < 0.05:
 			return 0.5
 		c1 += 0.4
 		c2 = self.noise.octave_noise_2d(octaves, persistence, scale, x - 2, y - 2)

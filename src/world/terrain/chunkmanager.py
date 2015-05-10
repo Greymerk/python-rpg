@@ -11,7 +11,6 @@ class ChunkManager:
 		self.chunkCache = deque()
 		self.mapCache = MapCache(self, self.world.seed)
 		self.maxCacheSize = 64
-		self.chunkSize = 16
 
 	
 	def getChunk(self, x, y):
@@ -36,7 +35,7 @@ class ChunkManager:
 	
 	def getTile(self, (x, y)):
 		c = self.getChunk(x, y)
-		return c.getTile(x % self.chunkSize, y % self.chunkSize)
+		return c.getTile(x % Chunk.size, y % Chunk.size)
 
 	def isLoaded(self, x, y):
 				

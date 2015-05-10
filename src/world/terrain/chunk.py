@@ -7,12 +7,13 @@ import json
 import terrain
 
 class Chunk:
+
+	size = 16
 	
 	def __init__(self, pos, seed, mobManager, mapCache):
 		self.seed = seed
 		self.pos = pos
 		self.mobs = mobManager
-		self.chunkSize = 16
 		self.tiles = []
 		
 		self.saveDir = 'save/world/'
@@ -75,10 +76,10 @@ class Chunk:
 		self.tiles = chunkgen.ChunkGen(self.seed, self.pos).generate()
 		
 	def getTile(self, x, y):
-		return self.tiles[y * self.chunkSize + x]
+		return self.tiles[y * Chunk.size + x]
 		
 	def setTile(self, (x, y), id):
-		tile = self.tiles[y % 16 * self.chunkSize + x % 16]
+		tile = self.tiles[y % 16 * Chunk.size + x % 16]
 		tile.build(id)
 		self.mapCache.genMap(self)
 		self.save()
