@@ -139,10 +139,14 @@ class World:
 		angle = math.atan2(float(vEnd.y - vStart.y), float(vEnd.x - vStart.x))
 		step = Vector2(math.cos(angle) * 0.2, math.sin(angle) * 0.2)
 
+		pos = None
+
 		while vStart.dist(vEnd) > 0.5:
-			tile = self.getTile((int(vStart.x), int(vStart.y)))
-			if not tile.isTransparent():
-				return True
+			if pos != (int(vStart.x), int(vStart.y)):	
+				pos = (int(vStart.x), int(vStart.y))
+				tile = self.getTile(pos)
+				if not tile.isTransparent():
+					return True
 			vStart + step
 
 		return False
