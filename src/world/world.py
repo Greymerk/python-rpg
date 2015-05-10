@@ -5,6 +5,8 @@ import time
 import os
 import items
 
+from src.util import Vector2
+
 from entity import MobManager
 from entity import Party
 from terrain import ChunkManager
@@ -131,18 +133,17 @@ class World:
 
 	def obscured(self, start, end):
 
-		origin = (float(start[0]) + 0.5, float(start[1]) + 0.5)
-		length = math.hypot(float(end[0] - start[0]), float(end[1] - start[1])) - 1
-		angle = math.atan2(float(end[1] - start[1]), float(end[0] - start[0]))
-		i = 0
-		while i < length:
-			i += 0.2
-			x = origin[0] + (math.cos(angle) * i)
-			y = origin[1] + (math.sin(angle) * i)
-			pos = int(x), int(y)
-			tile = self.getTile(pos)
+		vStart = Vector2(start[0] + 0.5, start[1] + 0.5)
+		vEnd = Vector2(end[0] + 0.5, end[1] + 0.5)
+
+		angle = math.atan2(float(vEnd.y - vStart.y), float(vEnd.x - vStart.x))
+		step = Vector2(math.cos(angle) * 0.2, math.sin(angle) * 0.2)
+
+		while vStart.dist(vEnd) > 0.5:
+			tile = self.getTile((int(vStart.x), int(vStart.y)))
 			if not tile.isTransparent():
 				return True
+			vStart + step
 
 		return False
 		
