@@ -1,6 +1,7 @@
 import pygame
 import random
 
+from src.util import Vector2
 from math import hypot
 from collections import deque
 
@@ -11,40 +12,43 @@ class Star:
 	maxParticals = 20
 	granularity = 15
 	
-	def __init__(self, origin, targetLocation, color, fire=None, impact=None):
-		self.start = origin
-		self.end = targetLocation
-		self.particals = deque()
-		self.pos = self.origin = float(origin[0]) + 0.5, float(origin[1]) + 0.5
+	def __init__(self, start, end, color, fire=None, impact=None):
+		self.start = start
+		self.end = end
+
 		self.fire = fire
 		self.impact = impact
-		self.target = float(targetLocation[0]) + 0.5, float(targetLocation[1]) + 0.5
+
+		self.particals = deque()
+
+		self.pos = self.origin = Vector2(float(start[0]) + 0.5, float(start[1]) + 0.5)
+		self.target = Vector2(float(end[0]) + 0.5, float(end[1]) + 0.5)
 		
-		dx = abs(float(origin[0]) - targetLocation[0])
-		dy = abs(float(origin[1]) - targetLocation[1])
-		dist = int(hypot(dx, dy))
-		if dist is 0:
-			dist = 1
-		
-		self.vx = (float(self.target[0]) - self.origin[0]) / (3 * dist)
-		self.vy = (float(self.target[1]) - self.origin[1]) / (3 * dist)
+		dist = self.pos.dist(self.target)
+		if int(dist) == 0:
+			dist = 1 
+
+		vx = (float(self.target.x) - self.origin.x) / (3 * dist)
+		vy = (float(self.target.y) - self.origin.y) / (3 * dist)
+		self.velocity = Vector2(vx, vy)
 
 		if self.fire is not None:
 			self.fire()
+
 		self.color = color
 		self.done = False
 
 	def update(self):
 		
-		if (int(self.pos[0]), int(self.pos[1])) == (int(self.target[0]), int(self.target[1])):
+		if (int(self.pos.x), int(self.pos.y)) == (int(self.target.x), int(self.target.y)):
 			self.done = True
 			if self.impact is not None:
 				self.impact()
 			return
 
-		self.pos = self.pos[0] + self.vx, self.pos[1] + self.vy
+		self.pos + self.velocity
 		
-		x, y = self.pos
+		x, y = (self.pos.x, self.pos.y)
 		
 		while len(self.particals) > Star.maxParticals:
 			self.particals.popleft()
@@ -60,12 +64,12 @@ class Star:
 			return
 
 		tileSize = 32
-		relx = self.origin[0] - camPos[0]
-		rely = self.origin[1] - camPos[1]
+		relx = self.origin.x - camPos[0]
+		rely = self.origin.y - camPos[1]
 		center = (((relx + 8) * tileSize), ((rely + 8) * tileSize))
 			
-		offsetX = (self.pos[0] - self.origin[0]) * tileSize
-		offsetY = (self.pos[1] - self.origin[1]) * tileSize
+		offsetX = (self.pos.x - self.origin.x) * tileSize
+		offsetY = (self.pos.y - self.origin.y) * tileSize
 		x = int((center[0] + offsetX))
 		y = int((center[1] + offsetY))
 		

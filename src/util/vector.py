@@ -25,6 +25,9 @@ class Vector2(object):
 
 		return True
 
+	def __getitem__(self, key):
+		return (self.x, self.y)[key]
+
         def __str__(self):
                 return str(self.x) + ' ' + str(self.y)
 
