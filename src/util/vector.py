@@ -4,8 +4,8 @@ import math
 class Vector2(object):
 
         def __init__(self, x, y):
-                self.x = x
-		self.y = y
+                self.x = float(x)
+		self.y = float(y)
 
 	def dist(self, other):
 		relx = abs(self.x - other.x)
@@ -15,6 +15,7 @@ class Vector2(object):
         def __add__(self, other):
                 self.x += other.x
                 self.y += other.y
+		return self
 
 	def __eq__(self, other):
 		if self.x != other.x:

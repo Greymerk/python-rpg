@@ -6,6 +6,7 @@ import os
 import items
 
 from src.util import Vector2
+from src.util import Line
 
 from entity import MobManager
 from entity import Party
@@ -136,18 +137,12 @@ class World:
 		vStart = Vector2(start[0] + 0.5, start[1] + 0.5)
 		vEnd = Vector2(end[0] + 0.5, end[1] + 0.5)
 
-		angle = math.atan2(float(vEnd.y - vStart.y), float(vEnd.x - vStart.x))
-		step = Vector2(math.cos(angle) * 0.2, math.sin(angle) * 0.2)
-
-		pos = None
-
-		while vStart.dist(vEnd) > 0.5:
-			if pos != (int(vStart.x), int(vStart.y)):	
-				pos = (int(vStart.x), int(vStart.y))
-				tile = self.getTile(pos)
-				if not tile.isTransparent():
-					return True
-			vStart + step
+		ray = Line(vStart, vEnd)
+		for vec in ray:
+			pos = (int(vec.x), int(vec.y))
+			tile = self.getTile(pos)
+			if not tile.isTransparent():
+				return True
 
 		return False
 		
