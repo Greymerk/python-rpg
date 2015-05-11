@@ -12,24 +12,21 @@ class Line(object):
 		deltax = self.end.x - self.start.x
 		deltay = self.end.y - self.start.y
 		if deltax == 0:
-			for y in xrange(int(self.start.y), int(self.end.y)):
+			for y in xrange(int(self.start.y), int(self.end.y), Line.sign(self.end.y - self.start.y)):
 				yield Vector2(self.start.x, y)
 			
 		else:
 			deltaerr = abs(deltay / deltax)
 			y = self.start.y
-			for x in xrange(int(self.start.x), int(self.end.x)):
+			for x in xrange(int(self.start.x), int(self.end.x), Line.sign(self.end.x - self.start.x)):
 				yield Vector2(x, y)
 				error += deltaerr
 				while error >= 0.5:
 					yield Vector2(x, y)
-					y = y + Line.sign(self.end.y - self.start.y)
+					y += Line.sign(self.end.y - self.start.y)
 					error -= 1.0
 
 	@staticmethod
 	def sign(n):
-		if n == 0:
-			return 0
-
-		return 1 if n > 0 else -1
+		return 1 if n >= 0 else -1
 
