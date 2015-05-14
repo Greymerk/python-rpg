@@ -66,7 +66,7 @@ class Player:
 				if(e.key == K_m):
 					self.viewingMap = True
 
-				if(e.key == K_PRINT):
+				if(e.key == K_F12):
 					self.screenshot()
 
 				if(e.key in lookup):

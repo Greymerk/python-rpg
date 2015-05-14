@@ -99,8 +99,8 @@ class Party(object):
 
 	def canSee(self, position):
 		for e in self.members:
-				if e.canSee(position):
-					return True
+			if e.canSee(position):
+				return True
 
 		return False
 		

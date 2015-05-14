@@ -69,14 +69,13 @@ class Entity:
 		rely = self.position[1] - camPos[1] 
 		position = (((relx + 8)*tileSize), ((rely + 8) * tileSize))
 
-		if visible(self.position):
+		if relx < 8 and rely < 8 and visible(self.position):
 			if self.health == 0:
 				screen.blit(images.get(self.__class__.dead), position)
-				return
-			if time() - self.lastDamage < 0.2:
+			elif time() - self.lastDamage < 0.2:
 				screen.blit(images.get(self.__class__.damage), position)
-				return
-			screen.blit(images.get(self.__class__.living, camPos), position)
+			else:
+				screen.blit(images.get(self.__class__.living, camPos), position)
 		
 		if self.action is not None:
 			self.action.draw(screen, camPos, visible)
