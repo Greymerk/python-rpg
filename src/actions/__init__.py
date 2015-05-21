@@ -1,6 +1,6 @@
 from pygame import *
 
-import cardinals
+from src.util import cardinals
 
 from build import Build
 from quit import Quit

@@ -3,13 +3,13 @@ from random import randint
 import math
 import time
 import os
-import items
+from src.items import ItemFactory
 
 from src.util import Vector2
 from src.util import Line
 
-from entity import MobManager
-from entity import Party
+from src.entity import MobManager
+from src.entity import Party
 from terrain import ChunkManager
 import terrain
 
@@ -21,7 +21,7 @@ class World:
 			os.mkdir('save')
 	
 		self.sounds = sounds
-		self.items = items.ItemFactory(terrain)
+		self.items = ItemFactory(terrain)
 		self.combat = 0
 		self.seed = seed
 		self.chunkManager = ChunkManager(self)

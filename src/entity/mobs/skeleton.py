@@ -9,7 +9,7 @@ from random import randint
 from random import choice
 
 from entity import Entity
-from ai import task
+from src.ai import task
 
 class Skeleton(Entity):
 

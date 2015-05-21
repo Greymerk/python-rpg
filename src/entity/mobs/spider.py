@@ -7,7 +7,7 @@ Created on 2013-05-16
 import pygame
 from entity import Entity
 
-from ai import task
+from src.ai import task
 
 class Spider(Entity):
 

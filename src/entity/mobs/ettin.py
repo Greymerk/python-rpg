@@ -3,30 +3,31 @@ Created on 2013-05-16
 
 @author: brian
 '''
-
+from random import choice
 import pygame
+
 from entity import Entity
-from ai import task
+from src.ai import task
 
-class Headless(Entity):
+class Ettin(Entity):
 
-	living = "headless"
+	living = "ettin"
 	dead = "gore"
-
 
 	def __init__(self, world):
 		Entity.__init__(self, world)
-		self.health = self.maxHealth = 20
-		
-		
-		self.ai.addAI(task.Flee(self))
-		self.ai.addAI(task.Cast(self))
-		self.ai.addAI(task.Pursue(self))
-		self.ai.addAI(task.Follow(self))
-		self.ai.addAI(task.Wander(self))
+		self.world = world
 		self.hostile = True
 		
-		self.singular = 'a headless'		
+		self.health = self.maxHealth = 40
+		
+		self.ai.addAI(task.Flee(self))
+		self.ai.addAI(task.Fallback(self))
+		self.ai.addAI(task.Cast(self))
+		self.ai.addAI(task.Pursue(self))
+		self.ai.addAI(task.Wander(self))
+		
+		self.singular = 'an ettin'
 
 	def equip(self):
-		self.inventory.bar[0] = self.world.items.weapons.getSword()
+		self.inventory.bar[0] = self.world.items.weapons.getDamageStaff()

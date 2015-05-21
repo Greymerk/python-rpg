@@ -2,8 +2,8 @@ import pygame
 from math import sqrt
 from random import randint
 
-from ai import AIController
-from inventory import Inventory
+from src.ai import AIController
+from src.inventory import Inventory
 
 from time import time
 

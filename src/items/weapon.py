@@ -10,7 +10,7 @@ from random import choice
 from pygame.color import THECOLORS
 
 from item import Item
-from abilities import *
+from src.abilities import *
 
 class Weapon(Item):
 

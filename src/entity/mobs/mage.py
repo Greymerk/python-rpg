@@ -7,7 +7,7 @@ Created on 2013-05-27
 from entity import Entity
 import pygame
 from random import randint
-from ai import task
+from src.ai import task
 
 class Mage(Entity):
 

@@ -7,8 +7,8 @@ from pickle import Pickler
 from pickle import Unpickler
 
 
-from actions import cardinals
-from actions import lookup
+from src.actions import cardinals
+from src.actions import lookup
 
 import pygame
 from pygame.locals import *
