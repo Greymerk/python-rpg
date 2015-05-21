@@ -26,9 +26,18 @@ class Vector2(object):
 
 		return True
 
+	def save(self):
+		data = {}
+		data["x"] = self.x
+		data["y"] = self.y
+		return data
+
 	def __getitem__(self, key):
 		return (self.x, self.y)[key]
 
         def __str__(self):
                 return str(self.x) + ' ' + str(self.y)
 
+	@staticmethod
+	def load(data):
+		return Vector2(data["x"], data["y"])

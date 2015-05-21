@@ -4,6 +4,7 @@ from random import randint
 
 from src.ai import AIController
 from src.inventory import Inventory
+from src.util import Vector2
 
 from time import time
 
@@ -45,7 +46,7 @@ class Entity:
 		if not self.world.isLocationPassable((newx, newy)):
 			return False
 
-		self.position = (newx, newy)
+		self.position = newx, newy
 		
 		return True
 
@@ -84,6 +85,7 @@ class Entity:
 	def save(self):
 		data = {}
 		data['type'] = self.__class__.__name__
+		#data['position'] = {'x' : self.position[0], 'y' : self.position[1]}
 		data['position'] = self.position
 		data['health'] = self.health
 		data['deathTimer'] = self.deathTimer
@@ -98,6 +100,7 @@ class Entity:
 
 	def load(self, data):
 		if 'position' in data.keys():
+			#self.position = data['position']['x'], data['position']['y']
 			self.position = data['position']
 		if 'health' in data.keys():
 			self.health = data['health']

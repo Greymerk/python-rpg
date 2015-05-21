@@ -13,7 +13,7 @@ class Ready(object):
     def __init__(self, player):
         self.player = player
         self.player.log.append('Ready a new weapon')
-              
+        self.choice = None
                 
     def nextStep(self):
 

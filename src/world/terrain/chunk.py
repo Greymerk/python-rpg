@@ -1,7 +1,6 @@
 import string
 import os
 import chunkgen
-import pickle
 from tile import Tile
 import json
 import terrain
@@ -40,10 +39,9 @@ class Chunk:
 
 		x, y = self.pos
 		fileName = self.saveDir + str(x) + '_' + str(y)
-		f = open(fileName, 'w')
-		p = pickle.Pickler(f)
-		p.dump(chunkData)
-		f.close()
+		with open(fileName, 'w') as f:
+			json.dump(chunkData, f, sort_keys=True, indent=4)
+		
 
 	def unload(self):
 		self.save()
@@ -59,10 +57,8 @@ class Chunk:
 			self.save()
 			return
 		
-		f = open(fileName, 'r')
-		p = pickle.Unpickler(f)
-		chunkData = p.load()
-		f.close()
+		with open(fileName, 'r') as f:
+			chunkData = json.load(f)
 		
 		tileList = chunkData['tiles']
 		for data in tileList:

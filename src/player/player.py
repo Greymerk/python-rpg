@@ -1,11 +1,7 @@
 import time
 import sys
-
 import os
-
-from pickle import Pickler
-from pickle import Unpickler
-
+import json
 
 from src.actions import cardinals
 from src.actions import lookup
@@ -118,10 +114,8 @@ class Player:
 		data = {}
 		data['members'] = self.party.save()
 
-		f = open('save/player', 'w')
-		p = Pickler(f)
-		p.dump(data)
-		f.close()
+		with open('save/player', 'w') as f:
+			json.dump(data, f, sort_keys=True, indent=4)
 		
 	def load(self):
 
@@ -129,10 +123,8 @@ class Player:
 			self.party = self.world.loadParty(None)
 			return
 
-		f = open('save/player', 'r')
-		p = Unpickler(f)
-		data = p.load()
-		f.close()	
+		with open('save/player', 'r') as f:
+			data = json.load(f)	
 
 		if 'members' in data.keys():
 			self.party = self.world.loadParty(data['members'])
