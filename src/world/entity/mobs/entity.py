@@ -69,7 +69,7 @@ class Entity:
 		rely = self.position[1] - camPos[1] 
 		position = (((relx + 8)*tileSize), ((rely + 8) * tileSize))
 
-		if relx < 8 and rely < 8 and visible(self.position):
+		if visible(self.position):
 			if self.health == 0:
 				screen.blit(images.get(self.__class__.dead), position)
 			elif time() - self.lastDamage < 0.2:
@@ -326,6 +326,5 @@ class Entity:
 		
 	@classmethod
 	def onDamage(cls, sounds):
-		pass
-		
+		sounds.get("damage.wav").play()
 

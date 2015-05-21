@@ -101,10 +101,9 @@ class Viewport(object):
 		
 		self.surface.blit(self.viewCache, (0,0))
 
-		entities = list(set(self.world.mobManager.mobs) | set(self.world.friendly))
-		entities.sort(lambda a, b: cmp(a.isAlive(), b.isAlive()))
+		
 
-		for e in entities:
+		for e in self.world.getAllEntities():
 			e.draw(self.surface, camPos, self.images, self.visible)
 		
 		if self.player.action is not None:

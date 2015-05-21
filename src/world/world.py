@@ -31,6 +31,7 @@ class World:
 		self.spawn = self.getSpawnLocation()
 		self.log = None
 		self.materials = terrain.lookup
+		self.entityCache = None
 
 
 
@@ -51,7 +52,9 @@ class World:
 		self.mobManager.turn()
 		for e in self.friendly:
 			e.turn()
-					
+		
+		self.entityCache = None
+	
 		self.time += 1
 
 	def isLocationPassable(self, location):
@@ -130,14 +133,20 @@ class World:
 		return None
 
 	def getAllEntities(self):
-		return list(set(self.mobManager.mobs) | set(self.friendly))
+		if len(self.friendly) == 0:
+			return self.mobManager.mobs
+
+		if self.entityCache is None:
+			self.entityCache = list(set(self.mobManager.mobs) | set(self.friendly))
+			self.entityCache.sort(lambda a, b: cmp(a.isAlive(), b.isAlive()))
+		return self.entityCache
 
 	def obscured(self, start, end):
 
 		vStart = Vector2(start[0] + 0.5, start[1] + 0.5)
 		vEnd = Vector2(end[0] + 0.5, end[1] + 0.5)
-
 		ray = Line(vStart, vEnd)
+
 		for vec in ray:
 			pos = (int(vec.x), int(vec.y))
 			tile = self.getTile(pos)

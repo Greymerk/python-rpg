@@ -18,7 +18,7 @@ class HealBolt(object):
 		self.target = location
 		self.done = False
 		self.entityHit = self.caster.world.getEntityFromLocation(self.target)
-		self.projectile = Star(caster.position, location, item.color, self.fire)
+		self.projectile = Star(caster.position, self.entityHit.position, item.color, self.fire)
 		casterName = self.caster.getName()
 		if not self.entityHit is None:
 			targetName = self.entityHit.getName()

@@ -10,7 +10,6 @@ from mobs import lookup
 class MobManager(object):
 
 	def __init__(self, world):
-		
 		self.world = world
 		self.mobs = []
 		self.mobSpawner = MobSpawner(self.world)
@@ -19,7 +18,6 @@ class MobManager(object):
 		self.mobs.append(mob)
 		
 	def update(self):
-		
 		for mob in self.mobs:
 			mob.update()
 			
