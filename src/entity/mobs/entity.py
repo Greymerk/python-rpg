@@ -174,6 +174,9 @@ class Entity:
 		
 		relx = abs(self.position[0] - position[0])
 		rely = abs(self.position[1] - position[1])
+
+		if relx > self.sight or rely > self.sight:
+			return False
 		
 		distance = sqrt(relx**2 + rely**2)
 		

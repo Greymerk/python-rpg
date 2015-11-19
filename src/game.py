@@ -20,7 +20,7 @@ class Game(object):
 
 		self.world = World(self.seed, SoundCache())
 		self.user = Player(self.world)
-		self.view = Gameview(self.world, self.user, self.surface, ImageCache())
+		self.view = Gameview(self.world, self.user, self.surface, ImageCache(), self.debug)
 
 		self.clock = pygame.time.Clock()
 
@@ -28,8 +28,7 @@ class Game(object):
 
 		while(True):
 
-			self.clock.tick(30)
-		
+			self.clock.tick(60)
 			self.view.draw()
 
 			if not self.world.update():
@@ -40,5 +39,7 @@ class Game(object):
 
 			self.world.turn()
 			self.user.save()
-			
-
+	
+	def debug(self):
+		msg = 'FPS: ' + str(int(self.clock.get_fps()))
+		return msg			

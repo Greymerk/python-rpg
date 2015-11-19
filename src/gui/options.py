@@ -6,6 +6,8 @@ Created on 2013-05-03
 
 
 import pygame
+from pygame.locals import *
+from pygame.color import THECOLORS
 
 class Options(object):
 
@@ -21,8 +23,15 @@ class Options(object):
 		self.fontobject = pygame.font.Font(None,24)
 
 	def draw(self):
-		self.surface.fill((0,0,0))
+		pygame.event.pump()
+		pressed = pygame.key.get_pressed()
 		
+		if(pressed[K_SPACE]):
+			background = THECOLORS["red"]
+		else:
+			background = THECOLORS["black"]		
+
+		self.surface.fill(background)
 		if not hasattr(self.player.action, 'options'):
 			self.drawParty()
 			return
@@ -36,7 +45,7 @@ class Options(object):
 
 	def drawParty(self):
 		count = 0
-		for e in self.player.world.friendly:
+		for e in self.player.world.friendly.members:
 			if count > self.getMaxLines():
 				return
 			if e.name is not None:

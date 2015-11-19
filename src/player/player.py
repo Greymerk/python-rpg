@@ -19,14 +19,17 @@ class Player:
 		self.world.log = self.log
 		
 		self.lastAction = 0
+		self.lastTurn = 0
 		self.load()
-		self.world.friendly = self.party.members
+		self.world.friendly = self.party
 		self.lastTarget = None
 
 		self.avatar = self.party.getLeader()
 		self.viewingMap = False
 		self.action = None
-		self.turnDelay = 0.2
+		self.turnDelay = 0.3
+	
+		pygame.key.set_repeat()
 
 		self.screenshot = None #initialized by the GameView class
 
@@ -34,6 +37,9 @@ class Player:
 	# Return true if the player hasn't used his or her turn yet
 	# Return false to allow the rest of the world to take a turn
 	def turn(self):
+
+		#if self.lastTurn is self.world.time:
+		#	return False
 
 		if self.action is not None:
 			finished = self.action.nextStep()
@@ -83,6 +89,7 @@ class Player:
 
 		if(time.time() - self.lastAction > self.turnDelay):	
 
+			pygame.event.pump()
 			pressed = pygame.key.get_pressed()
 			result = ''
 
@@ -99,17 +106,18 @@ class Player:
 						self.world.sounds.get("oomph.wav").play()
 					self.log.append(msg)
 					self.lastAction = time.time()
+					self.lastTurn = self.world.time
 					return False
 			
 			if pressed[K_SPACE]:
 				self.log.append('Pass Turn')
 				self.lastAction = time.time()
+				self.lastTurn = self.world.time
 				return False
 			
 		return True
-					
 
-	
+
 	def save(self):
 		data = {}
 		data['members'] = self.party.save()
@@ -131,4 +139,3 @@ class Player:
 		else:
 			self.party = self.world.loadParty(None)
 			
-

@@ -16,6 +16,8 @@ class Party(object):
 		self.world = world
 		self.members = []
 		self.leader = 0   
+		self.visibilityCache = {}
+		self.visibilityTurn = world.time
 		
 	def add(self, entity):
 		self.members.append(entity)
@@ -98,13 +100,28 @@ class Party(object):
 	
 
 	def canSee(self, position):
+
+		pos = (position[0], position[1])
+
+		if self.visibilityTurn is not self.world.time:
+			self.visibilityTurn = self.world.time
+			self.visibilityCache = {}
+
+		if pos in self.visibilityCache:
+			return self.visibilityCache[pos]
+
 		for e in self.members:
 			if e.canSee(position):
+				self.visibilityCache[pos] = True
 				return True
 
+		self.visibilityCache[pos] = False
 		return False
 		
 	def resetLeader(self):
 		for i in range(len(self.members)):
 			if self.members[i].isAlive():
 				return self.setLeader(i)
+
+	def __iter__(self):
+		return iter(self.members)

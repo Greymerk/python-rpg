@@ -65,7 +65,10 @@ class Viewport(object):
 		return self.world.chunkManager.getMap(x, y)
 
 				   
-		
+	
+	def display(self, info):
+		self.fontobject = pygame.font.Font(None,24)
+		self.surface.blit(self.fontobject.render(info, 1, (255,255,255)), (10, 10))	
 		
 	def draw(self):
 		
@@ -173,14 +176,14 @@ class Viewport(object):
 		
 	def visible(self, pos):
 			
-			camPos = self.player.party.getLeader().position
+		camPos = self.player.party.getLeader().position
+		
+		relx = pos[0] - camPos[0]  
+		rely = pos[1] - camPos[1] 
+		
+		if abs(relx) > 8 or abs(rely) > 8:
+			return False
 			
-			relx = pos[0] - camPos[0]  
-			rely = pos[1] - camPos[1] 
-			
-			if abs(relx) > 8 or abs(rely) > 8:
-				return False
-				
-			return self.player.party.canSee(pos)
+		return self.player.party.canSee(pos)
 
 

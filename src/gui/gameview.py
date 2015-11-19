@@ -8,11 +8,12 @@ from viewport import Viewport
 
 class Gameview(object):
 
-	def __init__(self, world, player, surface, images):
+	def __init__(self, world, player, surface, images, debug=None):
 		self.world = world
 		self.player = player
 		self.surface = surface
 		self.images = images
+		self.debug = debug
 		
 		self.background = images.get("interface")
 		
@@ -37,6 +38,8 @@ class Gameview(object):
 		self.options.draw()
 		self.logWindow.draw()
 		self.viewport.draw()
+		if self.debug is not None:
+			self.viewport.display(self.debug())
 		
 		pygame.display.flip()
 

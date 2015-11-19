@@ -1,4 +1,3 @@
-from collections import deque
 from random import choice
 from mapcache import MapCache
 
@@ -8,10 +7,9 @@ class ChunkManager:
 
 	def __init__(self, world):
 		self.world = world
-		self.chunkCache = deque()
+		self.chunkCache = []
 		self.mapCache = MapCache(self, self.world.seed)
 		self.maxCacheSize = 64
-
 	
 	def getChunk(self, x, y):
 		chunkX = x >> 4
@@ -56,3 +54,10 @@ class ChunkManager:
 			
 	def getRandomChunk(self):
 		return choice(self.chunkCache)
+
+	def cull(self, center, dist):
+		
+		for c in self.chunkCache:
+			if c.getDistToChunk(center) > dist:
+				c.unload()
+				self.chunkCache.remove(c)

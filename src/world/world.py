@@ -27,19 +27,18 @@ class World:
 		self.chunkManager = ChunkManager(self)
 		self.time = 0
 		self.mobManager = MobManager(self)
-		self.friendly = []
+		self.friendly = None
 		self.spawn = self.getSpawnLocation()
 		self.log = None
 		self.materials = terrain.lookup
 		self.entityCache = None
 
 
-
 	def getSeed(self):
 		return self.seed
 
 	def update(self):
-			
+
 		done = True
 		for e in list(set(self.friendly) | set(self.mobManager.mobs)):
 			if e.update() is False:
@@ -54,6 +53,10 @@ class World:
 			e.turn()
 		
 		self.entityCache = None
+
+		leader = self.friendly.getLeader()
+		pos = leader.position[0] >> 4, leader.position[1] >> 4
+		self.chunkManager.cull(pos, 3)
 	
 		self.time += 1
 
@@ -133,11 +136,11 @@ class World:
 		return None
 
 	def getAllEntities(self):
-		if len(self.friendly) == 0:
+		if self.friendly is None:
 			return self.mobManager.mobs
 
 		if self.entityCache is None:
-			self.entityCache = list(set(self.mobManager.mobs) | set(self.friendly))
+			self.entityCache = list(set(self.mobManager.mobs) | set(self.friendly.members))
 			self.entityCache.sort(lambda a, b: cmp(a.isAlive(), b.isAlive()))
 		return self.entityCache
 
@@ -159,5 +162,4 @@ class World:
 		party = Party(self)
 		party.load(data)
 		return party
-
 

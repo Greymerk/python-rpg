@@ -4,6 +4,8 @@ import chunkgen
 from tile import Tile
 import json
 import terrain
+import math
+
 
 class Chunk:
 
@@ -29,7 +31,6 @@ class Chunk:
 
 
 	def save(self):
-
 		chunkData = {}
 		tileList = []
 		for tile in self.tiles:
@@ -80,3 +81,6 @@ class Chunk:
 		self.mapCache.genMap(self)
 		self.save()
 
+	def getDistToChunk(self, pos):
+		x, y = pos
+		return math.sqrt((self.pos[0] - x)**2 + (self.pos[1] - y)**2)	
