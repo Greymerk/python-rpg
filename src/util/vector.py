@@ -27,8 +27,8 @@ class Vector2(object):
 		return True
 
 	def center(self):
-		self.x = math.floor(self.x) - 0.5
-		self.y = math.floor(self.y) - 0.5
+		self.x = math.floor(self.x) + 0.5
+		self.y = math.floor(self.y) + 0.5
 		
 	def save(self):
 		data = {}
@@ -39,8 +39,8 @@ class Vector2(object):
 	def __getitem__(self, key):
 		return (self.x, self.y)[key]
 
-		def __str__(self):
-				return str(self.x) + ' ' + str(self.y)
+	def __str__(self):
+			return str(self.x) + ' ' + str(self.y)
 
 	@staticmethod
 	def load(data):

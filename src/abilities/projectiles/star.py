@@ -68,7 +68,7 @@ class Star:
 		tileSize = 32
 		relx = self.origin.x - camPos[0]
 		rely = self.origin.y - camPos[1]
-		center = (((relx + 9) * tileSize), ((rely + 9) * tileSize))
+		center = (((relx + 8) * tileSize), ((rely + 8) * tileSize))
 			
 		offsetX = (self.pos.x - self.origin.x) * tileSize
 		offsetY = (self.pos.y - self.origin.y) * tileSize

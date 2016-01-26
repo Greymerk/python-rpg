@@ -20,7 +20,7 @@ class HealBolt(object):
 		self.caster = caster
 		self.target = location
 		self.done = False
-		self.color = THECOLORS['lightcyan']
+		self.color = THECOLORS['yellow']
 		self.entityHit = self.caster.world.getEntityFromLocation(self.target)
 		self.projectile = Star(caster.position, self.target, self.color, self.fire)
 		casterName = self.caster.getName()

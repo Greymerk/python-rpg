@@ -5,6 +5,7 @@ import json
 
 from src.actions import cardinals
 from src.actions import lookup
+from src.util import Vector2
 
 import pygame
 from pygame.locals import *

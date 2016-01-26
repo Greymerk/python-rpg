@@ -153,7 +153,7 @@ class World:
 		ray = Line(vStart, vEnd)
 
 		for vec in ray:
-			pos = (int(vec.x), int(vec.y))
+			pos = (int(math.floor(vec.x)), int(math.floor(vec.y)))
 			tile = self.getTile(pos)
 			if not tile.isTransparent():
 				return True

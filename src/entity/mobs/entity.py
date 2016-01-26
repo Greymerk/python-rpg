@@ -179,10 +179,10 @@ class Entity:
 			
 		return self.group.canSee(position)
 	
-	def canSee(self, position):
+	def canSee(self, target):
 		
-		relx = abs(self.position[0] - position[0])
-		rely = abs(self.position[1] - position[1])
+		relx = abs(self.position[0] - target[0])
+		rely = abs(self.position[1] - target[1])
 
 		if relx > self.sight or rely > self.sight:
 			return False
@@ -192,7 +192,7 @@ class Entity:
 		if(distance > self.sight):
 			return False
 
-		if self.world.obscured(self.position, position):
+		if self.world.obscured(self.position, target):
 			return False
 		
 		return True
