@@ -12,9 +12,9 @@ class Vector2(object):
 		rely = abs(self.y - other.y)
 		return math.sqrt(relx**2 + rely**2)
 
-		def __add__(self, other):
-				self.x += other.x
-				self.y += other.y
+	def __add__(self, other):
+		self.x += other.x
+		self.y += other.y
 		return self
 
 	def __eq__(self, other):

@@ -21,8 +21,10 @@ class Star:
 
 		self.particals = deque()
 
-		self.pos = self.origin = Vector2(float(start[0]) + 0.5, float(start[1]) + 0.5)
-		self.target = Vector2(float(end[0]) + 0.5, float(end[1]) + 0.5)
+		self.pos = self.origin = Vector2(float(start[0]), float(start[1]))
+		self.pos.center()
+		self.target = Vector2(float(end[0]), float(end[1]))
+		self.target.center()
 		
 		dist = self.pos.dist(self.target)
 		if int(dist) == 0:
@@ -66,7 +68,7 @@ class Star:
 		tileSize = 32
 		relx = self.origin.x - camPos[0]
 		rely = self.origin.y - camPos[1]
-		center = (((relx + 8) * tileSize), ((rely + 8) * tileSize))
+		center = (((relx + 9) * tileSize), ((rely + 9) * tileSize))
 			
 		offsetX = (self.pos.x - self.origin.x) * tileSize
 		offsetY = (self.pos.y - self.origin.y) * tileSize
