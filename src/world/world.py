@@ -146,8 +146,10 @@ class World:
 
 	def obscured(self, start, end):
 
-		vStart = Vector2(start[0] + 0.5, start[1] + 0.5)
-		vEnd = Vector2(end[0] + 0.5, end[1] + 0.5)
+		vStart = Vector2(start[0], start[1])
+		vStart.center()
+		vEnd = Vector2(end[0], end[1])
+		vEnd.center()
 		ray = Line(vStart, vEnd)
 
 		for vec in ray:

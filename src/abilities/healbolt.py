@@ -22,7 +22,7 @@ class HealBolt(object):
 		self.done = False
 		self.color = THECOLORS['lightcyan']
 		self.entityHit = self.caster.world.getEntityFromLocation(self.target)
-		self.projectile = Star(caster.position, self.entityHit.position, self.color, self.fire)
+		self.projectile = Star(caster.position, self.target, self.color, self.fire)
 		casterName = self.caster.getName()
 		if not self.entityHit is None:
 			targetName = self.entityHit.getName()
