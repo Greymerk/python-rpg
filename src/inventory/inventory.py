@@ -13,25 +13,7 @@ class Inventory(object):
 		self.itemFactory = itemFactory
 		
 		
-	def getAction(self):
 
-		if len(self.bar) == 0:
-			return None
-		
-		for item in self.bar:
-			
-			if item is None:
-				continue
-			
-			for e in self.owner.world.getAllEntities():
-				
-				if not self.owner.canHit(e.position, item.range):
-					continue
-				
-				if not item.ability.validTarget(self.owner, e):
-					continue
-				
-				return item.ability(self.owner, e.position, item) #ability instance
 	
 	def load(self, data):
 	

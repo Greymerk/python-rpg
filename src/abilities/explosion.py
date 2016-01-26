@@ -1,6 +1,7 @@
 from random import randint
 from projectiles import Star
 from math import sqrt
+from pygame.color import THECOLORS
 
 class Explosion(object):
 	
@@ -8,14 +9,16 @@ class Explosion(object):
 	radius = 4
 	damage = 2, 5
 	heal = False
+	name = "Explosion"
 	
 	def __init__(self, caster, location, item):
 		self.item = item
-		self.range = item.range
+		self.range = MagicMissile.range
 		self.caster = caster
 		self.target = location
 		self.range = self.__class__.range
 		self.damage = self.__class__.damage
+		self.color = THECOLORS['orange']
 		casterName = self.caster.getName()
 		self.entityHit = self.caster.world.getEntityFromLocation(self.target)
 		if not self.entityHit is None:
@@ -40,7 +43,7 @@ class Explosion(object):
 					self.done = True
 					return True
 				for pos in targets:
-					newStar = Star(self.target, pos, self.item.color, None, None)
+					newStar = Star(self.target, pos, self.color, None, None)
 					self.explosion.append(newStar)
 			return False
 
@@ -55,7 +58,7 @@ class Explosion(object):
 			if star.done:
 				e = self.caster.world.getEntityFromLocation(star.end)
 				if e is not None:
-					e.inflict(self.caster, randint(self.item.damage[0], self.item.damage[1]))
+					e.inflict(self.caster, randint(self.damage[0], self.damage[1]))
 			else:
 				done = False
 				

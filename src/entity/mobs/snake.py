@@ -8,6 +8,7 @@ import pygame
 from entity import Entity
 
 from src.ai import task
+from src.abilities import *
 
 class Snake(Entity):
 
@@ -30,4 +31,4 @@ class Snake(Entity):
 		self.singular = 'a snake'
 		
 	def equip(self):
-		self.inventory.bar[0] = self.world.items.weapons.getSword()
+		pass

@@ -26,12 +26,12 @@ class Cast(object):
 		
 		leader = self.player.party.getLeader()
 		
-		for i in range(len(leader.inventory.bar)):
-			if leader.inventory.bar[i] is None:
+		for i in range(len(leader.abilities)):
+			if leader.abilities is None:
 				continue
 			
-			self.options[i + 1] = leader.inventory.bar[i].name
-			self.spellList[i + 1] = leader.inventory.bar[i]
+			self.options[i + 1] = leader.abilities[i].name
+			self.spellList[i + 1] = leader.abilities[i]
 		
 	def nextStep(self):
 		
@@ -76,7 +76,7 @@ class Cast(object):
 			pos = self.player.party.getLeader().position
 			target = (pos[0] + self.location[0], pos[1] + self.location[1])
 			actor = self.player.party.getLeader()
-			actor.action = self.spell.ability(actor, target, self.spell)
+			actor.action = self.spell(actor, target, self.spell)
 			self.targetLocation = target
 			entity = self.player.world.getEntityFromLocation(target)
 			if entity is not None:

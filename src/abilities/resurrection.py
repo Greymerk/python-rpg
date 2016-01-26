@@ -10,14 +10,17 @@ from random import randint
 
 class Resurrection(object):
 	
+	range = 5
 	color = THECOLORS['palegoldenrod']
 	heal = True
+	name = "Ressurection"
 	
 	def __init__(self, caster, location, item):
-		self.range = item.range
+		self.range = self.__class__.range
 		self.caster = caster
 		self.target = location
 		self.done = False
+		self.color = THECOLORS['lightcyan']
 		self.entityHit = self.caster.world.getEntityFromLocation(self.target, False)
 		self.projectile = Star(caster.position, location, self.__class__.color, self.fire)
 		casterName = self.caster.getName()

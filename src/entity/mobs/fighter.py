@@ -8,6 +8,7 @@ import pygame
 from random import randint
 from random import choice
 from src.ai import task
+from src.abilities import *
 
 class Fighter(Entity):
 
@@ -26,7 +27,7 @@ class Fighter(Entity):
 		self.ai.addAI(task.Wander(self))
 
 	def equip(self):
-		self.inventory.bar[0] = self.world.items.weapons.getSword()
+		pass
 		
 	@classmethod
 	def onDamage(cls, sounds):

@@ -7,6 +7,7 @@ Created on 2013-05-16
 import pygame
 from entity import Entity
 from src.ai import task
+from src.abilities import *
 
 class Headless(Entity):
 
@@ -26,7 +27,7 @@ class Headless(Entity):
 		self.ai.addAI(task.Wander(self))
 		self.hostile = True
 		
-		self.singular = 'a headless'		
+		self.singular = 'a headless'
 
 	def equip(self):
-		self.inventory.bar[0] = self.world.items.weapons.getSword()
+		pass

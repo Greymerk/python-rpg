@@ -12,7 +12,7 @@ class Cast(object):
 		
 	def condition(self):
 
-		result = self.actor.inventory.getAction()
+		result = self.actor.getAction()
 		if result is None:
 			return False
 			

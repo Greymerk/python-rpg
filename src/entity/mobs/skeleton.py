@@ -10,6 +10,7 @@ from random import choice
 
 from entity import Entity
 from src.ai import task
+from src.abilities import *
 
 class Skeleton(Entity):
 
@@ -37,7 +38,7 @@ class SkeletalWarrior(Skeleton):
 		self.ai.addAI(task.Wander(self))
 	
 	def equip(self):
-		self.inventory.bar[0] = self.world.items.weapons.getSword()
+		pass
 		
 class SkeletalArcher(Skeleton):
 	
@@ -49,7 +50,7 @@ class SkeletalArcher(Skeleton):
 		self.ai.addAI(task.Wander(self))
 		
 	def equip(self):
-		self.inventory.bar[0] = self.world.items.weapons.getBow()
+		self.abilities = [BowShot]
 			
 			
 class SkeletalMage(Skeleton):
@@ -62,4 +63,4 @@ class SkeletalMage(Skeleton):
 		self.ai.addAI(task.Wander(self))
 		
 	def equip(self):
-		self.inventory.bar[0] = self.world.items.weapons.getDamageStaff()
+		self.abilities = [ChainBolt]

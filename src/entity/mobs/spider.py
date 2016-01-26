@@ -8,6 +8,7 @@ import pygame
 from entity import Entity
 
 from src.ai import task
+from src.abilities import *
 
 class Spider(Entity):
 
@@ -29,4 +30,4 @@ class Spider(Entity):
 		self.singular = 'a spider'
 		
 	def equip(self):
-		self.inventory.bar[0] = self.world.items.weapons.getSword()
+		pass

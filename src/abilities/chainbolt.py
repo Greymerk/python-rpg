@@ -1,20 +1,22 @@
 from random import randint
 from projectiles import Star
+from pygame.color import THECOLORS
 
 class ChainBolt(object):
 	
 	range = 5
 	damage = 2, 5
 	heal = False
+	name = "Chain Bolt"
 	
 	def __init__(self, caster, location, item):
 		self.item = item
-		self.range = item.range
 		self.caster = caster
 		self.target = location
 		self.range = self.__class__.range
 		self.damage = self.__class__.damage
 		casterName = self.caster.getName()
+		self.color = THECOLORS['lightcyan']
 		self.entityHit = self.caster.world.getEntityFromLocation(self.target)
 		self.bolts = 3
 		if not self.entityHit is None:
@@ -23,7 +25,7 @@ class ChainBolt(object):
 		else:
 			self.caster.world.log.append(casterName + ' cast ' + self.__class__.__name__ + ' at nothing!')
 		
-		self.projectile = Star(caster.position, location, self.item.color, self.fire, self.impact)
+		self.projectile = Star(caster.position, location, self.color, self.fire, self.impact)
 		self.done = False
 	 
 	def update(self):
@@ -31,7 +33,7 @@ class ChainBolt(object):
 		self.projectile.update()
 		if self.projectile.done:
 			if self.entityHit is not None:
-				self.entityHit.inflict(self.caster, randint(self.item.damage[0], self.item.damage[1]))
+				self.entityHit.inflict(self.caster, randint(self.damage[0], self.damage[1]))
 			if self.bolts <= 0 or self.entityHit is None:
 				self.done = True
 				return True
@@ -41,7 +43,7 @@ class ChainBolt(object):
 				if nextTarget is None:
 					self.done = True
 					return True
-				self.projectile = Star(self.entityHit.position, nextTarget.position, self.item.color, self.fire, self.impact)
+				self.projectile = Star(self.entityHit.position, nextTarget.position, self.color, self.fire, self.impact)
 				self.entityHit = nextTarget
 		return False
 		

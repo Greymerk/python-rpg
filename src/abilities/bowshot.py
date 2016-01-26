@@ -10,14 +10,18 @@ from random import randint
 
 class BowShot(object):
 	
+	range = 7
+	damage = 2, 5
 	heal = False
+	name = "Shoot"
 		
 	def __init__(self, caster, location, item):
 		self.caster = caster
 		self.target = location
 		self.item = item
-		self.range = item.range
-		self.damage = item.damage
+		self.color = THECOLORS['chocolate']
+		self.range = self.__class__.range
+		self.damage = self.__class__.damage
 		
 		casterName = self.caster.getName()
 		
@@ -28,14 +32,14 @@ class BowShot(object):
 		else:
 			self.caster.world.log.append(casterName + ' shot nothing!')
 
-		self.projectile = Arrow(caster.position, location, item.color, self.fire, self.impact)
+		self.projectile = Arrow(caster.position, location, self.color, self.fire, self.impact)
 		self.done = False
 		
 	def update(self):
 		self.projectile.update()
 		if self.projectile.done:
 			if not self.entityHit is None:
-				self.entityHit.inflict(self.caster, randint(self.item.damage[0], self.item.damage[1]))
+				self.entityHit.inflict(self.caster, randint(self.damage[0], self.damage[1]))
 			self.done = True
 			return True
 		

@@ -7,7 +7,7 @@ from src.inventory import Inventory
 from src.util import Vector2
 
 from time import time
-
+from src.abilities import *
 
 class Entity:
 
@@ -24,6 +24,7 @@ class Entity:
 		self.world = world
 		self.group = None
 		self.ai = AIController()
+		self.abilities = [Attack]
 		self.singular = 'unknown'
 		self.sight = 5
 		self.health = self.maxHealth = 30
@@ -94,6 +95,10 @@ class Entity:
 			data['lastAttacker'] = self.lastAttacker.position
 		data['name'] = self.name
 		data['inventory'] = self.inventory.save()
+		abi = []
+		for ability in self.abilities:
+			abi.append(ability.__name__)
+		data['abilities'] = abi
 		data['ai'] = self.ai.save()
 			
 		return data
@@ -114,6 +119,10 @@ class Entity:
 			self.name = data['name']
 		if 'inventory' in data.keys():
 			self.inventory.load(data['inventory'])
+		if 'abilities' in data.keys():
+			self.abilities = []
+			for ability in data['abilities']:
+				self.abilities.append(lookup[ability])
 		if 'ai' in data.keys():
 			self.ai.load(data['ai'])
 			
@@ -317,12 +326,24 @@ class Entity:
 		else:
 			return self.name
 
-	def getSpellList(self):
-				
-		if not self.inventory.offhand.__class__ is Spellbook:
-		    return []
+	
+	def getAction(self):
+
+		if len(self.abilities) == 0:
+			return None
 		
-		return self.inventory.offhand.spellList
+		for ability in self.abilities:
+			
+			for e in self.world.getAllEntities():
+				
+				if not self.canHit(e.position, ability.range):
+					continue
+				
+				if not ability.validTarget(self, e):
+					continue
+				
+				return ability(self, e.position, None) #ability instance
+	
 	
 	def pocket(self, item):
 		self.inventory.pocket(item)
