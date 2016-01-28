@@ -9,6 +9,8 @@ from sounds import SoundCache
 
 class Game(object):
 
+	FPS = 30
+
 	def __init__(self):
 
 		pygame.init()
@@ -28,7 +30,7 @@ class Game(object):
 
 		while(True):
 
-			self.clock.tick(60)
+			self.clock.tick(Game.FPS)
 			self.view.draw()
 
 			if not self.world.update():
@@ -41,5 +43,8 @@ class Game(object):
 			self.user.save()
 	
 	def debug(self):
-		msg = 'FPS: ' + str(int(self.clock.get_fps()))
+		msg = []
+		msg.append(['FPS: ' + str(int(self.clock.get_fps()))])
+		msg.append(['Mobs: ' + str(len(self.world.mobManager.mobs))])
+		msg.append(['Chunks: ' + str(len(self.world.chunkManager.chunkCache))])
 		return msg			

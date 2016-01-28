@@ -68,7 +68,8 @@ class Viewport(object):
 	
 	def display(self, info):
 		self.fontobject = pygame.font.Font(None,24)
-		self.surface.blit(self.fontobject.render(info, 1, (255,255,255)), (10, 10))	
+		for i, line in enumerate(info):
+			self.surface.blit(self.fontobject.render(line[0], 1, (255,255,255)), (10, i * 16))	
 		
 	def draw(self):
 		
