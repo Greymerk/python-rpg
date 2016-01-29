@@ -187,9 +187,7 @@ class Entity:
 		if relx > self.sight or rely > self.sight:
 			return False
 		
-		distance = sqrt(relx**2 + rely**2)
-		
-		if(distance > self.sight):
+		if(relx * relx + rely * rely > self.sight * self.sight):
 			return False
 
 		if self.world.obscured(self.position, target):

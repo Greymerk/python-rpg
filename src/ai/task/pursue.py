@@ -25,10 +25,10 @@ class Pursue(object):
 		
 			if canSee(entity.position) and entity.isAlive():
 				
-				for weapon in self.actor.inventory.bar:
-					if not weapon is None and self.actor.canHit(entity.position, weapon.range):
-						if weapon.ability.validTarget(self.actor, entity):
-						   return False
+				for ability in self.actor.abilities:
+					if self.actor.canHit(entity.position, ability.range):
+						if not ability.validTarget(self.actor, entity):
+						   continue
 				
 				if self.target is None:
 					self.target = entity
