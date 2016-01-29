@@ -75,8 +75,8 @@ class Chunk:
 	def getTile(self, x, y):
 		return self.tiles[y * Chunk.size + x]
 		
-	def setTile(self, (x, y), id):
-		tile = self.tiles[y % 16 * Chunk.size + x % 16]
+	def setTile(self, pos, id):
+		tile = self.tiles[int(pos[1]) % 16 * Chunk.size + int(pos[0]) % 16]
 		tile.build(id)
 		self.mapCache.genMap(self)
 		self.save()

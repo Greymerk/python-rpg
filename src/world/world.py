@@ -55,7 +55,7 @@ class World:
 		self.entityCache = None
 
 		leader = self.friendly.getLeader()
-		pos = leader.position[0] >> 4, leader.position[1] >> 4
+		pos = int(leader.position[0]) >> 4, int(leader.position[1]) >> 4
 		self.chunkManager.cull(pos, 3)
 	
 		self.time += 1
@@ -66,7 +66,7 @@ class World:
 		if entity is not None and entity.isAlive():
 			return False
 				
-		tile = self.chunkManager.getTile((location[0], location[1]))
+		tile = self.chunkManager.getTile(location)
 		if tile is None:
 			return False
 			

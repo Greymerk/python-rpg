@@ -6,7 +6,7 @@ class Animation(object):
 	def __init__(self):
 		self.images = []
 		
-	def get(self, (x, y)):
+	def get(self, pos):
 		if randint(0, 2) == 1:
 			return self.images[0]
 		
@@ -22,10 +22,10 @@ class Variety(object):
 	def __init__(self):
 		self.images = []
 		
-	def get(self, (x, y)):
-		rand = Random()
-		rand.seed(x | y)
-		return rand.choice(self.images)
+	def get(self, pos):
+		n = int(pos[0]) | int(pos[1])
+		i = n % len(self.images) 
+		return self.images[i]
 		
 	def add(self, images):
 		for image in images:

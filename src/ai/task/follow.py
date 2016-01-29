@@ -4,6 +4,8 @@ Created on 2013-05-25
 @author: brian
 '''
 
+from src.util import Vector2
+
 class Follow(object):
     
     def __init__(self, actor, classList = []):
@@ -38,7 +40,7 @@ class Follow(object):
         
         pos = self.actor.position
         
-        if self.actor.world.isLocationPassable((pos[0] + direction[0], pos[1] + direction[1])):
+        if self.actor.world.isLocationPassable(Vector2(int(pos[0] + direction[0]), int(pos[1] + direction[1]))):
             self.actor.move(direction)
         else:
             self.actor.move(alternative)

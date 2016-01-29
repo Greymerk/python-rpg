@@ -35,7 +35,7 @@ class Viewport(object):
 		self.cameraPosition = leader.position
 
 		if leader is not None:
-			x, y = leader.position
+			x, y = int(leader.position[0]), int(leader.position[1])
 		else:
 			x, y = 0, 0
 
@@ -122,7 +122,7 @@ class Viewport(object):
 		self.surface.fill(THECOLORS["papayawhip"])
 		
 		x, y = self.player.party.getLeader().position
-		x, y = (x >> 4) - 8, (y >> 4) - 8
+		x, y = (int(x) >> 4) - 8, (int(y) >> 4) - 8
 			  
 		for row in range(17):
 			for col in range(17):
@@ -134,12 +134,12 @@ class Viewport(object):
 				self.surface.blit(img, dest)
 			  
 		x, y = self.player.party.getLeader().position  
-		leftChunk, topChunk = (x >> 4) - 8, (y >> 4) - 8
+		leftChunk, topChunk = (int(x) >> 4) - 8, (int(y) >> 4) - 8
 					
 		for mob in self.world.mobManager.mobs:
 
 				
-			mobX, mobY = mob.position[0], mob.position[1]
+			mobX, mobY = int(mob.position[0]), int(mob.position[1])
 			mobLeft, mobTop = mobX >> 4, mobY >> 4
 			 
 			posx, posy = ((mobLeft - leftChunk) * 32) + ((mobX % 16) * 2), ((mobTop - topChunk) * 32) + ((mobY % 16) * 2)
@@ -152,7 +152,7 @@ class Viewport(object):
 		for e in self.world.friendly:
 
 				
-			mobX, mobY = e.position[0], e.position[1]
+			mobX, mobY = int(e.position[0]), int(e.position[1])
 			mobLeft, mobTop = mobX >> 4, mobY >> 4
 			 
 			posx, posy = ((mobLeft - leftChunk) * 32) + ((mobX % 16) * 2), ((mobTop - topChunk) * 32) + ((mobY % 16) * 2)
@@ -162,8 +162,8 @@ class Viewport(object):
 			self.surface.set_at((posx + 1, posy), (0, 0, 255))
 			self.surface.set_at((posx + 1, posy + 1), (0, 0, 255))
 			
-		
-		avatarX, avatarY = self.player.party.getLeader().position
+		leader = self.player.party.getLeader()
+		avatarX, avatarY = int(leader.position[0]), int(leader.position[1])
 		avatarLeft, avatarTop = avatarX >> 4, avatarY >> 4
 		 
 		posx, posy = ((avatarLeft - leftChunk) * 32) + ((avatarX % 16) * 2), ((avatarTop - topChunk) * 32) + ((avatarY % 16) * 2)

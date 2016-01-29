@@ -1,7 +1,6 @@
 
 from pygame.locals import *
 
-
 cardinals = {}
 cardinals[K_UP] =	(0,-1)
 cardinals[K_DOWN] = 	( 0, 1)

@@ -97,8 +97,9 @@ class Player:
 			for direction in cardinals.cardinals.keys():
 				if pressed[direction]:
 					e = self.party.getLeader()
-					newPos = e.position[0] + cardinals.cardinals[direction][0], e.position[1] + cardinals.cardinals[direction][1]
-					succeeded = e.move(cardinals.cardinals[direction])
+					newPos = Vector2(e.position)
+					newPos += Vector2(cardinals.cardinals[direction])
+					succeeded = e.move(Vector2(cardinals.cardinals[direction]))
 					if succeeded:
 						msg = cardinals.names[direction]
 						self.world.getTile(newPos).getGround().stepSound(self.world.sounds)

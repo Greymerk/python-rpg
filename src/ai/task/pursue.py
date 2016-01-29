@@ -4,6 +4,8 @@ Created on 2013-05-25
 @author: brian
 '''
 
+from src.util import Vector2
+
 class Pursue(object):
 
 	def __init__(self, actor):
@@ -48,12 +50,14 @@ class Pursue(object):
 		direction = (self.sign(x), 0) if abs(x) > abs(y) else (0, self.sign(y))
 		alternative = (self.sign(x), 0) if abs(x) <= abs(y) else (0, self.sign(y))
 		
-		pos = self.actor.position
+		pos = Vector2(self.actor.position)
+		pos += Vector2(direction)
 		
-		if self.actor.world.isLocationPassable((pos[0] + direction[0], pos[1] + direction[1])):
-			self.actor.move(direction)
+		
+		if self.actor.world.isLocationPassable(pos):
+			self.actor.move(Vector2(direction))
 		else:
-			self.actor.move(alternative)
+			self.actor.move(Vector2(alternative))
 		
 		
 	@staticmethod

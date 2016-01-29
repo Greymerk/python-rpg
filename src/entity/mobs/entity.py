@@ -20,7 +20,7 @@ class Entity:
 	def __init__(self, world):
 		self.image = None
 		self.gore = None
-		self.position = (0,0)
+		self.position = Vector2(0,0)
 		self.world = world
 		self.group = None
 		self.ai = AIController()
@@ -44,10 +44,10 @@ class Entity:
 		newx = oldx + x
 		newy = oldy + y
 
-		if not self.world.isLocationPassable((newx, newy)):
+		if not self.world.isLocationPassable(Vector2(newx, newy)):
 			return False
 
-		self.position = newx, newy
+		self.position = Vector2(newx, newy)
 		
 		return True
 
@@ -86,13 +86,12 @@ class Entity:
 	def save(self):
 		data = {}
 		data['type'] = self.__class__.__name__
-		#data['position'] = {'x' : self.position[0], 'y' : self.position[1]}
-		data['position'] = self.position
+		data['position'] = self.position.save()
 		data['health'] = self.health
 		data['deathTimer'] = self.deathTimer
 		data['hostile'] = self.hostile
 		if self.lastAttacker is not None:
-			data['lastAttacker'] = self.lastAttacker.position
+			data['lastAttacker'] = self.lastAttacker.position.save()
 		data['name'] = self.name
 		data['inventory'] = self.inventory.save()
 		abi = []
@@ -105,8 +104,7 @@ class Entity:
 
 	def load(self, data):
 		if 'position' in data.keys():
-			#self.position = data['position']['x'], data['position']['y']
-			self.position = data['position']
+			self.position = Vector2.load(data['position'])
 		if 'health' in data.keys():
 			self.health = data['health']
 		if 'deathTimer' in data.keys():
@@ -114,7 +112,7 @@ class Entity:
 		if 'hostile' in data.keys():
 			self.hostile = data['hostile']
 		if 'lastAttacker' in data.keys():
-			self.lastAttacker = self.world.getEntityFromLocation(data['lastAttacker'])
+			self.lastAttacker = self.world.getEntityFromLocation(Vector2.load(data['lastAttacker']))
 		if 'name' in data.keys():
 			self.name = data['name']
 		if 'inventory' in data.keys():
@@ -279,9 +277,9 @@ class Entity:
 			return self.world.mobManager.mobs
 		
 	def canHit(self, location, attackRange):
-		
-		distance = sqrt(float(((location[0] - self.position[0])**2 + (location[1] - self.position[1])**2)))
-		return distance <= sqrt(2*((attackRange)**2)) 
+		pos = Vector2(self.position[0], self.position[1])
+		pos -= location
+		return pos.inRange(attackRange)
 			
 	def isAlive(self):
 		return self.health > 0
@@ -315,7 +313,7 @@ class Entity:
 				return
 			r += 1
 			
-		self.position = (x, y)
+		self.position = Vector2(x, y)
 
 
 	def getName(self):

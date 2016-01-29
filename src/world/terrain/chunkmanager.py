@@ -12,8 +12,8 @@ class ChunkManager:
 		self.maxCacheSize = 64
 	
 	def getChunk(self, x, y):
-		chunkX = x >> 4
-		chunkY = y >> 4
+		chunkX = int(x) >> 4
+		chunkY = int(y) >> 4
 
 		for c in self.chunkCache:
 			if c.getPos() == (chunkX, chunkY):
@@ -31,7 +31,9 @@ class ChunkManager:
 	def getMap(self, x, y):
 		return self.mapCache.get(x, y)
 	
-	def getTile(self, (x, y)):
+	def getTile(self, pos):
+		x = int(pos[0])
+		y = int(pos[1])
 		c = self.getChunk(x, y)
 		return c.getTile(x % Chunk.size, y % Chunk.size)
 
