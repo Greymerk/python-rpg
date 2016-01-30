@@ -21,7 +21,7 @@ class Snake(Entity):
 		
 		self.world = world
 		self.hostile = True
-		self.health = self.maxHealth = 60
+		self.health = self.maxHealth = 15
 		
 		self.ai.addAI(task.Flee(self))
 		self.ai.addAI(task.Cast(self))

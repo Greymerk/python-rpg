@@ -69,7 +69,7 @@ class Viewport(object):
 	def display(self, info):
 		self.fontobject = pygame.font.Font(None,24)
 		for i, line in enumerate(info):
-			self.surface.blit(self.fontobject.render(line[0], 1, (255,255,255)), (10, i * 16))	
+			self.surface.blit(self.fontobject.render(line[0], 1, (255,255,255)), (16, (i + 1) * 16))	
 		
 	def draw(self):
 		
@@ -84,28 +84,23 @@ class Viewport(object):
 	def drawGame(self):
 
 		camPos = self.player.party.getLeader().position
+		self.viewCache = self.surface.copy()
 		
-		if True: #self.viewCache is None:
-		
-			self.viewCache = self.surface.copy()
-			
-			for row in range(17):
-				for col in range(17):
-					cell = self.grid[row * 17 + col]
-					if cell is None:
-						continue
+		for row in range(17):
+			for col in range(17):
+				cell = self.grid[row * 17 + col]
+				if cell is None:
+					continue
 
-					ground = cell.getGround()
-					relPos = camPos[0] - 8 + col, camPos[1] - 8 + row
-					imgName = ground.getImage(relPos)
-					image = self.images.get(imgName, relPos)
-					dest = (col * 32), (row * 32)
+				ground = cell.getGround()
+				relPos = camPos[0] - 8 + col, camPos[1] - 8 + row
+				imgName = ground.getImage(relPos)
+				image = self.images.get(imgName, relPos)
+				dest = (col * 32), (row * 32)
 
-					self.viewCache.blit(image, dest)
+				self.viewCache.blit(image, dest)
 		
 		self.surface.blit(self.viewCache, (0,0))
-
-		
 
 		for e in self.world.getAllEntities():
 			e.draw(self.surface, camPos, self.images, self.visible)

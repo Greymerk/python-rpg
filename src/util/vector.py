@@ -17,7 +17,7 @@ class Vector2(object):
 		return math.sqrt(relx**2 + rely**2)
 
 	def inRange(self, range):
-		return self.x * self.x + self.y * self.y <= range * range
+		return self.x * self.x + self.y * self.y <= range * range + 1
 		
 	def __add__(self, other):
 		self.x += other[0]

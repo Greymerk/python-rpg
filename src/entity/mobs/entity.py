@@ -278,7 +278,10 @@ class Entity:
 		
 	def canHit(self, location, attackRange):
 		pos = Vector2(self.position[0], self.position[1])
-		pos -= location
+		pos.center()
+		target = Vector2(location)
+		target.center()
+		pos -= target
 		return pos.inRange(attackRange)
 			
 	def isAlive(self):
