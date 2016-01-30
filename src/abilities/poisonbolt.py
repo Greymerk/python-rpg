@@ -15,6 +15,7 @@ class PoisonBolt(object):
 	heal = False
 	name = "Poison bolt"
 	color = THECOLORS['green']
+	icon = "magicbolt"
 	
 	def __init__(self, caster, location, item):
 		self.item = item

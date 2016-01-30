@@ -7,5 +7,5 @@ def get(pos):
 	rand = Random(int(t * 2) + p)
 	n = rand.randint(0, 10)
 	n += p
-	return 'fighter' + str(n % 4) + '.png'
+	return 'bard' + str(n % 4) + '.png'
 

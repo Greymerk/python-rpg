@@ -12,6 +12,7 @@ class Attack(object):
 	damage = 2, 5
 	heal = False 
 	name = "Attack"
+	icon = "sword.png"
 	
 	def __init__(self, caster, location, item):
 		

@@ -14,6 +14,7 @@ class HealBolt(object):
 	damage = 2, 5
 	heal = True
 	name = "Heal Bolt"
+	icon = "healbolt"
 	
 	def __init__(self, caster, location, item):
 		self.item = item

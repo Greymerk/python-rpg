@@ -8,6 +8,7 @@ class ChainBolt(object):
 	damage = 2, 5
 	heal = False
 	name = "Chain Bolt"
+	icon = "magicbolt"
 	
 	def __init__(self, caster, location, item):
 		self.item = item

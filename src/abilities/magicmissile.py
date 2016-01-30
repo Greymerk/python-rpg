@@ -15,6 +15,7 @@ class MagicMissile(object):
 	heal = False
 	name = "Magic Missile"
 	color = THECOLORS['lightcyan']
+	icon = "magicbolt"
 	
 	def __init__(self, caster, location, item):
 		self.item = item

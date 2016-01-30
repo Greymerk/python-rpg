@@ -14,6 +14,7 @@ class Resurrection(object):
 	color = THECOLORS['palegoldenrod']
 	heal = True
 	name = "Ressurection"
+	icon = "healbolt"
 	
 	def __init__(self, caster, location, item):
 		self.range = self.__class__.range
