@@ -86,12 +86,12 @@ class Entity:
 	def save(self):
 		data = {}
 		data['type'] = self.__class__.__name__
-		data['position'] = self.position.save()
+		data['position'] = Vector2.save(self.position)
 		data['health'] = self.health
 		data['deathTimer'] = self.deathTimer
 		data['hostile'] = self.hostile
 		if self.lastAttacker is not None:
-			data['lastAttacker'] = self.lastAttacker.position.save()
+			data['lastAttacker'] = Vector2.save(self.lastAttacker.position)
 		data['name'] = self.name
 		data['inventory'] = self.inventory.save()
 		abi = []

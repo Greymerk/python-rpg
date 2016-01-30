@@ -2,9 +2,7 @@
 import os
 import pygame
 import imp
-
-from animations import Animation
-from animations import Variety
+import importlib
 
 class ImageCache(object):
 	
@@ -27,8 +25,8 @@ class ImageCache(object):
 		if not name in self.animations:
 			path = os.path.join(self.basePath, self.textureDir, name)
 			if os.path.isdir(path):
-				anim = Variety()
-				anim.add(os.listdir(path))
+				pkg = 'src.images.' + self.textureDir + '.' + name
+				anim = importlib.import_module(pkg)
 				self.animations[name] = anim
 			else:
 				self.animations[name] = None

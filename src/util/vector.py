@@ -43,10 +43,7 @@ class Vector2(object):
 		self.y = math.floor(self.y) + 0.5
 		
 	def save(self):
-		data = {}
-		data["x"] = self.x
-		data["y"] = self.y
-		return data
+		return Vector2.save(self)
 
 	def __getitem__(self, key):
 		return (self.x, self.y)[key]
@@ -54,6 +51,13 @@ class Vector2(object):
 	def __str__(self):
 			return str(self.x) + ' ' + str(self.y)
 
+	@staticmethod
+	def save(vec):
+		data = {}
+		data["x"] = vec[0]
+		data["y"] = vec[1]
+		return data
+			
 	@staticmethod
 	def load(data):
 		return Vector2(data["x"], data["y"])
