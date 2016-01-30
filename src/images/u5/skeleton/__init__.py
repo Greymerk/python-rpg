@@ -3,8 +3,10 @@ from random import Random
 
 def get(pos):
 	images = []
-	images.append("fighter.png")
-	images.append("fighter2.png")
+	images.append("skeleton.png")
+	images.append("skeleton2.png")
+	images.append("skeleton3.png")
+	images.append("skeleton4.png")
 	p = int(pos[0]) | int(pos[1])
 	t = time()
 	rand = Random(int(t * 2) + p)

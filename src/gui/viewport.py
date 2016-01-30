@@ -85,7 +85,7 @@ class Viewport(object):
 
 		camPos = self.player.party.getLeader().position
 		
-		if self.viewCache is None:
+		if True: #self.viewCache is None:
 		
 			self.viewCache = self.surface.copy()
 			

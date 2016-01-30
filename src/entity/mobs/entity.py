@@ -77,7 +77,7 @@ class Entity:
 			elif time() - self.lastDamage < 0.2:
 				screen.blit(images.get(self.__class__.damage), position)
 			else:
-				screen.blit(images.get(self.__class__.living, camPos), position)
+				screen.blit(images.get(self.__class__.living, self.position), position)
 		
 		if self.action is not None:
 			self.action.draw(screen, camPos, visible)
