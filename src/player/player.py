@@ -73,7 +73,7 @@ class Player:
 					pygame.display.toggle_fullscreen()
 
 				if(e.key == K_m and mods == pygame.KMOD_NONE):
-					self.viewingMap = True
+					self.viewingMap = not self.viewingMap
 
 				if(e.key == K_F12 and mods == pygame.KMOD_NONE):
 					self.screenshot()
@@ -100,9 +100,7 @@ class Player:
 						self.log.append(leader.name + " is now the leader.")
 					
 			elif(e.type == KEYUP):
-				
-				if(e.key == K_m and mods & (pygame.KMOD_NONE | pygame.KMOD_NUM)):
-					self.viewingMap = False
+				pass				
 
 		if(time.time() - self.lastAction > self.turnDelay):	
 
