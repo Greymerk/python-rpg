@@ -72,16 +72,18 @@ class Entity:
 		position = (((relx + 8)*tileSize), ((rely + 8) * tileSize))
 
 		if visible(self.position):
-			if self.health == 0:
-				screen.blit(images.get(self.__class__.dead), position)
-			elif time() - self.lastDamage < 0.2:
-				screen.blit(images.get(self.__class__.damage), position)
-			else:
-				screen.blit(images.get(self.__class__.living, self.position), position)
-		
+			screen.blit(self.getImage(images), position)
+	
 		if self.action is not None:
 			self.action.draw(screen, camPos, visible)
-		
+	
+	def getImage(self, images):
+			if self.health == 0:
+				return images.get(self.__class__.dead, self.position)
+			elif time() - self.lastDamage < 0.2:
+				return images.get(self.__class__.damage, self.position)
+			else:
+				return images.get(self.__class__.living, self.position)
 
 	def save(self):
 		data = {}

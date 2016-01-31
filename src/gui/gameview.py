@@ -21,8 +21,8 @@ class Gameview(object):
 		viewportRect = pygame.Rect((28, 28), (17*32, 17*32))
 		self.viewport = Viewport(self.surface.subsurface(viewportRect), world, player, images)
 		
-		optionsRect = pygame.Rect((600,28), (396, 16*12))
-		self.options = Options(self.surface.subsurface(optionsRect), self.player)
+		optionsRect = pygame.Rect((600,28), (396, 32 * 6))
+		self.options = Options(self.surface.subsurface(optionsRect), self.player, images)
 		
 		statusRect = pygame.Rect((600,252), (396, 32))
 		self.status = Status(self.surface.subsurface(statusRect), self.player, images)

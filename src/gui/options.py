@@ -9,14 +9,20 @@ import pygame
 from pygame.locals import *
 from pygame.color import THECOLORS
 
+from card import Card
+
 class Options(object):
 
-	def __init__(self, surface, player):
+	def __init__(self, surface, player, images):
 		
 		self.surface = surface
 		self.player = player
+		self.tileSize = 32
 		
-
+		self.party = []
+		for i in range(6):
+			rect = pygame.Rect((0, self.tileSize * i), (396, self.tileSize))
+			self.party.append(Card(self.surface.subsurface(rect), player, images))
 		self.selected = 0
 		self.player = player
 
@@ -43,7 +49,9 @@ class Options(object):
 
 	def drawParty(self):
 		count = 0
-		for e in self.player.world.friendly.members:
+		for i, e in enumerate(self.player.world.friendly.members):
+			self.party[i].draw(e)
+		'''
 			if count > self.getMaxLines():
 				return
 			if e.name is not None:
@@ -59,6 +67,7 @@ class Options(object):
 			message = name + ' - ' + str(e.health) + 'HP ' + '(' + str(e.position[0]) + ',' + str(e.position[1]) + ')'  
 			self.surface.blit(self.fontobject.render(message, 1, color), (0, 16*count))
 			count += 1
+		'''
 			
 	def getMaxLines(self):
 		return self.surface.get_height()/16
