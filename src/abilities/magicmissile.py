@@ -76,6 +76,7 @@ class FireBall(MagicMissile):
 	heal = False
 	color = THECOLORS['orange']
 	name = "Fireball"
+	icon = "firebolt"
 	
 	def fire(self):
 		self.caster.world.sounds.get("fireball.wav").play()

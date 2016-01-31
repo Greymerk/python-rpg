@@ -5,6 +5,7 @@ import time
 from options import Options
 from output import Output
 from viewport import Viewport
+from status import Status
 
 class Gameview(object):
 
@@ -20,11 +21,14 @@ class Gameview(object):
 		viewportRect = pygame.Rect((28, 28), (17*32, 17*32))
 		self.viewport = Viewport(self.surface.subsurface(viewportRect), world, player, images)
 		
-		logRect = pygame.Rect((600,316),(396,16*16))
-		self.logWindow = Output(self.surface.subsurface(logRect), self.player.log)
-		
 		optionsRect = pygame.Rect((600,28), (396, 16*12))
 		self.options = Options(self.surface.subsurface(optionsRect), self.player)
+		
+		statusRect = pygame.Rect((600,252), (396, 32))
+		self.status = Status(self.surface.subsurface(statusRect), self.player, images)
+		
+		logRect = pygame.Rect((600,316),(396,16*16))
+		self.logWindow = Output(self.surface.subsurface(logRect), self.player.log)
 		
 		player.screenshot = self.printscreen
 		
@@ -36,6 +40,7 @@ class Gameview(object):
 		self.update()		
 		self.surface.blit(self.background, (0,0))
 		self.options.draw()
+		self.status.draw()
 		self.logWindow.draw()
 		self.viewport.draw()
 		if self.debug is not None:

@@ -5,6 +5,8 @@ import json
 
 from src.actions import cardinals
 from src.actions import lookup
+from src.actions import Quit
+from src.actions import Cast
 from src.util import Vector2
 
 import pygame
@@ -12,6 +14,8 @@ from pygame.locals import *
 from pygame.color import THECOLORS
 
 class Player:
+
+	ABILITY_KEYS = [K_q, K_w, K_e, K_r]
 
 	def __init__(self, world):
 		self.world = world
@@ -29,7 +33,7 @@ class Player:
 		self.viewingMap = False
 		self.action = None
 		self.turnDelay = 0.3
-	
+		
 		pygame.key.set_repeat()
 
 		self.screenshot = None #initialized by the GameView class
@@ -58,23 +62,35 @@ class Player:
 			
 		event = pygame.event.get()
 
+		mods = pygame.key.get_mods()
+
 		for e in event:
 			if(e.type == QUIT):
 				self.world.quit()
 			elif(e.type == KEYDOWN):
 
-				if(e.key == K_f):
+				if(e.key == K_f and mods == pygame.KMOD_NONE):
 					pygame.display.toggle_fullscreen()
 
-				if(e.key == K_m):
+				if(e.key == K_m and mods == pygame.KMOD_NONE):
 					self.viewingMap = True
 
-				if(e.key == K_F12):
+				if(e.key == K_F12 and mods == pygame.KMOD_NONE):
 					self.screenshot()
 
-				if(e.key in lookup):
+				if(e.key == K_q and mods == pygame.KMOD_LALT):
+					self.action = Quit(self)
+				
+				if(e.key in lookup and mods & (pygame.KMOD_NONE | pygame.KMOD_NUM)):
 					self.action = lookup[e.key](self)
 					return True
+				
+				if mods == pygame.KMOD_NONE:
+					for i, k in enumerate(Player.ABILITY_KEYS):
+						if e.key == k and len(self.avatar.abilities) > i:
+							spell = self.avatar.abilities[i]
+							self.action = Cast(self, spell)
+						
 				
 				# select unit to control (deliberately off by one)
 				if(e.key - 49 in range(9)):
@@ -85,7 +101,7 @@ class Player:
 					
 			elif(e.type == KEYUP):
 				
-				if(e.key == K_m):
+				if(e.key == K_m and mods & (pygame.KMOD_NONE | pygame.KMOD_NUM)):
 					self.viewingMap = False
 
 		if(time.time() - self.lastAction > self.turnDelay):	

@@ -37,6 +37,9 @@ class Options(object):
 			return
 		
 		options = self.player.action.options
+		if options is None:
+			self.drawParty()
+			return
 		  
 		count = 0
 		for line in options:

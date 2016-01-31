@@ -13,14 +13,20 @@ from pygame.locals import *
 
 class Cast(object):
 	 
-	def __init__(self, player):
+	def __init__(self, player, ability=None):
 		self.player = player
 		self.projectile = None
 		self.casting = False
 		self.targetLocation = None
-		self.spell = None
+		self.spell = ability
 		self.location = None
-		
+		if self.spell is not None:
+			self.location = (0,0)
+			
+		if self.spell is not None and self.player.lastTarget is not None:
+			if self.player.party.getLeader().canHit(self.player.lastTarget.position, self.spell.range) and self.player.lastTarget.isAlive():
+				self.location = self.player.lastTarget.position[0] - self.player.party.getLeader().position[0], self.player.lastTarget.position[1] - self.player.party.getLeader().position[1]	
+
 		self.spellList = {}
 		self.options = {}
 		
@@ -32,10 +38,14 @@ class Cast(object):
 			
 			self.options[i + 1] = leader.abilities[i].name
 			self.spellList[i + 1] = leader.abilities[i]
+			
+		if self.spell is not None:
+			self.options = None
+			self.player.log.append('Select target for ' + self.spell.name + '.')
 		
 	def nextStep(self):
 		
-		if len(self.options) == 0:
+		if self.options is not None and len(self.options) == 0:
 			return True
 		
 		if self.casting:
@@ -54,7 +64,7 @@ class Cast(object):
 		if e.type != KEYDOWN:
 			return False
 		
-		if e.key in [K_ESCAPE, K_SPACE]:
+		if e.key in [K_ESCAPE]:
 			self.player.log.append('Cancelled')
 			return True
 
@@ -72,7 +82,7 @@ class Cast(object):
 			return False
 		
 
-		if self.location != (0,0) and e.key in [K_RETURN, K_c]:
+		if self.location != (0,0) and e.key in [K_RETURN, K_c, K_SPACE, self.player.ABILITY_KEYS[self.player.avatar.abilities.index(self.spell)]]:
 			pos = self.player.party.getLeader().position
 			target = (pos[0] + self.location[0], pos[1] + self.location[1])
 			actor = self.player.party.getLeader()
