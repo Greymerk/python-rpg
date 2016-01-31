@@ -14,7 +14,7 @@ class Explosion(object):
 	
 	def __init__(self, caster, location, item):
 		self.item = item
-		self.range = MagicMissile.range
+		self.range = Explosion.range
 		self.caster = caster
 		self.target = location
 		self.range = self.__class__.range
@@ -28,7 +28,7 @@ class Explosion(object):
 		else:
 			self.caster.world.log.append(casterName + ' cast ' + self.__class__.__name__ + ' at nothing!')
 		
-		self.projectile = Star(caster.position, location, self.item.color, self.fire, self.impact)
+		self.projectile = Star(caster.position, location, self.color, self.fire, self.impact)
 		self.explosion = []
 		self.done = False
 	 

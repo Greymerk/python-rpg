@@ -25,13 +25,8 @@ class Options(object):
 	def draw(self):
 		pygame.event.pump()
 		pressed = pygame.key.get_pressed()
-		
-		if(pressed[K_SPACE]):
-			background = THECOLORS["red"]
-		else:
-			background = THECOLORS["black"]		
 
-		self.surface.fill(background)
+		self.surface.fill(THECOLORS["black"])
 		if not hasattr(self.player.action, 'options'):
 			self.drawParty()
 			return

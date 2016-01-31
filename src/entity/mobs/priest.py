@@ -1,31 +1,31 @@
 '''
-Created on 2013-05-28
+Created on 2013-05-27
 
 @author: brian
 '''
+
 from entity import Entity
 import pygame
+from random import randint
 from src.ai import task
 from src.abilities import *
 
-class Bard(Entity):
+class Priest(Entity):
 
-	living = "bard"
+	living = "priest"
 	dead = "body"
 
 	def __init__(self, world):
 		Entity.__init__(self, world)
-		self.singular = 'a bard'
+		self.singular = 'a priest'
 
-		self.ai.addAI(task.Flee(self))
+		self.ai.addAI(task.Fallback(self))
 		self.ai.addAI(task.Cast(self))
-		self.ai.addAI(task.Pursue(self))
 		self.ai.addAI(task.Follow(self))
 		self.ai.addAI(task.Wander(self))
-		self.sight = 7
-
+		
 	def equip(self):
-		self.abilities = [BowShot, HealBolt]
+		self.abilities = [HealBolt, Resurrection]
 		
 	@classmethod
 	def onDamage(cls, sounds):

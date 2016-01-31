@@ -7,6 +7,7 @@ from ettin import Ettin
 from fighter import Fighter
 from mage import Mage
 from bard import Bard
+from priest import Priest
 from skeleton import *
 
 lookup = {}
@@ -19,6 +20,7 @@ lookup['Ettin'] = Ettin
 lookup['Fighter'] = Fighter
 lookup['Mage'] = Mage
 lookup['Bard'] = Bard
+lookup['Priest'] = Priest
 lookup['SkeletalWarrior'] = SkeletalWarrior
 lookup['SkeletalMage'] = SkeletalMage
 lookup['SkeletalArcher'] = SkeletalArcher

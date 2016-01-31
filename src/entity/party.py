@@ -7,6 +7,7 @@ Created on 2013-05-26
 from mobs import Bard
 from mobs import Fighter
 from mobs import Mage
+from mobs import Priest
 
 
 class Party(object):
@@ -51,23 +52,10 @@ class Party(object):
 	def load(self, data):
 		
 		if data is None:
-			member = Bard(self.world)
-			member.equip()
-			member.name = "Jade"
-			self.members.append(member)
-			member.setGroup(self)
-			self.setLeader(0)
-			member.position = self.world.getSpawnLocation()
 			
-			member = Mage(self.world)
+			member = Fighter(self.world)
 			member.equip()
-			member.name = "Ice"
-			self.members.append(member)
-			member.setGroup(self)
-			
-			member = Mage(self.world)
-			member.equip()
-			member.name = "Fire"
+			member.name = "Steve"
 			self.members.append(member)
 			member.setGroup(self)
 			
@@ -77,11 +65,32 @@ class Party(object):
 			self.members.append(member)
 			member.setGroup(self)
 			
-			member = Fighter(self.world)
+			member = Mage(self.world)
 			member.equip()
-			member.name = "Steve"
+			member.name = "Johne"
 			self.members.append(member)
 			member.setGroup(self)
+			
+			member = Priest(self.world)
+			member.equip()
+			member.name = "Maya"
+			self.members.append(member)
+			member.setGroup(self)
+			
+			member = Priest(self.world)
+			member.equip()
+			member.name = "Alice"
+			self.members.append(member)
+			member.setGroup(self)
+
+			member = Bard(self.world)
+			member.equip()
+			member.name = "Kat"
+			self.members.append(member)
+			member.setGroup(self)
+			member.position = self.world.getSpawnLocation()
+			
+			self.setLeader(0)
 			
 			for e in self.members:
 				e.teleportToLeader()

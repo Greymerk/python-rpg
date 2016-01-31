@@ -16,5 +16,5 @@ class Status(object):
 			image = self.images.get(ability.icon)
 			rect = pygame.Rect((i * self.size, 0),((i + 1) * self.size, self.size))
 			self.surface.blit(image, rect)
-			self.surface.blit(self.font.render(str(pygame.key.name(self.player.ABILITY_KEYS[i])), 1, (200,200,200)), (i * self.size,0)) 
+			self.surface.blit(self.font.render(str(pygame.key.name(self.player.ABILITY_KEYS[i])).upper(), 1, (200,200,200)), (i * self.size,0)) 
 
