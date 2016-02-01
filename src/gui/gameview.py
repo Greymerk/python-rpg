@@ -15,19 +15,22 @@ class Gameview(object):
 		self.surface = surface
 		self.images = images
 		self.debug = debug
-		
-		self.background = images.get("interface")
+		self.boxes = []
 		
 		viewportRect = pygame.Rect((28, 28), (17*32, 17*32))
+		self.boxes.append(viewportRect)
 		self.viewport = Viewport(self.surface.subsurface(viewportRect), world, player, images)
 		
 		optionsRect = pygame.Rect((600,28), (396, 32 * 6))
+		self.boxes.append(optionsRect)
 		self.options = Options(self.surface.subsurface(optionsRect), self.player, images)
 		
 		statusRect = pygame.Rect((600,252), (396, 32))
+		self.boxes.append(statusRect)
 		self.status = Status(self.surface.subsurface(statusRect), self.player, images)
 		
 		logRect = pygame.Rect((600,316),(396,16*16))
+		self.boxes.append(logRect)
 		self.logWindow = Output(self.surface.subsurface(logRect), self.player.log)
 		
 		player.screenshot = self.printscreen
@@ -38,7 +41,9 @@ class Gameview(object):
 	def draw(self):
 
 		self.update()		
-		self.surface.blit(self.background, (0,0))
+		self.surface.fill(THECOLORS["royalblue4"])
+		for box in self.boxes:
+			pygame.draw.rect(self.surface, THECOLORS["azure2"], box, 5)
 		self.options.draw()
 		self.status.draw()
 		self.logWindow.draw()

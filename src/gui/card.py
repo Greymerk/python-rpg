@@ -15,11 +15,13 @@ class Card(object):
 		self.surface.fill(THECOLORS["black"])
 		rect = pygame.Rect((0,0), (self.size, self.size))
 		self.surface.blit(unit.getImage(self.images), rect)
-		message = unit.name + ' - ' + str(unit.health) + 'HP ' + '(' + str(unit.position[0]) + ',' + str(unit.position[1]) + ')' 
-		if unit is self.player.avatar:
-			color = (255,255,0)
-		else:
-			color = (255,255,255)
 		
+		if unit is self.player.avatar:
+			color = THECOLORS["gold"]
+		else:
+			color = THECOLORS["gray"]
+		
+		message = unit.name + ' - ' + str(unit.health) + 'HP'
 		self.surface.blit(self.fontobject.render(message, 1, color), (42, 0))
-
+		message = str(unit.position[0]) + ', ' + str(unit.position[1]) 
+		self.surface.blit(self.fontobject.render(message, 1, color), (42, 16))

@@ -15,7 +15,6 @@ class Viewport(object):
 		self.world = world
 		self.player = player
 		self.previousPosition = None
-		self.mapOverlay = images.get("map-overlay")
 		self.reticule = pygame.transform.scale2x(images.get("reticule"))
 		self.grid = [None]*289
 		self.mapCache = {}
@@ -114,7 +113,7 @@ class Viewport(object):
 	
 	def drawMap(self):
 		
-		self.surface.fill(THECOLORS["papayawhip"])
+		self.surface.fill(THECOLORS["wheat4"])
 		
 		x, y = self.player.party.getLeader().position
 		x, y = (int(x) >> 4) - 8, (int(y) >> 4) - 8
@@ -168,7 +167,6 @@ class Viewport(object):
 		self.surface.set_at((posx + 1, posy), (255, 255, 0))
 		self.surface.set_at((posx + 1, posy + 1), (255, 255, 0))
 		
-		self.surface.blit(self.mapOverlay, (0,0))
 		
 	def visible(self, pos):
 			
