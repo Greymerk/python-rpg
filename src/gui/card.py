@@ -25,3 +25,13 @@ class Card(object):
 		self.surface.blit(self.fontobject.render(message, 1, color), (42, 0))
 		message = str(unit.position[0]) + ', ' + str(unit.position[1]) 
 		self.surface.blit(self.fontobject.render(message, 1, color), (42, 16))
+		
+		aOffset = 200
+		for i, ability in enumerate(unit.abilities):
+			image = self.images.get(ability.icon)
+			rect = pygame.Rect((i * self.size + aOffset, 0),((i + 1) * self.size + aOffset, self.size))
+			self.surface.blit(image, rect)
+			self.surface.blit(self.font.render(str(pygame.key.name(self.player.ABILITY_KEYS[i])).upper(), 1, THECOLORS["gray"]), (i * self.size + aOffset,0)) 
+		
+		if unit is self.player.avatar:
+			pygame.draw.rect(self.surface, THECOLORS["green"], self.surface.get_rect(), 2)
