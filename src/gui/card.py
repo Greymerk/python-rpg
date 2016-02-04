@@ -33,5 +33,3 @@ class Card(object):
 			self.surface.blit(image, rect)
 			self.surface.blit(self.font.render(str(pygame.key.name(self.player.ABILITY_KEYS[i])).upper(), 1, THECOLORS["gray"]), (i * self.size + aOffset,0)) 
 		
-		if unit is self.player.avatar:
-			pygame.draw.rect(self.surface, THECOLORS["green"], self.surface.get_rect(), 2)
