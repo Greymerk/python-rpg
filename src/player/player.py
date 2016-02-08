@@ -99,8 +99,8 @@ class Player:
 						
 				
 				# select unit to control (deliberately off by one)
-				if(e.key - 49 in range(len(self.party))):
-					self.setLeader(self.party[e.key - 49])
+				if(e.key - 49 in range(len(self.party.members))):
+					self.setLeader(self.party.members[e.key - 49])
 					
 			elif(e.type == KEYUP):
 				pass
@@ -146,10 +146,9 @@ class Player:
 		if not entity in self.party:
 			return
 			
-		self.party.leader = self.party.members.index(entity)
-		self.avatar = self.party.members[self.party.leader]
-		self.log.append(self.avatar.name + " is now the leader.")
-		
+		i = self.party.members.index(entity)
+		self.avatar = self.party.setLeader(i)		
+
 	def save(self):
 		data = {}
 		data['members'] = self.party.save()

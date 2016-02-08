@@ -102,7 +102,7 @@ class Party(object):
 			self.members.append(member)
 			member.setGroup(self)
 			
-		self.leader = data['leader']
+		self.setLeader(data['leader'])
 			
 	def getLeader(self):
 		return self.members[self.leader]

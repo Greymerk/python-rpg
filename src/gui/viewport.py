@@ -186,9 +186,7 @@ class Viewport(object):
 		vec = Vector2(pos)
 		vec -= self.pos
 		rel = Vector2(int(vec[0] / 32) - 8, int(vec[1] / 32) - 8)
-		print str(rel)
 		rel += self.cameraPosition
-		print str(rel)
 		return self.world.getEntityFromLocation(rel)
 		
 
