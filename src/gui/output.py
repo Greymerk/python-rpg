@@ -1,8 +1,10 @@
 import pygame
+from src.util import Vector2
 
 class Output(object):
 
-	def __init__(self, surface, inBuffer):
+	def __init__(self, surface, pos, inBuffer):
+		self.pos = pos
 		self.surface = surface
 		self.buffer = inBuffer
 		self.fontobject = pygame.font.Font(None,24)
@@ -17,3 +19,6 @@ class Output(object):
 
 	def append(self, message):
 		self.buffer.append(message)
+		
+	def getElement(self, pos):
+		return None

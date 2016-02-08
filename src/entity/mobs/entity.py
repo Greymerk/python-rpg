@@ -35,6 +35,7 @@ class Entity:
 		self.lastAttacker = None
 		self.name = None
 		self.action = None
+		self.observers = []
 
 	def move(self, direction):
 
@@ -351,6 +352,10 @@ class Entity:
 	
 	def equip(self):
 		pass
+		
+	def notify(self, event):
+		for obs in self.observers:
+			obs.notify(self, event)
 		
 	@classmethod
 	def onDamage(cls, sounds):

@@ -6,12 +6,14 @@ Created on 2013-05-23
 
 import pygame
 from pygame.color import THECOLORS
+from src.util import Vector2
 
 class Viewport(object):
 
-	def __init__(self, surface, world, player, images):
+	def __init__(self, surface, pos, world, player, images):
 		self.images = images
 		self.surface = surface
+		self.pos = pos
 		self.world = world
 		self.player = player
 		self.previousPosition = None
@@ -20,7 +22,7 @@ class Viewport(object):
 		self.mapCache = {}
 		self.viewCache = None
 		self.currentTurn = None
-		self.cameraPosition = None
+		self.cameraPosition = (0, 0)
 			
 	def update(self):	  
 		
@@ -179,5 +181,14 @@ class Viewport(object):
 			return False
 			
 		return self.player.party.canSee(pos)
-
+		
+	def getElement(self, pos):
+		vec = Vector2(pos)
+		vec -= self.pos
+		rel = Vector2(int(vec[0] / 32) - 8, int(vec[1] / 32) - 8)
+		print str(rel)
+		rel += self.cameraPosition
+		print str(rel)
+		return self.world.getEntityFromLocation(rel)
+		
 

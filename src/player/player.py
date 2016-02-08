@@ -8,6 +8,7 @@ from src.actions import lookup
 from src.actions import Quit
 from src.actions import Cast
 from src.util import Vector2
+from entitycontrol import EntityControl
 
 import pygame
 from pygame.locals import *
@@ -17,15 +18,20 @@ class Player:
 
 	ABILITY_KEYS = [K_q, K_w, K_e, K_r]
 
-	def __init__(self, world):
+	def __init__(self, game):
+		self.game = game
+		world = game.world
 		self.world = world
 		
 		self.log = ['Welcome']
 		self.world.log = self.log
 		
+		self.entitycontrol = EntityControl(self)
 		self.lastAction = 0
 		self.lastTurn = 0
-		self.load()
+		self.load() #party
+		for entity in self.party:
+			entity.observers.append(self.entitycontrol)
 		self.world.friendly = self.party
 		self.lastTarget = None
 
@@ -93,14 +99,17 @@ class Player:
 						
 				
 				# select unit to control (deliberately off by one)
-				if(e.key - 49 in range(9)):
-					leader = self.party.setLeader(e.key - 49)
-					if leader is not None:
-						self.avatar = leader
-						self.log.append(leader.name + " is now the leader.")
+				if(e.key - 49 in range(len(self.party))):
+					self.setLeader(self.party[e.key - 49])
 					
 			elif(e.type == KEYUP):
-				pass				
+				pass
+				
+			elif e.type == pygame.MOUSEBUTTONUP:
+				mpos = pygame.mouse.get_pos()
+				element = self.game.view.getElement(mpos)
+				if hasattr(element, 'notify'):
+					element.notify(e)
 
 		if(time.time() - self.lastAction > self.turnDelay):	
 
@@ -133,7 +142,14 @@ class Player:
 			
 		return True
 
-
+	def setLeader(self, entity):
+		if not entity in self.party:
+			return
+			
+		self.party.leader = self.party.members.index(entity)
+		self.avatar = self.party.members[self.party.leader]
+		self.log.append(self.avatar.name + " is now the leader.")
+		
 	def save(self):
 		data = {}
 		data['members'] = self.party.save()

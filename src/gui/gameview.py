@@ -17,21 +17,25 @@ class Gameview(object):
 		self.debug = debug
 		self.boxes = []
 		
-		viewportRect = pygame.Rect((28, 28), (17*32, 17*32))
-		self.boxes.append(viewportRect)
-		self.viewport = Viewport(self.surface.subsurface(viewportRect), world, player, images)
+		self.viewportPos = (28, 28)
+		self.viewportRect = pygame.Rect(self.viewportPos, (17*32, 17*32))
+		self.boxes.append(self.viewportRect)
+		self.viewport = Viewport(self.surface.subsurface(self.viewportRect), self.viewportPos, world, player, images)
 		
-		optionsRect = pygame.Rect((600,28), (396, 32 * 6))
-		self.boxes.append(optionsRect)
-		self.options = Options(self.surface.subsurface(optionsRect), self.player, images)
+		self.optionsPos = (600,28)
+		self.optionsRect = pygame.Rect(self.optionsPos, (396, 32 * 6))
+		self.boxes.append(self.optionsRect)
+		self.options = Options(self.surface.subsurface(self.optionsRect), self.optionsPos, self.player, images)
 		
-		statusRect = pygame.Rect((600,252), (396, 32))
-		self.boxes.append(statusRect)
-		self.status = Status(self.surface.subsurface(statusRect), self.player, images)
+		self.statusPos = (600,252)
+		self.statusRect = pygame.Rect(self.statusPos, (396, 32))
+		self.boxes.append(self.statusRect)
+		self.status = Status(self.surface.subsurface(self.statusRect), self.statusPos, self.player, images)
 		
-		logRect = pygame.Rect((600,316),(396,16*16))
-		self.boxes.append(logRect)
-		self.logWindow = Output(self.surface.subsurface(logRect), self.player.log)
+		self.logPos = (600,316)
+		self.logRect = pygame.Rect(self.logPos, (396,16*16))
+		self.boxes.append(self.logRect)
+		self.logWindow = Output(self.surface.subsurface(self.logRect), self.logPos, self.player.log)
 		
 		player.screenshot = self.printscreen
 		
@@ -53,6 +57,12 @@ class Gameview(object):
 		
 		pygame.display.flip()
 
+	def getElement(self, pos):
+		if self.viewportRect.collidepoint(pos):
+			return self.viewport.getElement(pos)
+		if self.optionsRect.collidepoint(pos):
+			return self.options.getElement(pos)
+		
 	def printscreen(self):
 		date = time.gmtime() 
 		fileName =	"screenshot_" + \

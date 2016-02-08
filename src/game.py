@@ -21,7 +21,7 @@ class Game(object):
 		self.surface = pygame.display.set_mode(self.screenSize)
 
 		self.world = World(self.seed, SoundCache())
-		self.user = Player(self.world)
+		self.user = Player(self)
 		self.view = Gameview(self.world, self.user, self.surface, ImageCache(), self.debug)
 
 		self.clock = pygame.time.Clock()

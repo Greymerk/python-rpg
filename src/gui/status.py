@@ -1,9 +1,11 @@
 import pygame
 from pygame.color import THECOLORS
+from src.util import Vector2
 
 class Status(object):
 
-	def __init__(self, surface, player, images):
+	def __init__(self, surface, pos, player, images):
+		self.pos = pos
 		self.surface = surface
 		self.player = player
 		self.images = images
@@ -18,4 +20,7 @@ class Status(object):
 			rect = pygame.Rect((i * self.size, 0),((i + 1) * self.size, self.size))
 			self.surface.blit(image, rect)
 			self.surface.blit(self.font.render(str(pygame.key.name(self.player.ABILITY_KEYS[i])).upper(), 1, THECOLORS["gray"]), (i * self.size,0)) 
+			
+	def getElement(self, pos):
+		return None
 

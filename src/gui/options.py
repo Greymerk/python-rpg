@@ -8,21 +8,24 @@ Created on 2013-05-03
 import pygame
 from pygame.locals import *
 from pygame.color import THECOLORS
+from src.util import Vector2
 
 from card import Card
 
 class Options(object):
 
-	def __init__(self, surface, player, images):
+	def __init__(self, surface, pos, player, images):
 		
 		self.surface = surface
+		self.pos = pos
 		self.player = player
 		self.tileSize = 32
 		
 		self.party = []
 		for i in range(6):
-			rect = pygame.Rect((0, self.tileSize * i), (396, self.tileSize))
-			self.party.append(Card(self.surface.subsurface(rect), player, images))
+			p = (0, self.tileSize * i)
+			rect = pygame.Rect(p, (396, self.tileSize))
+			self.party.append(Card(self.surface.subsurface(rect), p, player, images))
 		self.selected = 0
 		self.player = player
 
@@ -71,5 +74,12 @@ class Options(object):
 			
 	def getMaxLines(self):
 		return self.surface.get_height()/16
+		
+	def getElement(self, pos):
+		v = Vector2(pos)
+		v -= self.pos
+		y = int(v[1] / 32)
+		if y in range(len(self.party)):
+			return self.party[y].getElement(v)
 			
 			
