@@ -4,16 +4,20 @@ from src.util import Vector2
 
 class Card(object):
 
-	def __init__(self, surface, pos, player, images):
+	def __init__(self, surface, pos, index, player, images):
 		self.surface = surface
 		self.pos = pos
 		self.player = player
+		self.index = index
 		self.images = images
 		self.font = pygame.font.Font(None,16)
 		self.size = 32
 		self.fontobject = pygame.font.Font(None,24)
 		
-	def draw(self, unit):
+	def draw(self):
+		if not self.index in range(len(self.player.party.members)):
+			return
+		unit = self.player.party.members[self.index]
 		self.surface.fill(THECOLORS["black"])
 		rect = pygame.Rect((0,0), (self.size, self.size))
 		self.surface.blit(unit.getImage(self.images), rect)
@@ -37,10 +41,9 @@ class Card(object):
 			
 	def getElement(self, pos):
 		v = Vector2(pos)
-		i = int(pos[1] / 32)
-		if not i in range(len(self.player.party.members)):
+		if not self.index in range(len(self.player.party.members)):
 			return
-		unit = self.player.party.members[i]
+		unit = self.player.party.members[self.index]
 		v -= self.pos
 		if v[0] < 200:
 			return unit

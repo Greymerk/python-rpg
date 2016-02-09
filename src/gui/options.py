@@ -25,7 +25,7 @@ class Options(object):
 		for i in range(6):
 			p = (0, self.tileSize * i)
 			rect = pygame.Rect(p, (396, self.tileSize))
-			self.party.append(Card(self.surface.subsurface(rect), p, player, images))
+			self.party.append(Card(self.surface.subsurface(rect), p, i, player, images))
 		self.selected = 0
 		self.player = player
 
@@ -53,24 +53,8 @@ class Options(object):
 	def drawParty(self):
 		count = 0
 		for i, e in enumerate(self.player.world.friendly.members):
-			self.party[i].draw(e)
-		'''
-			if count > self.getMaxLines():
-				return
-			if e.name is not None:
-				name = e.name
-			else:
-				name = e.__class__.__name__
-				
-			if e is self.player.avatar:
-				color = (255,255,0)
-			else:
-				color = (255,255,255)
-				
-			message = name + ' - ' + str(e.health) + 'HP ' + '(' + str(e.position[0]) + ',' + str(e.position[1]) + ')'  
-			self.surface.blit(self.fontobject.render(message, 1, color), (0, 16*count))
-			count += 1
-		'''
+			self.party[i].draw()
+
 			
 	def getMaxLines(self):
 		return self.surface.get_height()/16
