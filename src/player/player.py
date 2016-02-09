@@ -3,7 +3,7 @@ import sys
 import os
 import json
 
-from src.actions import cardinals
+from src.util import Cardinal
 from src.actions import lookup
 from src.actions import Quit
 from src.actions import Cast
@@ -75,27 +75,27 @@ class Player:
 				self.world.quit()
 			elif(e.type == KEYDOWN):
 
-				if(e.key == K_f and mods == pygame.KMOD_NONE):
+				if e.key == K_f:
 					pygame.display.toggle_fullscreen()
 
-				if(e.key == K_m and mods == pygame.KMOD_NONE):
+				if e.key == K_m:
 					self.viewingMap = not self.viewingMap
 
-				if(e.key == K_F12 and mods == pygame.KMOD_NONE):
+				if e.key == K_F2:
 					self.screenshot()
 
-				if(e.key == K_q and mods == pygame.KMOD_LALT):
+				if e.key == K_F12:
 					self.action = Quit(self)
 				
-				if(e.key in lookup and mods & (pygame.KMOD_NONE | pygame.KMOD_NUM)):
+				if e.key in lookup:
 					self.action = lookup[e.key](self)
 					return True
 				
-				if mods == pygame.KMOD_NONE:
-					for i, k in enumerate(Player.ABILITY_KEYS):
-						if e.key == k and len(self.avatar.abilities) > i:
-							spell = self.avatar.abilities[i]
-							self.action = Cast(self, spell)
+				for i, k in enumerate(Player.ABILITY_KEYS):
+					if e.key == k and len(self.avatar.abilities) > i:
+						spell = self.avatar.abilities[i]
+						print spell.__class__.__name__
+						self.action = Cast(self, spell)
 						
 				
 				# select unit to control (deliberately off by one)
@@ -117,14 +117,14 @@ class Player:
 			pressed = pygame.key.get_pressed()
 			result = ''
 
-			for direction in cardinals.cardinals.keys():
+			for direction in Cardinal.key_map.keys():
 				if pressed[direction]:
 					e = self.party.getLeader()
 					newPos = Vector2(e.position)
-					newPos += Vector2(cardinals.cardinals[direction])
-					succeeded = e.move(Vector2(cardinals.cardinals[direction]))
+					newPos += Vector2(Cardinal.values[Cardinal.key_map[direction]])
+					succeeded = e.move(Cardinal.values[Cardinal.key_map[direction]])
 					if succeeded:
-						msg = cardinals.names[direction]
+						msg = Cardinal.names[Cardinal.key_map[direction]]
 						self.world.getTile(newPos).getGround().stepSound(self.world.sounds)
 					else:
 						msg = "Blocked by " + self.world.look(newPos)

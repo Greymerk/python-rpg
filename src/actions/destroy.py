@@ -6,7 +6,7 @@ Created on 2013-05-02
 
 import pygame
 from pygame.locals import *
-from cardinals import cardinals
+from src.util import Cardinal
 
 class Destroy:
 
@@ -42,8 +42,8 @@ class Destroy:
 		if e.type != KEYDOWN:
 			return False
 	
-		if(e.key in cardinals.keys()):
-			self.direction = cardinals[e.key]
+		if(e.key in Cardinal.key_map.keys()):
+			self.direction = Cardinal.values[Cardinal.key_map[e.key]]
 			return False
 		elif(e.key == K_ESCAPE):
 			self.player.log.append('Cancelled')

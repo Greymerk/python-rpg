@@ -6,7 +6,7 @@ Created on 2013-05-26
 
 import string
 
-from cardinals import cardinals
+from src.util import Cardinal
 import pygame
 
 from pygame.locals import *
@@ -94,9 +94,9 @@ class Cast(object):
 			self.casting = True
 			return False
 		
-		if e.key in cardinals.keys():
+		if e.key in Cardinal.key_map.keys():
 			pos = self.player.party.getLeader().position
-			direction = cardinals[e.key]
+			direction = Cardinal.values[Cardinal.key_map[e.key]]
 			newLocation = pos[0] + self.location[0] + direction[0], pos[1] + self.location[1] + direction[1]
 			if not self.player.party.getLeader().canHit(newLocation, self.spell.range):
 				return False

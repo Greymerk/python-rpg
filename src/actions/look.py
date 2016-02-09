@@ -6,7 +6,7 @@ Created on 2013-05-02
 
 import pygame
 from pygame.locals import *
-from cardinals import cardinals
+from src.util import Cardinal
 
 class Look:
     
@@ -25,9 +25,9 @@ class Look:
         if e.type != KEYDOWN:
             return False
             
-        if(e.key in cardinals.keys()):
+        if(e.key in Cardinal.key_map.keys()):
             
-            direction = cardinals[e.key]
+            direction = Cardinal.values[Cardinal.key_map[e.key]]
             x = self.player.party.getLeader().position[0] + direction[0]
             y = self.player.party.getLeader().position[1] + direction[1]
             pos = (x, y)

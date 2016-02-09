@@ -1,22 +1,29 @@
 
 from pygame.locals import *
+from vector import Vector2
+from enum import enum
 
-cardinals = {}
-cardinals[K_UP] =	(0,-1)
-cardinals[K_DOWN] = 	( 0, 1)
-cardinals[K_LEFT] = 	(-1, 0)
-cardinals[K_RIGHT] = 	( 1, 0)
-#cardinals[K_w] =	(0,-1)
-#cardinals[K_s] = 	( 0, 1)
-#cardinals[K_a] = 	(-1, 0)
-#cardinals[K_d] = 	( 1, 0)
+class Cardinal(object):
 
-names = {}
-names[K_UP] = "North"
-names[K_DOWN] = "South"
-names[K_LEFT] = "West"
-names[K_RIGHT] = "East"
-#names[K_w] = "North"
-#names[K_s] = "South"
-#names[K_a] = "West"
-#names[K_d] = "East"
+	directions = enum('NORTH', 'EAST', 'WEST', 'SOUTH')
+	
+	key_map = {}
+	key_map[K_UP] =	directions.NORTH
+	key_map[K_DOWN] = 	directions.SOUTH
+	key_map[K_LEFT] = 	directions.WEST
+	key_map[K_RIGHT] = 	directions.EAST
+
+	names = {}
+	names[directions.NORTH] = "North"
+	names[directions.SOUTH] = "South"
+	names[directions.WEST] = "West"
+	names[directions.EAST] = "East"
+	
+	values = {}
+	values[directions.NORTH] = Vector2(0, -1)
+	values[directions.SOUTH] = Vector2(0, 1)
+	values[directions.WEST] = Vector2(-1, 0)
+	values[directions.EAST] = Vector2(1, 0)
+
+if __name__ == '__main__' :
+	print K_UP in Cardinal.key_map.keys()

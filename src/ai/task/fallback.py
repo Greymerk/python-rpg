@@ -23,8 +23,10 @@ class Fallback(object):
 		if self.target is None:
 			return False
 		
-		x = self.actor.position[0] - self.target.position[0] 
-		y = self.actor.position[1] - self.target.position[1] 
+		pos = Vector2(self.actor.position)
+		pos -= self.target.position
+		
+		x, y = pos
 		
 		direction = (self.sign(x), 0) if abs(x) > abs(y) else (0, self.sign(y))
 		alternative = (self.sign(x), 0) if abs(x) <= abs(y) else (0, self.sign(y))
