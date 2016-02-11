@@ -75,9 +75,6 @@ class Player:
 				self.world.quit()
 			elif(e.type == KEYDOWN):
 
-				if e.key == K_f:
-					pygame.display.toggle_fullscreen()
-
 				if e.key == K_m:
 					self.viewingMap = not self.viewingMap
 
@@ -94,10 +91,8 @@ class Player:
 				for i, k in enumerate(Player.ABILITY_KEYS):
 					if e.key == k and len(self.avatar.abilities) > i:
 						spell = self.avatar.abilities[i]
-						print spell.__class__.__name__
 						self.action = Cast(self, spell)
 						
-				
 				# select unit to control (deliberately off by one)
 				if(e.key - 49 in range(len(self.party.members))):
 					self.setLeader(self.party.members[e.key - 49])

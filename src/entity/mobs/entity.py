@@ -93,8 +93,6 @@ class Entity:
 		data['health'] = self.health
 		data['deathTimer'] = self.deathTimer
 		data['hostile'] = self.hostile
-		if self.lastAttacker is not None:
-			data['lastAttacker'] = Vector2.save(self.lastAttacker.position)
 		data['name'] = self.name
 		data['inventory'] = self.inventory.save()
 		abi = []
@@ -114,8 +112,6 @@ class Entity:
 			self.deathTimer = data['deathTimer']
 		if 'hostile' in data.keys():
 			self.hostile = data['hostile']
-		if 'lastAttacker' in data.keys():
-			self.lastAttacker = self.world.getEntityFromLocation(Vector2.load(data['lastAttacker']))
 		if 'name' in data.keys():
 			self.name = data['name']
 		if 'inventory' in data.keys():
