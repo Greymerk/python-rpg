@@ -4,7 +4,7 @@ Created on 2013-05-12
 @author: brian
 '''
 
-from random import choice
+from src.util import Cardinal
 
 class Wander(object):
     
@@ -16,5 +16,5 @@ class Wander(object):
     
     def do(self):
         
-        direction = choice([(0, 1), (1, 0), (0, -1), (-1, 0)])
+        direction = Cardinal.choice()
         self.actor.move(direction)
