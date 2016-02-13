@@ -8,9 +8,8 @@ from src.util import Vector2
 
 class Follow(object):
     
-    def __init__(self, actor, classList = []):
+    def __init__(self, actor):
         self.actor = actor
-        self.classList = classList
         self.target = None
         
     def condition(self):
@@ -22,14 +21,10 @@ class Follow(object):
             if self.actor.distance(leader.position) > 3:
                 self.target = leader
         else:
-            for entity in list(set(self.actor.world.friendly) | set(self.actor.world.mobManager.mobs)):
-                if len(self.classList) == 0 or entity.__class__ in self.classList:
-                    if self.actor.canSee(entity.position):
-                        if self.actor.distance(entity.position) > 3:
-                            self.target = entity
-                    
+            pass #TODO: Follow leader mob type 
+        
         return self.target is not None
-    
+	
     def do(self):
         
         x = self.target.position[0] - self.actor.position[0]
