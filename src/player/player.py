@@ -39,6 +39,7 @@ class Player:
 
 		self.avatar = self.party.getLeader()
 		self.viewingMap = False
+		self.debug = False
 		self.action = None
 		self.turnDelay = 0.3
 		
@@ -82,6 +83,9 @@ class Player:
 
 				if e.key == K_F2:
 					self.screenshot()
+
+				if e.key == K_F3:
+					self.debug = not self.debug
 
 				if e.key == K_F12:
 					self.action = Quit(self)

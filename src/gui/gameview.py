@@ -15,6 +15,7 @@ class Gameview(object):
 		self.surface = surface
 		self.images = images
 		self.debug = debug
+		self.renderTime = 0
 		self.boxes = []
 		
 		self.viewportPos = (28, 28)
@@ -48,7 +49,7 @@ class Gameview(object):
 		self.status.draw()
 		self.logWindow.draw()
 		self.viewport.draw()
-		if self.debug is not None:
+		if self.debug is not None and self.player.debug:
 			self.viewport.display(self.debug())
 		
 		pygame.display.flip()

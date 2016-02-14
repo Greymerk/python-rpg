@@ -60,7 +60,6 @@ class Viewport(object):
 
 
 	def drawMap(self):
-		
 		self.surface.fill(THECOLORS["wheat4"])
 		
 		x, y = self.player.party.getLeader().position
@@ -74,58 +73,17 @@ class Viewport(object):
 				
 				dest = (col * 32), (row * 32)
 				self.surface.blit(img, dest)
-			  
-		x, y = self.player.party.getLeader().position  
-		leftChunk, topChunk = (int(x) >> 4) - 8, (int(y) >> 4) - 8
 					
 		for mob in self.world.mobManager.mobs:
-
-				
-			mobX, mobY = int(mob.position[0]), int(mob.position[1])
-			mobLeft, mobTop = mobX >> 4, mobY >> 4
-			 
-			posx, posy = ((mobLeft - leftChunk) * 32) + ((mobX % 16) * 2), ((mobTop - topChunk) * 32) + ((mobY % 16) * 2)
-				
-			self.surface.set_at((posx, posy), (255, 0, 0))
-			self.surface.set_at((posx, posy + 1), (255, 0, 0))
-			self.surface.set_at((posx + 1, posy), (255, 0, 0))
-			self.surface.set_at((posx + 1, posy + 1), (255, 0, 0))
+			self.map_dot(mob.position, THECOLORS["red"])
 			
 		for e in self.world.friendly:
-
-				
-			mobX, mobY = int(e.position[0]), int(e.position[1])
-			mobLeft, mobTop = mobX >> 4, mobY >> 4
-			 
-			posx, posy = ((mobLeft - leftChunk) * 32) + ((mobX % 16) * 2), ((mobTop - topChunk) * 32) + ((mobY % 16) * 2)
-				
-			self.surface.set_at((posx, posy), (0, 0, 255))
-			self.surface.set_at((posx, posy + 1), (0, 0, 255))
-			self.surface.set_at((posx + 1, posy), (0, 0, 255))
-			self.surface.set_at((posx + 1, posy + 1), (0, 0, 255))
+			self.map_dot(e.position, THECOLORS["azure"])
 			
 		leader = self.player.party.getLeader()
-		avatarX, avatarY = int(leader.position[0]), int(leader.position[1])
-		avatarLeft, avatarTop = avatarX >> 4, avatarY >> 4
-		 
-		posx, posy = ((avatarLeft - leftChunk) * 32) + ((avatarX % 16) * 2), ((avatarTop - topChunk) * 32) + ((avatarY % 16) * 2)
-			
-		self.surface.set_at((posx, posy), (255, 255, 0))
-		self.surface.set_at((posx, posy + 1), (255, 255, 0))
-		self.surface.set_at((posx + 1, posy), (255, 255, 0))
-		self.surface.set_at((posx + 1, posy + 1), (255, 255, 0))
+		self.map_dot(leader.position, THECOLORS["yellow"])		
 		
-		
-	def visible(self, pos):
-			
-		camPos = self.player.party.getLeader().position
-		
-		relx = pos[0] - camPos[0]  
-		rely = pos[1] - camPos[1] 
-		
-		if abs(relx) > 8 or abs(rely) > 8:
-			return False
-			
+	def visible(self, pos):			
 		return self.player.party.canSee(pos)
 		
 	def getElement(self, pos):
@@ -135,4 +93,14 @@ class Viewport(object):
 		rel += self.player.avatar.position
 		return self.world.getEntityFromLocation(rel)
 		
-		
+	def map_dot(self, pos, color):
+		x, y = self.player.party.getLeader().position
+		origin = (int(x) >> 4) - 8, (int(y) >> 4) - 8
+		cpos = int(pos[0]) >> 4, int(pos[1]) >> 4
+		posx = int(((cpos[0] - origin[0]) * 32) + ((pos[0] % 16) * 2))
+		posy = int(((cpos[1] - origin[1]) * 32) + ((pos[1] % 16) * 2))
+			
+		self.surface.set_at((posx, posy), color)
+		self.surface.set_at((posx, posy + 1), color)
+		self.surface.set_at((posx + 1, posy), color)
+		self.surface.set_at((posx + 1, posy + 1), color)
