@@ -38,13 +38,9 @@ class Gameview(object):
 		self.logWindow = Output(self.surface.subsurface(self.logRect), self.logPos, self.player.log)
 		
 		player.screenshot = self.printscreen
-		
-	def update(self):
-		self.viewport.update()
 
 	def draw(self):
 
-		self.update()		
 		self.surface.fill(THECOLORS["royalblue4"])
 		for box in self.boxes:
 			pygame.draw.rect(self.surface, THECOLORS["azure2"], box, 5)

@@ -9,6 +9,7 @@ from src.actions import Quit
 from src.actions import Cast
 from src.util import Vector2
 from entitycontrol import EntityControl
+from targetcontrol import TargetControl
 
 import pygame
 from pygame.locals import *
@@ -27,6 +28,7 @@ class Player:
 		self.world.log = self.log
 		
 		self.entitycontrol = EntityControl(self)
+		self.targetcontrol = TargetControl(self)
 		self.lastAction = 0
 		self.lastTurn = 0
 		self.load() #party

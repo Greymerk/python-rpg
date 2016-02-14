@@ -7,6 +7,7 @@ Created on 2013-05-23
 import pygame
 from pygame.color import THECOLORS
 from src.util import Vector2
+from cell import Cell
 
 class Viewport(object):
 
@@ -16,56 +17,7 @@ class Viewport(object):
 		self.pos = pos
 		self.world = world
 		self.player = player
-		self.previousPosition = None
-		self.reticule = pygame.transform.scale2x(images.get("reticule"))
-		self.grid = [None]*289
-		self.mapCache = {}
-		self.viewCache = None
-		self.currentTurn = None
-		self.cameraPosition = (0, 0)
-			
-	def update(self):	  
-		
-		leader = self.player.party.getLeader()
-
-		if self.currentTurn == self.world.time and leader.position == self.cameraPosition:
-			return
-
-		self.currentTurn = self.world.time
-		self.viewCache = None
-		self.cameraPosition = leader.position
-
-		if leader is not None:
-			x, y = int(leader.position[0]), int(leader.position[1])
-		else:
-			x, y = 0, 0
-
-		tileX, tileY = x - 8, y - 8
-		chunkX, chunkY = (x >> 4) - 8, (y >> 4) - 8
-		
-		for row in range(17):
-			for col in range(17):
-				tilePos = (tileX + col, tileY + row)
-				if not self.player.party.canSee(tilePos):
-					t = None
-				else:
-					t = self.world.getTile((tileX + col, tileY + row))
-				self.grid[row*17+col] = t
-
-				newMap = self.updateMap(chunkX + col, chunkY + row)
-				if newMap is not None:
-					self.mapCache[(chunkX + col, chunkY + row)] = newMap 
-
-
-
-	def updateMap(self, x, y):
-		
-		if (not self.world.chunkManager.isLoaded(x, y)) and (x, y) in self.mapCache.keys():
-			return None
-		
-		return self.world.chunkManager.getMap(x, y)
-
-				   
+		self.reticule = pygame.transform.scale2x(images.get("reticule"))				   
 	
 	def display(self, info):
 		self.fontobject = pygame.font.Font(None,24)
@@ -73,8 +25,6 @@ class Viewport(object):
 			self.surface.blit(self.fontobject.render(line[0], 1, (255,255,255)), (16, (i + 1) * 16))	
 		
 	def draw(self):
-		
-		self.surface.fill((0,0,0))
 		if(self.player.viewingMap):
 			self.drawMap()
 			return
@@ -83,25 +33,20 @@ class Viewport(object):
 
 	
 	def drawGame(self):
-
+		self.surface.fill(THECOLORS["black"])
 		camPos = self.player.party.getLeader().position
-		self.viewCache = self.surface.copy()
-		
+
 		for row in range(17):
 			for col in range(17):
-				cell = self.grid[row * 17 + col]
-				if cell is None:
-					continue
-
-				ground = cell.getGround()
 				relPos = camPos[0] - 8 + col, camPos[1] - 8 + row
+				cell = self.world.getTile(relPos)
+				ground = cell.getGround()
 				imgName = ground.getImage(relPos)
 				image = self.images.get(imgName, relPos)
 				dest = (col * 32), (row * 32)
-
-				self.viewCache.blit(image, dest)
-		
-		self.surface.blit(self.viewCache, (0,0))
+				if not self.player.party.canSee(relPos):
+					continue
+				self.surface.blit(image, dest)
 
 		for e in self.world.getAllEntities():
 			e.draw(self.surface, camPos, self.images, self.visible)
@@ -112,7 +57,8 @@ class Viewport(object):
 					x = 32 * (8 + self.player.action.location[0])
 					y = 32 * (8 + self.player.action.location[1])
 					self.surface.blit(self.reticule, (x, y))
-	
+
+
 	def drawMap(self):
 		
 		self.surface.fill(THECOLORS["wheat4"])
@@ -186,7 +132,7 @@ class Viewport(object):
 		vec = Vector2(pos)
 		vec -= self.pos
 		rel = Vector2(int(vec[0] / 32) - 8, int(vec[1] / 32) - 8)
-		rel += self.cameraPosition
+		rel += self.player.avatar.position
 		return self.world.getEntityFromLocation(rel)
 		
-
+		
