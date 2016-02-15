@@ -11,13 +11,25 @@ from cell import Cell
 
 class Viewport(object):
 
+	size = 17
+
 	def __init__(self, surface, pos, world, player, images):
 		self.images = images
 		self.surface = surface
 		self.pos = pos
 		self.world = world
 		self.player = player
-		self.reticule = pygame.transform.scale2x(images.get("reticule"))				   
+		self.reticule = pygame.transform.scale2x(images.get("reticule"))
+		self.grid = {}
+		
+		for x in range(17):
+			for y in range(17):
+				pos = Vector2(self.pos)
+				pos += (x * 32, y * 32)
+				rel = Vector2(x - 8, y - 8)
+				cell = Cell(pos, rel)
+				cell.observers.append(player.targetcontrol)
+				self.grid[(rel[0], rel[1])] = cell
 	
 	def display(self, info):
 		self.fontobject = pygame.font.Font(None,24)
@@ -58,6 +70,10 @@ class Viewport(object):
 					y = 32 * (8 + self.player.action.location[1])
 					self.surface.blit(self.reticule, (x, y))
 
+		r = Vector2(self.player.reticle)
+		r += (8, 8)
+		#self.surface.blit(self.reticule, (r[0] * 32, r[1] * 32))
+
 
 	def drawMap(self):
 		self.surface.fill(THECOLORS["wheat4"])
@@ -91,7 +107,12 @@ class Viewport(object):
 		vec -= self.pos
 		rel = Vector2(int(vec[0] / 32) - 8, int(vec[1] / 32) - 8)
 		rel += self.player.avatar.position
-		return self.world.getEntityFromLocation(rel)
+		e = self.world.getEntityFromLocation(rel)
+		if e is not None:
+			return e
+	
+		rel = (int(vec[0] / 32) - 8, int(vec[1] / 32) - 8)
+		return self.grid[rel]
 		
 	def map_dot(self, pos, color):
 		x, y = self.player.party.getLeader().position
@@ -104,3 +125,4 @@ class Viewport(object):
 		self.surface.set_at((posx, posy + 1), color)
 		self.surface.set_at((posx + 1, posy), color)
 		self.surface.set_at((posx + 1, posy + 1), color)
+

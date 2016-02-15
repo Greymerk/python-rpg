@@ -7,6 +7,7 @@ Created on 2013-05-26
 import string
 
 from src.util import Cardinal
+from src.util import Vector2
 import pygame
 
 from pygame.locals import *
@@ -22,15 +23,17 @@ class Cast(object):
 		self.location = None
 		if self.spell is not None:
 			self.location = (0,0)
-			
+		
+		leader = self.player.party.getLeader()	
+		last = self.player.lastTarget
+
 		if self.spell is not None and self.player.lastTarget is not None:
-			if self.player.party.getLeader().canHit(self.player.lastTarget.position, self.spell.range) and self.player.lastTarget.isAlive():
-				self.location = self.player.lastTarget.position[0] - self.player.party.getLeader().position[0], self.player.lastTarget.position[1] - self.player.party.getLeader().position[1]	
+			if leader.canHit(last.position, self.spell.range) and last.isAlive():
+				self.location = Vector2(self.player.lastTarget.position)
+				self.location -= self.player.avatar.position	
 
 		self.spellList = {}
 		self.options = {}
-		
-		leader = self.player.party.getLeader()
 		
 		for i in range(len(leader.abilities)):
 			if leader.abilities is None:
@@ -45,11 +48,14 @@ class Cast(object):
 		
 	def nextStep(self):
 		
+		last = self.player.lastTarget
+		leader = self.player.avatar
+
 		if self.options is not None and len(self.options) == 0:
 			return True
 		
 		if self.casting:
-			if self.player.party.getLeader().action is None:
+			if leader.action is None:
 				entity = self.player.world.getEntityFromLocation(self.targetLocation)
 				if entity is None:
 					self.player.log.append('Nothing hit!')
@@ -76,17 +82,18 @@ class Cast(object):
 			self.spell = self.spellList[i - 1]
 			self.location = (0,0)
 			
-			if self.player.lastTarget is not None:
-				if self.player.party.getLeader().canHit(self.player.lastTarget.position, self.spell.range) and self.player.lastTarget.isAlive():
-					self.location = self.player.lastTarget.position[0] - self.player.party.getLeader().position[0], self.player.lastTarget.position[1] - self.player.party.getLeader().position[1]	
+			if last is not None:
+				if leader.canHit(last.position, self.spell.range) and last.isAlive():
+					self.location = Vector2(last.position)
+					self.location -= leader.position
+
 			return False
 		
-
-		if self.location != (0,0) and e.key in [K_RETURN, K_c, K_SPACE, self.player.ABILITY_KEYS[self.player.avatar.abilities.index(self.spell)]]:
-			pos = self.player.party.getLeader().position
-			target = (pos[0] + self.location[0], pos[1] + self.location[1])
-			actor = self.player.party.getLeader()
-			actor.action = self.spell(actor, target, self.spell)
+		finish = [K_RETURN, K_c, K_SPACE, self.player.ABILITY_KEYS[self.player.avatar.abilities.index(self.spell)]]
+		if self.location != (0,0) and e.key in finish:
+			target = Vector2(leader.position)
+			target += self.location
+			leader.action = self.spell(leader, target, self.spell)
 			self.targetLocation = target
 			entity = self.player.world.getEntityFromLocation(target)
 			if entity is not None:
@@ -95,14 +102,16 @@ class Cast(object):
 			return False
 		
 		if e.key in Cardinal.key_map.keys():
-			pos = self.player.party.getLeader().position
+			pos = leader.position
 			direction = Cardinal.values[Cardinal.key_map[e.key]]
-			newLocation = pos[0] + self.location[0] + direction[0], pos[1] + self.location[1] + direction[1]
+			newLocation = Vector2(pos)
+			newLocation += self.location
+			newLocation += direction
 			if not self.player.party.getLeader().canHit(newLocation, self.spell.range):
 				return False
-			self.location = self.location[0] + direction[0], self.location[1] + direction[1]
+			self.location = Vector2(self.location)
+			self.location += direction
 			return False
 			
 		return False
-	
-	
+

@@ -29,7 +29,7 @@ class Card(object):
 		
 		message = unit.name + ' - ' + str(unit.health) + 'HP'
 		self.surface.blit(self.fontobject.render(message, 1, color), (42, 0))
-		message = str(unit.position[0]) + ', ' + str(unit.position[1]) 
+		message = str(int(unit.position[0])) + ', ' + str(int(unit.position[1])) 
 		self.surface.blit(self.fontobject.render(message, 1, color), (42, 16))
 		
 		aOffset = 200

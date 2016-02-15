@@ -32,6 +32,7 @@ class Player:
 		self.lastAction = 0
 		self.lastTurn = 0
 		self.load() #party
+		self.reticle = (0,0)
 		for entity in self.party:
 			entity.observers.append(self.entitycontrol)
 		self.world.friendly = self.party
@@ -106,7 +107,7 @@ class Player:
 			elif(e.type == KEYUP):
 				pass
 				
-			elif e.type == pygame.MOUSEBUTTONUP:
+			elif e.type == pygame.MOUSEBUTTONUP or e.type == pygame.MOUSEMOTION:
 				mpos = pygame.mouse.get_pos()
 				element = self.game.view.getElement(mpos)
 				if hasattr(element, 'notify'):

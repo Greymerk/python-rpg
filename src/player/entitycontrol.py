@@ -11,4 +11,9 @@ class EntityControl(object):
 			if self.player.action is None:
 				if entity in self.player.party:
 					self.player.setLeader(entity)
+
+		if event.type == pygame.MOUSEMOTION:
+			rel = Vector2(entity.position)
+			rel -= self.player.avatar.position
+			self.player.reticle = (int(rel[0]), int(rel[1]))
 			
