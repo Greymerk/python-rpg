@@ -19,5 +19,5 @@ class EntityControl(object):
 			if self.player.action is not None:
 				rel = Vector2(entity.position)
 				rel -= self.player.avatar.position
-				self.player.reticle = (int(rel[0]), int(rel[1]))
+				self.player.reticle = rel
 			

@@ -9,9 +9,10 @@ class TargetControl(object):
 		
 	def notify(self, cell, event):
 		if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-			tar = Vector2(cell.rel)
-			tar += self.player.avatar.position
-			self.player.target = tar
+			if self.player.action is not None:
+				tar = Vector2(cell.rel)
+				tar += self.player.avatar.position
+				self.player.target = tar
 
 		if event.type == pygame.MOUSEMOTION:
 			if self.player.action is None:

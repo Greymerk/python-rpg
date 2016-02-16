@@ -105,12 +105,6 @@ class Viewport(object):
 	def getElement(self, pos):
 		vec = Vector2(pos)
 		vec -= self.pos
-		rel = Vector2(int(vec[0] / 32) - 8, int(vec[1] / 32) - 8)
-		rel += self.player.avatar.position
-		e = self.world.getEntityFromLocation(rel)
-		if e is not None:
-			return e
-	
 		rel = (int(vec[0] / 32) - 8, int(vec[1] / 32) - 8)
 		return self.grid[rel]
 		
