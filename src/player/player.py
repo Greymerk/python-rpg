@@ -112,8 +112,14 @@ class Player:
 			elif(e.type == KEYUP):
 				pass
 				
+			
 			elif e.type == pygame.MOUSEBUTTONUP or e.type == pygame.MOUSEMOTION:
+				last = self.lastAction
 				self.mouse_event(e)
+				if last != self.lastAction:
+					# A turn was completed via a mouse
+					return False
+
 
 		if(time.time() - self.lastAction > self.turnDelay):	
 
@@ -123,19 +129,7 @@ class Player:
 
 			for direction in Cardinal.key_map.keys():
 				if pressed[direction]:
-					e = self.party.getLeader()
-					newPos = Vector2(e.position)
-					newPos += Vector2(Cardinal.values[Cardinal.key_map[direction]])
-					succeeded = e.move(Cardinal.values[Cardinal.key_map[direction]])
-					if succeeded:
-						msg = Cardinal.names[Cardinal.key_map[direction]]
-						self.world.getTile(newPos).getGround().stepSound(self.world.sounds)
-					else:
-						msg = "Blocked by " + self.world.look(newPos)
-						self.world.sounds.get("oomph.wav").play()
-					self.log.append(msg)
-					self.lastAction = time.time()
-					self.lastTurn = self.world.time
+					self.move(Cardinal.key_map[direction])
 					return False
 			
 			if pressed[K_SPACE]:
@@ -145,6 +139,21 @@ class Player:
 				return False
 			
 		return True
+	
+	def move(self, direction):
+		e = self.party.getLeader()
+		newPos = Vector2(e.position)
+		newPos += Vector2(Cardinal.values[direction])
+		succeeded = e.move(Cardinal.values[direction])
+		if succeeded:
+			msg = Cardinal.names[direction]
+			self.world.getTile(newPos).getGround().stepSound(self.world.sounds)
+		else:
+			msg = "Blocked by " + self.world.look(newPos)
+			self.world.sounds.get("oomph.wav").play()
+		self.log.append(msg)
+		self.lastAction = time.time()
+		self.lastTurn = self.world.time
 
 	def setLeader(self, entity):
 		if not entity in self.party:

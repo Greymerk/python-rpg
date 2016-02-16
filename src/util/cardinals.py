@@ -30,6 +30,23 @@ class Cardinal(object):
 	def choice():
 		return choice(Cardinal.values.values())
 
+	@staticmethod
+	def toward(pos, tar):
+		diff = Vector2(tar)
+		diff -= pos
+		if pos == tar: 
+			return None
+
+		if abs(diff[0]) > abs(diff[1]):
+			if diff[0] < 0:
+				return Cardinal.directions.WEST
+			else:
+				return Cardinal.directions.EAST
+		else:
+			if diff[1] < 0:
+				return Cardinal.directions.NORTH
+			else:
+				return Cardinal.directions.SOUTH 
 
 if __name__ == '__main__' :
 	print K_UP in Cardinal.key_map.keys()

@@ -1,5 +1,6 @@
 import pygame
 from src.util import Vector2
+from src.util import Cardinal
 
 # observer of mouse events on viewport spaces
 class TargetControl(object):
@@ -9,10 +10,22 @@ class TargetControl(object):
 		
 	def notify(self, cell, event):
 		if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+		
+			tar = Vector2(cell.rel)
+			tar += self.player.avatar.position
+
 			if self.player.action is not None:
-				tar = Vector2(cell.rel)
-				tar += self.player.avatar.position
 				self.player.target = tar
+				return
+
+			e = self.player.world.getEntityFromLocation(tar)
+			if e in self.player.party.members:
+				self.player.setLeader(e)
+				return
+
+			dir = Cardinal.toward(self.player.avatar.position, tar)
+			self.player.move(dir) 		
+				
 
 		if event.type == pygame.MOUSEMOTION:
 			if self.player.action is None:
