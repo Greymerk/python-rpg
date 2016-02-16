@@ -10,7 +10,6 @@ from ready import Ready
 lookup = {}
 lookup[K_b] = Build
 lookup[K_l] = Look
-lookup[K_c] = Cast
 lookup[K_g] = Destroy
 
 

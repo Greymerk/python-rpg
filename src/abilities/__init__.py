@@ -1,3 +1,4 @@
+from ability import Ability
 
 from attack import Attack
 from bowshot import *

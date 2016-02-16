@@ -8,4 +8,17 @@ class TargetControl(object):
 		self.player = player
 		
 	def notify(self, cell, event):
-		self.player.reticle = Vector2(cell.rel)
+		if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+			tar = Vector2(cell.rel)
+			tar += self.player.avatar.position
+			self.player.target = tar
+
+		if event.type == pygame.MOUSEMOTION:
+			if self.player.action is None:
+				return			
+
+			tar = Vector2(cell.rel)
+			tar += self.player.avatar.position
+
+			if self.player.action.inRange(tar):
+				self.player.reticle = Vector2(cell.rel)

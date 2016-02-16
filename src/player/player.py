@@ -10,6 +10,7 @@ from src.actions import Cast
 from src.util import Vector2
 from entitycontrol import EntityControl
 from targetcontrol import TargetControl
+from abilitycontrol import AbilityControl
 
 import pygame
 from pygame.locals import *
@@ -29,10 +30,12 @@ class Player:
 		
 		self.entitycontrol = EntityControl(self)
 		self.targetcontrol = TargetControl(self)
+		self.abilitycontrol = AbilityControl(self)
 		self.lastAction = 0
 		self.lastTurn = 0
 		self.load() #party
-		self.reticle = (0,0)
+		self.reticle = None
+		self.target = None
 		for entity in self.party:
 			entity.observers.append(self.entitycontrol)
 		self.world.friendly = self.party
@@ -60,6 +63,8 @@ class Player:
 			finished = self.action.nextStep()
 			if(finished):
 				self.action = None
+				self.reticle = None
+				self.target = None
 				self.lastAction = time.time()
 				return False
 			else:
@@ -70,11 +75,11 @@ class Player:
 			self.avatar = leader
 			self.log.append(leader.name + " is now the leader.")
 			
-		event = pygame.event.get()
+		events = pygame.event.get()
 
 		mods = pygame.key.get_mods()
 
-		for e in event:
+		for e in events:
 			if(e.type == QUIT):
 				self.world.quit()
 			elif(e.type == KEYDOWN):
@@ -108,10 +113,7 @@ class Player:
 				pass
 				
 			elif e.type == pygame.MOUSEBUTTONUP or e.type == pygame.MOUSEMOTION:
-				mpos = pygame.mouse.get_pos()
-				element = self.game.view.getElement(mpos)
-				if hasattr(element, 'notify'):
-					element.notify(e)
+				self.mouse_event(e)
 
 		if(time.time() - self.lastAction > self.turnDelay):	
 
@@ -172,3 +174,8 @@ class Player:
 		else:
 			self.party = self.world.loadParty(None)
 			
+	def mouse_event(self, event):
+		mpos = pygame.mouse.get_pos()
+		element = self.game.view.getElement(mpos)
+		if hasattr(element, 'notify'):
+			element.notify(event)

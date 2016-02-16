@@ -1,6 +1,8 @@
 import pygame
 from pygame.color import THECOLORS
 from src.util import Vector2
+from src.abilities import Ability
+from src.actions import Cast
 
 class Card(object):
 
@@ -35,10 +37,12 @@ class Card(object):
 		aOffset = 200
 		for i, ability in enumerate(unit.abilities):
 			image = self.images.get(ability.icon)
-			rect = pygame.Rect((i * self.size + aOffset, 0),((i + 1) * self.size + aOffset, self.size))
+			rect = pygame.Rect((i * self.size + aOffset, 0),(self.size, self.size))
 			self.surface.blit(image, rect)
 			self.surface.blit(self.font.render(str(pygame.key.name(self.player.ABILITY_KEYS[i])).upper(), 1, THECOLORS["gray"]), (i * self.size + aOffset,0))
-			
+			if unit is self.player.avatar and self.player.action.__class__ is Cast and self.player.action.spell is ability:
+				pygame.draw.rect(self.surface, THECOLORS["yellow"], rect, 1)
+
 	def getElement(self, pos):
 		v = Vector2(pos)
 		if not self.index in range(len(self.player.party.members)):
@@ -47,5 +51,13 @@ class Card(object):
 		v -= self.pos
 		if v[0] < 200:
 			return unit
+
+		i = int((v[0] - 200) / 32)
+		if i in range(len(unit.abilities)):
+			ability = unit.abilities[i]
+			if self.player.action is None:
+				a = Ability(unit, ability)
+				a.observers.append(self.player.abilitycontrol)
+				return a
 		
 		

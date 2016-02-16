@@ -69,10 +69,10 @@ class Viewport(object):
 					x = 32 * (8 + self.player.action.location[0])
 					y = 32 * (8 + self.player.action.location[1])
 					self.surface.blit(self.reticule, (x, y))
-
-		r = Vector2(self.player.reticle)
-		r += (8, 8)
-		#self.surface.blit(self.reticule, (r[0] * 32, r[1] * 32))
+		if self.player.reticle is not None:
+			r = Vector2(self.player.reticle)
+			r += (8, 8)
+			self.surface.blit(self.reticule, (r[0] * 32, r[1] * 32))
 
 
 	def drawMap(self):

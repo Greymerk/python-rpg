@@ -9,6 +9,7 @@ from src.util import Vector2
 from time import time
 from src.abilities import *
 
+
 class Entity:
 
 	living = "player"

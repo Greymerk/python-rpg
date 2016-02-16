@@ -40,6 +40,9 @@ class Attack(object):
 	@classmethod
 	def validTarget(cls, actor, target):
 
+		if actor is target:
+			return False
+
 		if not target.isAlive():
 			return False
 
