@@ -43,21 +43,18 @@ class Card(object):
 			if unit is self.player.avatar and self.player.action.__class__ is Cast and self.player.action.spell is ability:
 				pygame.draw.rect(self.surface, THECOLORS["yellow"], rect, 1)
 
-	def getElement(self, pos):
+	def notify(self, pos, event):
 		v = Vector2(pos)
 		if not self.index in range(len(self.player.party.members)):
 			return
 		unit = self.player.party.members[self.index]
 		v -= self.pos
 		if v[0] < 200:
-			return unit
+			unit.notify(event)
 
 		i = int((v[0] - 200) / 32)
 		if i in range(len(unit.abilities)):
 			ability = unit.abilities[i]
-			if self.player.action is None:
-				a = Ability(unit, ability)
-				a.observers.append(self.player.abilitycontrol)
-				return a
+			self.player.abilitycontrol.notify(Ability(unit, ability), event) 
 		
 		

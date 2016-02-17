@@ -69,7 +69,8 @@ class Viewport(object):
 					x = 32 * (8 + self.player.action.location[0])
 					y = 32 * (8 + self.player.action.location[1])
 					self.surface.blit(self.reticule, (x, y))
-		if self.player.reticle is not None:
+
+		if self.player.reticle is not None and self.player.action is not None:
 			r = Vector2(self.player.reticle)
 			r += (8, 8)
 			self.surface.blit(self.reticule, (r[0] * 32, r[1] * 32))
@@ -102,11 +103,11 @@ class Viewport(object):
 	def visible(self, pos):			
 		return self.player.party.canSee(pos)
 		
-	def getElement(self, pos):
+	def notify(self, pos, event):
 		vec = Vector2(pos)
 		vec -= self.pos
 		rel = (int(vec[0] / 32) - 8, int(vec[1] / 32) - 8)
-		return self.grid[rel]
+		self.grid[rel].notify(event)
 		
 	def map_dot(self, pos, color):
 		x, y = self.player.party.getLeader().position

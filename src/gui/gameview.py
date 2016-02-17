@@ -54,11 +54,11 @@ class Gameview(object):
 		
 		pygame.display.flip()
 
-	def getElement(self, pos):
+	def notify(self, pos, event):
 		if self.viewportRect.collidepoint(pos):
-			return self.viewport.getElement(pos)
+			self.viewport.notify(pos, event)
 		if self.optionsRect.collidepoint(pos):
-			return self.options.getElement(pos)
+			self.options.notify(pos, event)
 		
 	def printscreen(self):
 		date = time.gmtime() 

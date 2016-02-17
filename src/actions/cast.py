@@ -36,8 +36,6 @@ class Cast(object):
 		last = self.player.lastTarget
 		leader = self.player.avatar
 
-		
-		
 		if self.player.target is not None:
 			if not self.inRange(self.player.target):
 				self.player.log.append('Too far away!')
@@ -58,27 +56,17 @@ class Cast(object):
 			if e.type == pygame.MOUSEBUTTONUP or e.type == pygame.MOUSEMOTION:
 				self.player.mouse_event(e)
 
-			if e is None:
-				return False
-
 			if e.type != KEYDOWN:
-				return False
+				continue
 		
 			if e.key in [K_ESCAPE]:
 				self.player.log.append('Cancelled')
 				return True
 		
-			finish = [K_RETURN, K_c, K_SPACE, self.player.ABILITY_KEYS[self.player.avatar.abilities.index(self.spell)]]
+			finish = [K_SPACE, self.player.ABILITY_KEYS[self.player.avatar.abilities.index(self.spell)]]
 			if e.key in finish:
 				target = Vector2(leader.position)
 				target += self.player.reticle
-				leader.action = self.spell(leader, target, self.spell)
-				entity = self.player.world.getEntityFromLocation(target)
-				if entity is not None:
-					if self.spell.validTarget(leader, entity):
-						self.player.lastTarget = entity
-					else:
-						return False
 				self.player.target = target
 				return False
 		

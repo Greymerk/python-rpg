@@ -59,11 +59,12 @@ class Options(object):
 	def getMaxLines(self):
 		return self.surface.get_height()/16
 		
-	def getElement(self, pos):
+	def notify(self, pos, event):
 		v = Vector2(pos)
 		v -= self.pos
 		y = int(v[1] / 32)
 		if y in range(len(self.party)):
-			return self.party[y].getElement(v)
+			card = self.party[y]
+			card.notify(v, event)
 			
 			

@@ -34,7 +34,7 @@ class Player:
 		self.lastAction = 0
 		self.lastTurn = 0
 		self.load() #party
-		self.reticle = None
+		self.reticle = (0, 0)
 		self.target = None
 		for entity in self.party:
 			entity.observers.append(self.entitycontrol)
@@ -63,7 +63,6 @@ class Player:
 			finished = self.action.nextStep()
 			if(finished):
 				self.action = None
-				self.reticle = None
 				self.target = None
 				self.lastAction = time.time()
 				return False
@@ -184,7 +183,4 @@ class Player:
 			self.party = self.world.loadParty(None)
 			
 	def mouse_event(self, event):
-		mpos = pygame.mouse.get_pos()
-		element = self.game.view.getElement(mpos)
-		if hasattr(element, 'notify'):
-			element.notify(event)
+		self.game.view.notify(pygame.mouse.get_pos(), event)
