@@ -25,7 +25,7 @@ class Bard(Entity):
 		self.sight = 7
 
 	def equip(self):
-		self.abilities = [BowShot, HealBolt]
+		self.abilities = [Ability(self, BowShot), Ability(self, HealBolt)]
 		
 	@classmethod
 	def onDamage(cls, sounds):

@@ -25,7 +25,7 @@ class Entity:
 		self.world = world
 		self.group = None
 		self.ai = AIController()
-		self.abilities = [Attack]
+		self.abilities = [Ability(self, Attack)]
 		self.singular = 'unknown'
 		self.sight = 5
 		self.health = self.maxHealth = 30
@@ -99,7 +99,7 @@ class Entity:
 		data['inventory'] = self.inventory.save()
 		abi = []
 		for ability in self.abilities:
-			abi.append(ability.__name__)
+			abi.append(ability.save())
 		data['abilities'] = abi
 		data['ai'] = self.ai.save()
 			
@@ -121,7 +121,9 @@ class Entity:
 		if 'abilities' in data.keys():
 			self.abilities = []
 			for ability in data['abilities']:
-				self.abilities.append(lookup[ability])
+				toAdd = Ability(self)
+				toAdd.load(ability)
+				self.abilities.append(toAdd)
 		if 'ai' in data.keys():
 			self.ai.load(data['ai'])
 			
@@ -193,12 +195,6 @@ class Entity:
 			return False
 		
 		return True
-		
-	def attack(self, location):
-
-		weapon = self.inventory.getWeapon()
-		spell = weapon.getAbility()
-		self.cast(spell, location)
 		
 	def inflict(self, attacker, damage):
 		
@@ -336,13 +332,10 @@ class Entity:
 			
 			for e in self.world.getAllEntities():
 				
-				if not self.canHit(e.position, ability.range):
+				if not ability.valid(e):
 					continue
 				
-				if not ability.validTarget(self, e):
-					continue
-				
-				return ability(self, e.position, None) #ability instance
+				return ability.cast(e.position) #ability instance
 	
 	
 	def pocket(self, item):

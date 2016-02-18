@@ -24,7 +24,7 @@ class Cast(object):
 		self.player.reticle = (0,0)
 
 		if last is not None:
-			if leader.canHit(last.position, self.spell.range) and last.isAlive():
+			if self.spell.valid(last):
 				self.player.reticle = Vector2(last.position)
 				self.player.reticle -= leader.position
 			else:
@@ -49,7 +49,7 @@ class Cast(object):
 				self.player.log.append('Nothing hit!')
 
 			leader.lastTarget = entity
-			leader.action = self.spell(leader, self.player.target, self.spell)
+			leader.action = self.spell.cast(self.player.target)
 			return True
 
 
@@ -65,7 +65,7 @@ class Cast(object):
 				self.player.log.append('Cancelled')
 				return True
 		
-			finish = [K_SPACE, self.player.ABILITY_KEYS[self.player.avatar.abilities.index(self.spell)]]
+			finish = [K_SPACE]
 			if e.key in finish:
 				target = Vector2(leader.position)
 				target += self.player.reticle
@@ -78,16 +78,15 @@ class Cast(object):
 				newLocation = Vector2(pos)
 				newLocation += self.player.reticle
 				newLocation += direction
-				if not self.inRange(newLocation):
+				if not self.spell.inRange(newLocation):
 					return False
 				self.player.reticle = Vector2(self.player.reticle)
 				self.player.reticle += direction
 				return False
 			
 		return False
+		
+	def inRange(self, target):
+		return self.spell.inRange(target)
 
-	def inRange(self, pos):
-		if not self.player.avatar.canHit(pos, self.spell.range):
-			return False
-		return True
 

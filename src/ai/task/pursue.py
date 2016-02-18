@@ -28,8 +28,8 @@ class Pursue(object):
 			if canSee(entity.position) and entity.isAlive():
 				
 				for ability in self.actor.abilities:
-					if self.actor.canHit(entity.position, ability.range):
-						if not ability.validTarget(self.actor, entity):
+					if ability.inRange(entity.position):
+						if not ability.valid(entity):
 						   continue
 				
 				if self.target is None:

@@ -50,7 +50,7 @@ class SkeletalArcher(Skeleton):
 		self.ai.addAI(task.Wander(self))
 		
 	def equip(self):
-		self.abilities = [BowShot]
+		self.abilities = [Ability(self, BowShot)]
 			
 			
 class SkeletalMage(Skeleton):
@@ -63,4 +63,4 @@ class SkeletalMage(Skeleton):
 		self.ai.addAI(task.Wander(self))
 		
 	def equip(self):
-		self.abilities = [ChainBolt]
+		self.abilities = [Ability(self, ChainBolt)]

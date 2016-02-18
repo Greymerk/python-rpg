@@ -31,4 +31,4 @@ class Ettin(Entity):
 		self.singular = 'an ettin'
 
 	def equip(self):
-		self.abilities = [MagicMissile]
+		self.abilities = [Ability(self, MagicMissile)]

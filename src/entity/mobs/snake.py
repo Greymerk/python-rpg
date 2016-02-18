@@ -30,4 +30,4 @@ class Snake(Entity):
 		self.singular = 'a snake'
 		
 	def equip(self):
-		self.abilities = [PoisonBolt]
+		self.abilities = [Ability(self, PoisonBolt)]

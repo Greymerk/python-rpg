@@ -25,7 +25,7 @@ class Priest(Entity):
 		self.ai.addAI(task.Wander(self))
 		
 	def equip(self):
-		self.abilities = [HealBolt, Resurrection]
+		self.abilities = [Ability(self, HealBolt), Ability(self, Resurrection)]
 		
 	@classmethod
 	def onDamage(cls, sounds):
