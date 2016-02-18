@@ -54,6 +54,6 @@ class Card(object):
 		i = int((v[0] - 200) / 32)
 		if i in range(len(unit.abilities)):
 			ability = unit.abilities[i]
-			self.player.abilitycontrol.notify(Ability(unit, ability), event) 
+			ability.notify(event) 
 		
 		

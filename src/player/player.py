@@ -38,6 +38,8 @@ class Player:
 		self.target = None
 		for entity in self.party:
 			entity.observers.append(self.entitycontrol)
+			for ability in entity.abilities:
+				ability.observers.append(self.abilitycontrol)
 		self.world.friendly = self.party
 		self.lastTarget = None
 
