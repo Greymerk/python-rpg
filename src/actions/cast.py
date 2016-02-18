@@ -19,21 +19,23 @@ class Cast(object):
 		self.projectile = None
 		self.spell = ability
 		
-		leader = self.player.party.getLeader()	
-		last = self.player.lastTarget
+		leader = self.player.avatar	
+		last = leader.lastTarget
+		self.player.reticle = (0,0)
 
-		if self.player.lastTarget is not None:
+		if last is not None:
 			if leader.canHit(last.position, self.spell.range) and last.isAlive():
-				self.player.reticle = Vector2(self.player.lastTarget.position)
-				self.player.reticle -= self.player.avatar.position
-		else:
-			self.player.reticle = (0,0)
+				self.player.reticle = Vector2(last.position)
+				self.player.reticle -= leader.position
+			else:
+				leader.lastTarget = None
+		
+			
 
 		self.player.target = None
 		
 	def nextStep(self):
 		
-		last = self.player.lastTarget
 		leader = self.player.avatar
 
 		if self.player.target is not None:
@@ -46,7 +48,7 @@ class Cast(object):
 			if entity is None:
 				self.player.log.append('Nothing hit!')
 
-			self.player.lastTarget = entity
+			leader.lastTarget = entity
 			leader.action = self.spell(leader, self.player.target, self.spell)
 			return True
 

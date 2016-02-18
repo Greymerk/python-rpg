@@ -175,7 +175,7 @@ class Player:
 			return
 
 		with open('save/player', 'r') as f:
-			data = json.load(f)	
+			data = json.load(f)
 
 		if 'members' in data.keys():
 			self.party = self.world.loadParty(data['members'])

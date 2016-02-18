@@ -36,6 +36,7 @@ class Entity:
 		self.lastAttacker = None
 		self.name = None
 		self.action = None
+		self.lastTarget = None
 		self.observers = []
 
 	def move(self, direction):
@@ -354,6 +355,9 @@ class Entity:
 		for obs in self.observers:
 			obs.notify(self, event)
 		
+	def __str__(self):
+		return self.__class__.__name__ + 'Pos: ' + str(self.position) + ' ' + 'HP: ' + str(self.health)
+
 	@classmethod
 	def onDamage(cls, sounds):
 		sounds.get("damage.wav").play()

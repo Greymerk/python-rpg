@@ -55,4 +55,5 @@ class Game(object):
 		msg.append(['Chunks: ' + str(len(self.world.chunkManager.chunkCache))])
 		msg.append(['Render: ' + str(int(self.renderTime * 1000)) + 'ms'])
 		msg.append(['World: ' + str(int(self.processTime * 1000)) + 'ms'])
+		msg.append(['Time: ' + str(self.world.time)])
 		return msg
