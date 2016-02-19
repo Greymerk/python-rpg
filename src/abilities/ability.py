@@ -1,3 +1,5 @@
+import pygame
+
 from attack import Attack
 from bowshot import *
 from magicmissile import *
@@ -61,6 +63,9 @@ class Ability(object):
 	def draw(self, images, surface):
 		image = images.get(self.ability.icon)
 		surface.blit(image, surface.get_rect())
+		if not self.ready():
+			font = pygame.font.Font(None,24)
+			surface.blit(font.render(str(self.cooldown), 1, (255, 255, 0)), (10, 10))
 	
 	def save(self):
 		data = {}
