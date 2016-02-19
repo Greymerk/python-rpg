@@ -104,6 +104,9 @@ class Player:
 				for i, k in enumerate(Player.ABILITY_KEYS):
 					if e.key == k and len(self.avatar.abilities) > i:
 						spell = self.avatar.abilities[i]
+						if not spell.ready():
+							self.log.append('Ability on cooldown!')
+							return True
 						self.action = Cast(self, spell)
 						
 				# select unit to control (deliberately off by one)
