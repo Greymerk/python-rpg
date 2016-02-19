@@ -12,4 +12,7 @@ class AbilityControl(object):
 		if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
 			if self.player.action is None:
 				self.player.setLeader(ability.caster)
+				if not ability.ready():
+					self.player.log.append('Ability on cooldown!')
+					return
 				self.player.action = Cast(self.player, ability)

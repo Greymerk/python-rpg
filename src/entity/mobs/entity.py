@@ -129,6 +129,9 @@ class Entity:
 			
 	def turn(self):
 
+		for ability in self.abilities:
+			ability.update()
+	
 		if self.health > 0:
 			if self.group is not None:
 				if self.distance(self.getLeader().position) > 20:
@@ -331,6 +334,9 @@ class Entity:
 		for ability in self.abilities:
 			
 			for e in self.world.getAllEntities():
+				
+				if not ability.ready():
+					continue
 				
 				if not ability.valid(e):
 					continue

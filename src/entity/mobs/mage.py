@@ -25,7 +25,7 @@ class Mage(Entity):
 		self.ai.addAI(task.Wander(self))
 		
 	def equip(self):
-		self.abilities = [Ability(self, Explosion), Ability(self, FireBall), Ability(self, ChainBolt)]
+		self.abilities = [Ability(self, Explosion), Ability(self, ChainBolt), Ability(self, FireBall)]
 		
 	@classmethod
 	def onDamage(cls, sounds):

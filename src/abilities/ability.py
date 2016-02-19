@@ -24,10 +24,15 @@ class Ability(object):
 		self.caster = unit
 		self.ability = ability
 		self.observers = []
+		self.cooldown = 0
 
 	def notify(self, event):
 		for obs in self.observers:
 			obs.notify(self, event)
+			
+	def update(self):
+		if self.cooldown > 0:
+			self.cooldown -= 1
 			
 	def valid(self, entity):
 		
@@ -38,11 +43,19 @@ class Ability(object):
 			return False
 			
 		return True
+		
+	def ready(self):
+		
+		if self.cooldown > 0:
+			return False
+		
+		return True
 			
 	def inRange(self, target):
 		return self.caster.canHit(target, self.ability.range)
 		
 	def cast(self, target):
+		self.cooldown = self.ability.cooldown
 		return self.ability(self.caster, target, self.ability)
 			
 	def draw(self, images, surface):
@@ -52,10 +65,12 @@ class Ability(object):
 	def save(self):
 		data = {}
 		data['ability'] = self.ability.__name__
+		data['cooldown'] = self.cooldown
 		return data
 		
 	def load(self, data):
 		ability = data['ability']
 		self.ability = Ability.lookup[ability]
+		self.cooldown = data['cooldown']
 		
 

@@ -15,6 +15,7 @@ class BowShot(object):
 	heal = False
 	name = "Shoot"
 	icon = "arrow"
+	cooldown = 0
 		
 	def __init__(self, caster, location, item):
 		self.caster = caster

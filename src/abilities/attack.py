@@ -13,6 +13,7 @@ class Attack(object):
 	heal = False 
 	name = "Attack"
 	icon = "sword"
+	cooldown = 0
 	
 	def __init__(self, caster, location, item):
 		

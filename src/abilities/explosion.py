@@ -11,6 +11,7 @@ class Explosion(object):
 	heal = False
 	name = "Explosion"
 	icon = "firebolt"
+	cooldown = 3
 	
 	def __init__(self, caster, location, item):
 		self.item = item

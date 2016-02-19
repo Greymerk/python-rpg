@@ -63,4 +63,4 @@ class SkeletalMage(Skeleton):
 		self.ai.addAI(task.Wander(self))
 		
 	def equip(self):
-		self.abilities = [Ability(self, ChainBolt)]
+		self.abilities = [Ability(self, ChainBolt), Ability(self, MagicMissile)]

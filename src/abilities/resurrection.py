@@ -15,6 +15,7 @@ class Resurrection(object):
 	heal = True
 	name = "Ressurection"
 	icon = "ankh"
+	cooldown = 0
 	
 	def __init__(self, caster, location, item):
 		self.range = self.__class__.range

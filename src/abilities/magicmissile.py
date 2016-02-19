@@ -16,6 +16,7 @@ class MagicMissile(object):
 	name = "Magic Missile"
 	color = THECOLORS['lightcyan']
 	icon = "magicbolt"
+	cooldown = 0
 	
 	def __init__(self, caster, location, item):
 		self.item = item
