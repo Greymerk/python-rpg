@@ -2,6 +2,8 @@
 
 class Cell(object):
 
+	size = 32
+
 	def __init__(self, pos, rel):
 		self.pos = pos
 		self.rel = rel

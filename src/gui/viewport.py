@@ -22,11 +22,10 @@ class Viewport(object):
 		self.reticule = pygame.transform.scale2x(images.get("reticule"))
 		self.grid = {}
 		
-		for x in range(17):
-			for y in range(17):
-				pos = Vector2(self.pos)
-				pos += (x * 32, y * 32)
-				rel = Vector2(x - 8, y - 8)
+		for x in range(Viewport.size):
+			for y in range(Viewport.size):
+				pos = Vector2(x * Cell.size, y * Cell.size)
+				rel = Vector2(x - Viewport.size / 2, y - Viewport.size / 2)
 				cell = Cell(pos, rel)
 				cell.observers.append(player.targetcontrol)
 				self.grid[(rel[0], rel[1])] = cell
@@ -34,7 +33,7 @@ class Viewport(object):
 	def display(self, info):
 		self.fontobject = pygame.font.Font(None,24)
 		for i, line in enumerate(info):
-			self.surface.blit(self.fontobject.render(line[0], 1, (255,255,255)), (16, (i + 1) * 16))	
+			self.surface.blit(self.fontobject.render(line[0], 1, (255,255,255)), (Cell.size / 2, (i + 1) * Cell.size / 2))	
 		
 	def draw(self):
 		if(self.player.viewingMap):
@@ -48,17 +47,16 @@ class Viewport(object):
 		self.surface.fill(THECOLORS["black"])
 		camPos = self.player.party.getLeader().position
 
-		for row in range(17):
-			for col in range(17):
-				relPos = camPos[0] - 8 + col, camPos[1] - 8 + row
-				cell = self.world.getTile(relPos)
-				ground = cell.getGround()
-				imgName = ground.getImage(relPos)
-				image = self.images.get(imgName, relPos)
-				dest = (col * 32), (row * 32)
-				if not self.player.party.canSee(relPos):
-					continue
-				self.surface.blit(image, dest)
+		for cell in self.grid.values():
+			loc = Vector2(camPos)
+			loc += cell.rel
+			if not self.player.party.canSee(loc):
+				continue
+			tile = self.world.getTile(loc)
+			ground = tile.getGround()
+			imgName = ground.getImage(loc)
+			image = self.images.get(imgName, loc)
+			self.surface.blit(image, (int(cell.pos[0]), int(cell.pos[1])))			
 
 		for e in self.world.getAllEntities():
 			e.draw(self.surface, camPos, self.images, self.visible)
@@ -66,9 +64,12 @@ class Viewport(object):
 		if self.player.action is not None:
 			if hasattr(self.player.action, 'location'):
 				if self.player.action.location is not None:
+					'''
 					x = 32 * (8 + self.player.action.location[0])
 					y = 32 * (8 + self.player.action.location[1])
-					self.surface.blit(self.reticule, (x, y))
+					'''
+					cell = self.grid[self.player.action.location]
+					self.surface.blit(self.reticule, cell.pos)
 
 		if self.player.reticle is not None and self.player.action is not None:
 			r = Vector2(self.player.reticle)
