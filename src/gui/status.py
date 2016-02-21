@@ -15,6 +15,6 @@ class Status(object):
 	def draw(self):
 		self.surface.fill(THECOLORS["black"])
 			
-	def getElement(self, pos):
-		return None
-
+	def notify(self, pos, event):
+		pass
+		

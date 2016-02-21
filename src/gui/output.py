@@ -19,6 +19,8 @@ class Output(object):
 
 	def append(self, message):
 		self.buffer.append(message)
+
+	def notify(self, pos, event):
+		pass
 		
-	def getElement(self, pos):
-		return None
+		

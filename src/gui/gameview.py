@@ -2,11 +2,11 @@ import pygame
 from pygame.color import THECOLORS
 import time
 
-from options import Options
-from output import Output
+
 from cell import Cell
 from viewport import Viewport
-from status import Status
+from displaypanel import DisplayPanel
+
 
 class Gameview(object):
 
@@ -26,32 +26,17 @@ class Gameview(object):
 		self.boxes.append(self.viewportRect)
 		self.viewport = Viewport(self.surface.subsurface(self.viewportRect), self.viewportPos, world, player, images)
 		
-		self.optionsPos = (viewportLength + 56, 28)
-		self.optionsRect = pygame.Rect(self.optionsPos, (396, Cell.size * 6))
-		self.boxes.append(self.optionsRect)
-		self.options = Options(self.surface.subsurface(self.optionsRect), self.optionsPos, self.player, images)
-		
-		self.statusPos = (viewportLength + 56, Cell.size * 6 + Cell.size + 28)
-		self.statusRect = pygame.Rect(self.statusPos, (396, Cell.size))
-		self.boxes.append(self.statusRect)
-		self.status = Status(self.surface.subsurface(self.statusRect), self.statusPos, self.player, images)
-		
-		self.logPos = (viewportLength + 56, Cell.size * 7 + (Cell.size * 2) + 28)
-		self.logRect = pygame.Rect(self.logPos, (396, Cell.size * 8))
-		self.boxes.append(self.logRect)
-		self.logWindow = Output(self.surface.subsurface(self.logRect), self.logPos, self.player.log)
+		self.displayPos = (viewportLength + 56, 28)
+		self.displayRect = pygame.Rect(self.displayPos, (Cell.size * 12, viewportLength))
+		self.display = DisplayPanel(self.surface.subsurface(self.displayRect), self.displayPos, self.player, images)
 		
 		player.screenshot = self.printscreen
 
 	def draw(self):
 
 		self.surface.fill(THECOLORS["royalblue4"])
-		for box in self.boxes:
-			pygame.draw.rect(self.surface, THECOLORS["azure2"], box, 5)
-		self.options.draw()
-		self.status.draw()
-		self.logWindow.draw()
 		self.viewport.draw()
+		self.display.draw()
 		if self.debug is not None and self.player.debug:
 			self.viewport.display(self.debug())
 		
@@ -60,8 +45,8 @@ class Gameview(object):
 	def notify(self, pos, event):
 		if self.viewportRect.collidepoint(pos):
 			self.viewport.notify(pos, event)
-		if self.optionsRect.collidepoint(pos):
-			self.options.notify(pos, event)
+		if self.displayRect.collidepoint(pos):
+			self.display.notify(pos, event)
 		
 	def printscreen(self):
 		date = time.gmtime() 

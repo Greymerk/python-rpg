@@ -10,6 +10,7 @@ from pygame.locals import *
 from pygame.color import THECOLORS
 from src.util import Vector2
 
+from cell import Cell
 from card import Card
 
 class Options(object):
@@ -24,7 +25,7 @@ class Options(object):
 		self.party = []
 		for i in range(6):
 			p = (0, self.tileSize * i)
-			rect = pygame.Rect(p, (396, self.tileSize))
+			rect = pygame.Rect(p, (Cell.size * 12, self.tileSize))
 			self.party.append(Card(self.surface.subsurface(rect), p, i, player, images))
 		self.selected = 0
 		self.player = player
