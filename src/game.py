@@ -14,15 +14,11 @@ class Game(object):
 	def __init__(self):
 
 		pygame.init()
-		self.screenSize = (1024, 600)
 		pygame.display.set_caption("RPG Game")
-
 		self.seed = 26281376
-		self.surface = pygame.display.set_mode(self.screenSize)
-
 		self.world = World(self.seed, SoundCache())
 		self.user = Player(self)
-		self.view = Gameview(self.world, self.user, self.surface, ImageCache(), self.debug)
+		self.view = Gameview(self.world, self.user, ImageCache(), self.debug)
 
 		self.clock = pygame.time.Clock()
 		self.renderTime = 0

@@ -4,37 +4,40 @@ import time
 
 from options import Options
 from output import Output
+from cell import Cell
 from viewport import Viewport
 from status import Status
 
 class Gameview(object):
 
-	def __init__(self, world, player, surface, images, debug=None):
+	def __init__(self, world, player, images, debug=None):
 		self.world = world
 		self.player = player
-		self.surface = surface
+		self.screenSize = (1024, 600)
+		self.surface = pygame.display.set_mode(self.screenSize)
 		self.images = images
 		self.debug = debug
 		self.renderTime = 0
 		self.boxes = []
 		
 		self.viewportPos = (28, 28)
-		self.viewportRect = pygame.Rect(self.viewportPos, (17*32, 17*32))
+		viewportLength = Viewport.size * Cell.size
+		self.viewportRect = pygame.Rect(self.viewportPos, (viewportLength, viewportLength))
 		self.boxes.append(self.viewportRect)
 		self.viewport = Viewport(self.surface.subsurface(self.viewportRect), self.viewportPos, world, player, images)
 		
-		self.optionsPos = (600,28)
-		self.optionsRect = pygame.Rect(self.optionsPos, (396, 32 * 6))
+		self.optionsPos = (viewportLength + 56, 28)
+		self.optionsRect = pygame.Rect(self.optionsPos, (396, Cell.size * 6))
 		self.boxes.append(self.optionsRect)
 		self.options = Options(self.surface.subsurface(self.optionsRect), self.optionsPos, self.player, images)
 		
-		self.statusPos = (600,252)
-		self.statusRect = pygame.Rect(self.statusPos, (396, 32))
+		self.statusPos = (viewportLength + 56, Cell.size * 6 + Cell.size + 28)
+		self.statusRect = pygame.Rect(self.statusPos, (396, Cell.size))
 		self.boxes.append(self.statusRect)
 		self.status = Status(self.surface.subsurface(self.statusRect), self.statusPos, self.player, images)
 		
-		self.logPos = (600,316)
-		self.logRect = pygame.Rect(self.logPos, (396,16*16))
+		self.logPos = (viewportLength + 56, Cell.size * 7 + (Cell.size * 2) + 28)
+		self.logRect = pygame.Rect(self.logPos, (396, Cell.size * 8))
 		self.boxes.append(self.logRect)
 		self.logWindow = Output(self.surface.subsurface(self.logRect), self.logPos, self.player.log)
 		

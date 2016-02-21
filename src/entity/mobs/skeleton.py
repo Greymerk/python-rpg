@@ -30,9 +30,6 @@ class SkeletalWarrior(Skeleton):
 	
 	def __init__(self, world):
 		Skeleton.__init__(self, world)
-		
-
-		
 		self.ai.addAI(task.Cast(self))
 		self.ai.addAI(task.Pursue(self))
 		self.ai.addAI(task.Wander(self))
