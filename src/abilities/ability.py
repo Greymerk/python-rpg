@@ -8,6 +8,7 @@ from poisonbolt import PoisonBolt
 from healbolt import HealBolt
 from resurrection import Resurrection
 from explosion import Explosion
+from rainbowbolt import RainbowBolt
 
 class Ability(object):
 
@@ -21,6 +22,7 @@ class Ability(object):
 	lookup["HealBolt"] = HealBolt
 	lookup["Resurrection"] = Resurrection
 	lookup["Explosion"] = Explosion
+	lookup["RainbowBolt"] = RainbowBolt
 
 	def __init__(self, unit, ability=None):
 		self.caster = unit

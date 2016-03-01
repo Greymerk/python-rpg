@@ -5,16 +5,15 @@ Created on 2013-06-04
 '''
 
 from random import randint
-from projectiles import Star
+from projectiles import Rainbolt
 from pygame.color import THECOLORS
 
-class MagicMissile(object):
+class RainbowBolt(object):
 	
 	range = 5
 	damage = 2, 5
 	heal = False
-	name = "Magic Missile"
-	color = THECOLORS['lightcyan']
+	name = "Rainbow Bolt"
 	icon = "magicbolt"
 	cooldown = 0
 	
@@ -24,7 +23,6 @@ class MagicMissile(object):
 		self.target = location
 		self.range = self.__class__.range
 		self.damage = self.__class__.damage
-		self.color = self.__class__.color
 		casterName = self.caster.getName()
 		self.entityHit = self.caster.world.getEntityFromLocation(self.target)
 		if not self.entityHit is None:
@@ -33,7 +31,7 @@ class MagicMissile(object):
 		else:
 			self.caster.world.log.append(casterName + ' cast ' + self.__class__.__name__ + ' at nothing!')
 		
-		self.projectile = Star(caster.position, location, self.color, self.fire, self.impact)
+		self.projectile = Rainbolt(caster.position, location, self.fire, self.impact)
 		self.done = False
 	 
 	def update(self):
@@ -69,19 +67,3 @@ class MagicMissile(object):
 	
 	def impact(self):
 		self.caster.world.sounds.get("fireball-impact.wav").play()
-	
-class FireBall(MagicMissile):
-	
-	range = 6
-	damage = 3, 8
-	heal = False
-	color = THECOLORS['orange']
-	name = "Fireball"
-	icon = "firebolt"
-	
-	def fire(self):
-		self.caster.world.sounds.get("fireball.wav").play()
-	
-	def impact(self):
-		self.caster.world.sounds.get("fireball-impact.wav").play()
-		

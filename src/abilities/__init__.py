@@ -8,3 +8,4 @@ from poisonbolt import PoisonBolt
 from healbolt import HealBolt
 from resurrection import Resurrection
 from explosion import Explosion
+from rainbowbolt import RainbowBolt
