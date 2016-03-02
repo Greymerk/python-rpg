@@ -5,6 +5,7 @@ from src.util import Vector2
 from math import hypot
 from collections import deque
 from src.util import Color
+from time import time
 
 class Rainbolt:
 
@@ -77,17 +78,20 @@ class Rainbolt:
 		
 		if not visible(self.pos):
 			return
-		
-		pygame.draw.circle(surface, Color.rainbow(), (x, y), Rainbolt.ballSize)
+	
+		t = time() * 3
+		r = t - int(t)
+		color = Color.rainbow(r)	
+		pygame.draw.circle(surface, color, (x, y), Rainbolt.ballSize)
 		
 		for partical in self.particals:
 			offsetX = (partical[0] - self.origin[0]) * tileSize
 			offsetY = (partical[1] - self.origin[1]) * tileSize
 			x = int((center[0] + offsetX))
 			y = int((center[1] + offsetY))
-			surface.set_at((x, y), Color.rainbow())
-			surface.set_at((x, y + 1), Color.rainbow())
-			surface.set_at((x + 1, y), Color.rainbow())
-			surface.set_at((x + 1, y + 1), Color.rainbow())
+			surface.set_at((x, y), color)
+			surface.set_at((x, y + 1), color)
+			surface.set_at((x + 1, y), color)
+			surface.set_at((x + 1, y + 1), color)
 			
 
