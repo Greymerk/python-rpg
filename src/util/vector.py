@@ -29,6 +29,11 @@ class Vector2(object):
 		self.y -= other[1]
 		return self
 
+	def __mul__(self, other):
+		self.x *= other[0]
+		self.y *= other[1]
+		return self
+		
 	def __eq__(self, other):
 		if self.x != other[0]:
 			return False

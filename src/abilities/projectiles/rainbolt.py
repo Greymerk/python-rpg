@@ -67,14 +67,21 @@ class Rainbolt:
 			return
 
 		tileSize = 32
-		relx = self.origin.x - camPos[0]
-		rely = self.origin.y - camPos[1]
-		center = (((relx + 8) * tileSize), ((rely + 8) * tileSize))
+		rel = Vector2(self.origin)
+		rel -= camPos
+		center = Vector2(rel)
+		center += Vector2(8, 8)
+		center *= Vector2(tileSize, tileSize)
+		
+		offset = Vector2(self.pos)
+		offset -= self.origin
+		offset *= Vector2(tileSize, tileSize)
 			
-		offsetX = (self.pos.x - self.origin.x) * tileSize
-		offsetY = (self.pos.y - self.origin.y) * tileSize
-		x = int((center[0] + offsetX))
-		y = int((center[1] + offsetY))
+		vec = Vector2(center)
+		vec += offset
+		
+		x = int(vec[0])
+		y = int(vec[1])
 		
 		if not visible(self.pos):
 			return
