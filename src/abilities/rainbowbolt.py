@@ -10,7 +10,7 @@ from pygame.color import THECOLORS
 
 class RainbowBolt(object):
 	
-	range = 5
+	range = 7
 	damage = 2, 5
 	heal = False
 	name = "Rainbow Bolt"
