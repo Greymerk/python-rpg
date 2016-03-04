@@ -10,8 +10,8 @@ from time import time
 class Rainbolt:
 
 	ballSize = 3
-	scatter = 6
-	maxParticals = 40
+	scatter = 4
+	maxParticals = 50
 	granularity = 15
 	
 	def __init__(self, start, end, fire=None, impact=None):
@@ -53,10 +53,8 @@ class Rainbolt:
 		
 		x, y = (self.pos.x, self.pos.y)
 		
-		while len(self.particals) > Rainbolt.maxParticals:
-			self.particals.popleft()
 
-		for i in xrange(3):
+		for i in xrange(5):
 			s = Rainbolt.scatter
 			newPartical = (x + float(random.randint(-s,s))/32, y + float(random.randint(-s,s))/32)
 			self.particals.append(newPartical)
@@ -86,13 +84,12 @@ class Rainbolt:
 		if not visible(self.pos):
 			return
 	
-		t = time() * 3
-		r = t - int(t)
+		r = 1.0
 		color = Color.rainbow(r)	
 		pygame.draw.circle(surface, color, (x, y), Rainbolt.ballSize)
 		
 		for i, partical in enumerate(self.particals):
-			color = Color.rainbow(r + 0.02 * i)
+			color = Color.rainbow(r + 0.03 * i)
 			offsetX = (partical[0] - self.origin[0]) * tileSize
 			offsetY = (partical[1] - self.origin[1]) * tileSize
 			x = int((center[0] + offsetX))

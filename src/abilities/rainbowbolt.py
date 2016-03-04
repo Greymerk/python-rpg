@@ -14,7 +14,7 @@ class RainbowBolt(object):
 	damage = 2, 5
 	heal = False
 	name = "Rainbow Bolt"
-	icon = "magicbolt"
+	icon = "rainbolt"
 	cooldown = 0
 	
 	def __init__(self, caster, location, item):
