@@ -60,4 +60,7 @@ class SkeletalMage(Skeleton):
 		self.ai.addAI(task.Wander(self))
 		
 	def equip(self):
+		if randint(0, 5) == 0:
+			self.abilities = [Ability(self, Explosion), Ability(self, FireBall)]
+			return
 		self.abilities = [Ability(self, ChainBolt), Ability(self, MagicMissile)]
