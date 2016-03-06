@@ -40,9 +40,15 @@ class Star:
 		self.color = color
 		self.done = False
 
-	def update(self):
+	def update(self, pos=None):
 		
-		if (int(self.pos.x), int(self.pos.y)) == (int(self.target.x), int(self.target.y)):
+		if pos is not None:
+			self.target = Vector2(pos)
+			self.target.center()
+		
+		curPos = (int(self.pos[0]), int(self.pos[1]))
+		endPos = (int(self.target[0]), int(self.target[1]))
+		if curPos == endPos:
 			self.done = True
 			if self.impact is not None:
 				self.impact()

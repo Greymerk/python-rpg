@@ -33,7 +33,10 @@ class HealBolt(object):
 			self.caster.world.log.append(casterName + ' cast Heal at nothing!')
 	 
 	def update(self):
-		self.projectile.update()
+		pos = None
+		if self.entityHit is not None:
+			pos = self.entityHit.position
+		self.projectile.update(pos)
 		if self.projectile.done:
 			if not self.entityHit is None:
 				self.entityHit.heal(self.caster, randint(self.damage[0], self.damage[1]))

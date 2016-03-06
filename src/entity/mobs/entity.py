@@ -1,5 +1,6 @@
 import pygame
 from math import sqrt
+from math import floor
 from random import randint
 
 from src.ai import AIController
@@ -44,8 +45,8 @@ class Entity:
 		x, y = direction
 		oldx, oldy = self.position
 
-		newx = oldx + x
-		newy = oldy + y
+		newx = floor(oldx + x)
+		newy = floor(oldy + y)
 
 		if not self.world.isLocationPassable(Vector2(newx, newy)):
 			return False
