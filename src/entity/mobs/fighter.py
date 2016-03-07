@@ -8,7 +8,6 @@ import pygame
 from random import randint
 from random import choice
 from src.ai import task
-from src.abilities import *
 
 class Fighter(Entity):
 

@@ -8,7 +8,7 @@ from src.inventory import Inventory
 from src.util import Vector2
 
 from time import time
-from src.abilities import *
+from src.abilities import Ability
 
 
 class Entity:
@@ -26,7 +26,7 @@ class Entity:
 		self.world = world
 		self.group = None
 		self.ai = AIController()
-		self.abilities = [Ability(self, Attack)]
+		self.abilities = [Ability(self, Ability.lookup["Attack"])]
 		self.singular = 'unknown'
 		self.sight = 5
 		self.health = self.maxHealth = 30

@@ -8,7 +8,7 @@ import pygame
 
 from entity import Entity
 from src.ai import task
-from src.abilities import *
+from src.abilities import Ability
 
 class Ettin(Entity):
 
@@ -31,4 +31,4 @@ class Ettin(Entity):
 		self.singular = 'an ettin'
 
 	def equip(self):
-		self.abilities = [Ability(self, MagicMissile)]
+		self.abilities = [Ability(self, Ability.lookup["MagicMissile"])]

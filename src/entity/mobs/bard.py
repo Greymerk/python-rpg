@@ -6,7 +6,7 @@ Created on 2013-05-28
 from entity import Entity
 import pygame
 from src.ai import task
-from src.abilities import *
+from src.abilities import Ability
 
 class Bard(Entity):
 
@@ -25,7 +25,7 @@ class Bard(Entity):
 		self.sight = 7
 
 	def equip(self):
-		self.abilities = [Ability(self, BowShot), Ability(self, HealBolt)]
+		self.abilities = [Ability(self, Ability.lookup["BowShot"]), Ability(self, Ability.lookup["HealBolt"])]
 		
 	@classmethod
 	def onDamage(cls, sounds):

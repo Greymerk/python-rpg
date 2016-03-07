@@ -9,7 +9,6 @@ from mobs import Fighter
 from mobs import Mage
 from mobs import Priest
 
-
 class Party(object):
 	
 	def __init__(self, world):

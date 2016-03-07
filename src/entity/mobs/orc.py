@@ -7,7 +7,6 @@ Created on 2013-05-12
 import pygame
 from entity import Entity
 from src.ai import task
-from src.abilities import *
 
 class Orc(Entity):
 

@@ -10,7 +10,7 @@ from random import choice
 
 from entity import Entity
 from src.ai import task
-from src.abilities import *
+from src.abilities import Ability
 
 class Skeleton(Entity):
 
@@ -47,7 +47,7 @@ class SkeletalArcher(Skeleton):
 		self.ai.addAI(task.Wander(self))
 		
 	def equip(self):
-		self.abilities = [Ability(self, BowShot)]
+		self.abilities = [Ability(self, Ability.lookup["BowShot"])]
 			
 			
 class SkeletalMage(Skeleton):
@@ -61,6 +61,6 @@ class SkeletalMage(Skeleton):
 		
 	def equip(self):
 		if randint(0, 5) == 0:
-			self.abilities = [Ability(self, Explosion), Ability(self, FireBall)]
+			self.abilities = [Ability(self, Ability.lookup["Explosion"]), Ability(self, Ability.lookup["FireBall"])]
 			return
-		self.abilities = [Ability(self, ChainBolt), Ability(self, MagicMissile)]
+		self.abilities = [Ability(self, Ability.lookup["ChainBolt"]), Ability(self, Ability.lookup["MagicMissile"])]

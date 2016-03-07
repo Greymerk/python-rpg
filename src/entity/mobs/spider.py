@@ -8,7 +8,6 @@ import pygame
 from entity import Entity
 
 from src.ai import task
-from src.abilities import *
 
 class Spider(Entity):
 

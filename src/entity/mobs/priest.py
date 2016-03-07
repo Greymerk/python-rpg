@@ -8,7 +8,7 @@ from entity import Entity
 import pygame
 from random import randint
 from src.ai import task
-from src.abilities import *
+from src.abilities import Ability
 
 class Priest(Entity):
 
@@ -25,7 +25,7 @@ class Priest(Entity):
 		self.ai.addAI(task.Wander(self))
 		
 	def equip(self):
-		self.abilities = [Ability(self, HealBolt), Ability(self, Resurrection)]
+		self.abilities = [Ability(self, Ability.lookup["HealBolt"]), Ability(self, Ability.lookup["Resurrection"])]
 		
 	@classmethod
 	def onDamage(cls, sounds):

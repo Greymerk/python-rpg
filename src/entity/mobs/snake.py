@@ -30,4 +30,4 @@ class Snake(Entity):
 		self.singular = 'a snake'
 		
 	def equip(self):
-		self.abilities = [Ability(self, PoisonBolt)]
+		self.abilities = [Ability(self, Ability.lookup["PoisonBolt"])]
