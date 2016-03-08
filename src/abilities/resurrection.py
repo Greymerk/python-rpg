@@ -22,7 +22,6 @@ class Resurrection(object):
 		self.caster = caster
 		self.target = location
 		self.done = False
-		self.color = THECOLORS['lightcyan']
 		self.entityHit = self.caster.world.getEntityFromLocation(self.target, False)
 		self.projectile = Star(caster.position, location, self.__class__.color, self.fire)
 		casterName = self.caster.getName()
@@ -34,16 +33,18 @@ class Resurrection(object):
 	 
 	def update(self):
 		self.projectile.update()
-		if self.projectile.done:
-			if not self.entityHit is None:
-				self.entityHit.revive(self.caster)
-			self.done = True
-			return True
-		return False
+
+		if not self.projectile.done:
+			return False
+
+		if not self.entityHit is None:
+			self.entityHit.revive(self.caster)
+
+		self.done = True
+		return True
 		
 	def draw(self, surface, position, visible):
-		if not self.done:
-			self.projectile.draw(surface, position, visible)
+		self.projectile.draw(surface, position, visible)
 	
 	@classmethod
 	def validTarget(cls, actor, target):
