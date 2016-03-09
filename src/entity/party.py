@@ -127,9 +127,9 @@ class Party(object):
 		return False
 		
 	def resetLeader(self):
-		for i in range(len(self.members)):
-			if self.members[i].isAlive():
-				return self.setLeader(i)
+		for i, e in enumerate(self.members):
+			if e.isAlive():
+				self.setLeader(i)
 
 	def __iter__(self):
 		return iter(self.members)
