@@ -7,6 +7,7 @@ Created on 2013-05-28
 from pygame.color import THECOLORS
 from projectiles import Arrow
 from random import randint
+from src.util import Vector2
 
 class BowShot(object):
 	
@@ -38,7 +39,11 @@ class BowShot(object):
 		self.done = False
 		
 	def update(self):
-		self.projectile.update()
+		pos = None
+		if self.entityHit is not None:
+			pos = Vector2(self.entityHit.position)
+
+		self.projectile.update(pos)
 		if self.projectile.done:
 			if not self.entityHit is None:
 				self.entityHit.inflict(self.caster, randint(self.damage[0], self.damage[1]))

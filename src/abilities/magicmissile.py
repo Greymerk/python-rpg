@@ -7,6 +7,7 @@ Created on 2013-06-04
 from random import randint
 from projectiles import Star
 from pygame.color import THECOLORS
+from src.util import Vector2
 
 class MagicMissile(object):
 	
@@ -39,7 +40,7 @@ class MagicMissile(object):
 	def update(self):
 		pos = None
 		if self.entityHit is not None:
-			pos = self.entityHit.position
+			pos = Vector2(self.entityHit.position)
 		self.projectile.update(pos)
 		if self.projectile.done:
 			if not self.entityHit is None:
