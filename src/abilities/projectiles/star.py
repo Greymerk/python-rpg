@@ -45,6 +45,13 @@ class Star:
 		if pos is not None:
 			self.target = Vector2(pos)
 			self.target.center()
+			dist = self.pos.dist(self.target)
+			if int(dist) == 0:
+				dist = 1 
+			
+			vx = (float(self.target.x) - self.origin.x) / (3 * dist)
+			vy = (float(self.target.y) - self.origin.y) / (3 * dist)
+			self.velocity = Vector2(vx, vy)
 		
 		curPos = (int(self.pos[0]), int(self.pos[1]))
 		endPos = (int(self.target[0]), int(self.target[1]))
