@@ -9,6 +9,8 @@ from math import hypot
 from pygame.draw import circle
 from collections import deque
 
+from src.util import Vector2
+
 class Arrow:
 	
 	def __init__(self, origin, endLocation, color = (0xAA, 0x55, 0x00), fire=None, impact=None):
@@ -16,9 +18,14 @@ class Arrow:
 		self.particals = deque()
 		self.maxParticals = 10
 		
-		self.start = self.pos = float(origin[0]) + 0.5, float(origin[1]) + 0.5
-		self.end = float(endLocation[0]) + 0.5, float(endLocation[1]) + 0.5
-		
+		self.start = Vector2(origin)
+		self.start.center()
+		self.pos = Vector2(self.start)
+		self.end = Vector2(endLocation)
+		self.end.center()
+		self.target = Vector2(self.end)
+		self.target.center()
+
 		self.color = color
 		self.fire = fire
 		self.impact = impact
@@ -42,14 +49,18 @@ class Arrow:
 
 		self.done = False
 
-	def update(self):
+	def update(self, pos=None):
+
+		if pos is not None:
+			self.target = Vector2(pos)
+			self.target.center()
 		
 		tx = abs(float(self.pos[0]) - float(self.start[0]))
 		ty = abs(float(self.pos[1]) - float(self.start[1]))
 		distTravel = int(hypot(tx, ty))
 		
-		dx = abs(float(self.start[0]) - float(self.end[0]))
-		dy = abs(float(self.start[1]) - float(self.end[1]))
+		dx = abs(float(self.start[0]) - float(self.target[0]))
+		dy = abs(float(self.start[1]) - float(self.target[1]))
 		distTotal = int(hypot(dx, dy))
 			
 		if (distTravel >= distTotal):
