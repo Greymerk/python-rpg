@@ -17,12 +17,10 @@ class TargetControl(object):
 			if self.player.action is not None:
 				self.player.target = tar
 				return
-
-			e = self.player.world.getEntityFromLocation(tar)
-			if e in self.player.party.members:
-				self.player.setLeader(e)
+				
+			if tar == self.player.avatar.position:
 				return
-
+				
 			dir = Cardinal.toward(self.player.avatar.position, tar)
 			self.player.move(dir) 		
 				
