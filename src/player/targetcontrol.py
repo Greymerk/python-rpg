@@ -1,6 +1,7 @@
 import pygame
 from src.util import Vector2
 from src.util import Cardinal
+from src.actions import Cast
 
 # observer of mouse events on viewport spaces
 class TargetControl(object):
@@ -9,6 +10,18 @@ class TargetControl(object):
 		self.player = player
 		
 	def notify(self, cell, event):
+	
+		if event.type == pygame.MOUSEBUTTONUP and event.button == 3:
+			spell = self.player.avatar.quickcast
+			caster = self.player.avatar
+			if self.player.action is None and spell is not None:
+				tar = Vector2(cell.rel)
+				tar += caster.position
+				if(spell.inRange(tar)):
+					self.player.action = Cast(self.player, spell)
+					self.player.target = tar
+				return
+	
 		if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
 		
 			tar = Vector2(cell.rel)

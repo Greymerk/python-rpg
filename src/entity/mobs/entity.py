@@ -39,6 +39,7 @@ class Entity:
 		self.action = None
 		self.lastTarget = None
 		self.observers = []
+		self.quickcast = None
 
 	def move(self, direction):
 

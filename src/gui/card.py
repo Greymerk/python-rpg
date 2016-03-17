@@ -41,6 +41,8 @@ class Card(object):
 			self.surface.blit(self.font.render(str(pygame.key.name(self.player.ABILITY_KEYS[i])).upper(), 1, THECOLORS["gray"]), (i * self.size + aOffset,0))
 			if unit is self.player.avatar and self.player.action.__class__ is Cast and self.player.action.spell is ability:
 				pygame.draw.rect(self.surface, THECOLORS["yellow"], rect, 1)
+			elif unit.quickcast is ability:
+				pygame.draw.rect(self.surface, THECOLORS["green"], rect, 1)
 
 	def notify(self, pos, event):
 		v = Vector2(pos)

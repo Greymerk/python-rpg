@@ -9,6 +9,10 @@ class AbilityControl(object):
 		self.player = player
 		
 	def notify(self, ability, event):
+		if event.type == pygame.MOUSEBUTTONUP and event.button == 3:
+			ability.caster.quickcast = ability
+			return
+	
 		if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
 			if self.player.action is None:
 				self.player.setLeader(ability.caster)
